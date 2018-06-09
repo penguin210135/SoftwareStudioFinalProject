@@ -1,0 +1,1 @@
+var bgm_volumn = 0.5;

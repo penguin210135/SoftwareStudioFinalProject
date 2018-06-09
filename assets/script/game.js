@@ -1,136 +1,258 @@
-var menuState = {
-
-    preload: function () {
-        game.load.audio('menu_bgm', ['assets/audio/menu_bgm.mp3']);
-        game.load.image('background', 'assets/image/background_menu.jpg');
-        game.load.image('arrow', 'assets/image/arrow.png');
-        game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
-    },
-    create: function () {
-        /*Default Init*/
-        game.stage.backgroundColor = '#3498db';
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.renderer.renderSession.roundPixels = true;
-        this.cursor = game.input.keyboard.createCursorKeys();
-        var background = game.add.image(0, 0, 'background');
-        background.height = game.height;
-        background.width = game.width;
-
-        var Title = game.add.bitmapText(300, 100, 'carrier_command', 'The Advanture of Fome', 32);
-
-        //set list
-        game.add.bitmapText(360, 300, 'carrier_command', 'Start', 32);
-        game.add.bitmapText(360, 400, 'carrier_command', 'Set', 32);
-        game.add.bitmapText(360, 500, 'carrier_command', 'Rank', 32);
-        game.add.bitmapText(360, 600, 'carrier_command', 'Story', 32);
-        this.arrow = game.add.image(300, 315, 'arrow');
-        this.arrow.anchor.setTo(0.5, 0.5);
-        this.arrow.scale.setTo(0.02, 0.02);
-        this.arrow.angle = -90;
-        this.buttontime = game.time.now;
-
-        //bgm
-        this.menu_bgm = game.add.audio('menu_bgm');
-        this.menu_bgm.loop = true;
-        this.menu_bgm.volume = 0.5;
-        this.menu_bgm.play();
-
-        //Enter
-        this.enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-        this.enter.onDown.add(this.changepage, this);
-    },
-
-    update: function () {
-        if (game.time.now > this.buttontime + 50) {
-            this.buttontime = game.time.now;
-            this.movelist();
-        }
-    },
-
-    movelist: function () {
-        if (this.cursor.up.isDown) {
-            if (this.arrow.position.y != 315) {
-                this.arrow.position.y -= 100;
-            }
-        } else if (this.cursor.down.isDown) {
-            if (this.arrow.position.y != 615) {
-                this.arrow.position.y += 100;
-            }
-        }
-    },
-
-    changepage: function () {
-
-        if (this.arrow.position.y == 315) {   //start
-            this.menu_bgm.stop();
-            game.state.start('main');
-        } else if (this.arrow.position.y == 415) { //set
-
-        } else if (this.arrow.position.y == 515) { //rank
-
-        } else if (this.arrow.position.y == 615) { //story
-
-        }
-
-    }
-};
-
 var mainState = {
     preload: function () {
-        game.load.image('background', 'assets/image/background_menu.jpg');
-        game.load.image('arrow', 'assets/image/arrow.png');
-        game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
+
     },
     create: function () {
         /*Default Init*/
-        game.stage.backgroundColor = '#3498db';
+        //game.world.resize(6000, 600);
+        game.world.setBounds(0, 0, 2000, 2000);
+        game.stage.backgroundColor = '#000000';
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.renderer.renderSession.roundPixels = true;
+
+        //input
         this.cursor = game.input.keyboard.createCursorKeys();
         game.input.mouse.capture = true;
 
-        var background = game.add.image(0, 0, 'background');
-        background.height = game.height;
-        background.width = game.width;
+        //set the default background
+        this.wall = game.add.group();
+        this.wall.enableBody = true;
+        this.House();
+
 
         //player
-        this.player = game.add.image(300, 315, 'arrow');
+        this.player = game.add.sprite(game.width / 2, game.height / 2, 'player');
+        this.player.animations.add('down', [0, 3, 6], 6);    //player animations
+        this.player.animations.add('up', [2, 5, 8], 6);
+
+        game.physics.arcade.enable(this.player);
         this.player.anchor.setTo(0.5, 0.5);
-        this.player.scale.setTo(0.02, 0.02);
+        this.player.movetime = game.time.now;
+        this.game.camera.follow(this.player);
+        /*
         this.player.move_x = 10;
         this.player.move_y = 10;
         this.player.destin_x = 300;
         this.player.destin_y = 315;
+        */
 
-        //Add item and set hot key
+        //Timer
 
-        //clock
-
+        //Add button and set hot key
         //bag
-        this.bag = game.add.button(0, 0, 'Bag', this.BagOnClick, this);
+        this.bagimage = game.add.image(200, 100, 'bag');
+        this.bagimage.height = game.height - 100;
+        this.bagimage.width = game.width - 200;
+        this.bagimage.alpha = 0;
+        this.bagbutton = game.add.button(1160 - 200 - 50, 720 - 100, 'Bag', this.BagOnClick, this);
+        this.bagbutton.fixedToCamera = true;
+        this.bagbutton.height = 100;
+        this.bagbutton.width = 100;
         this.keyboard_B = game.input.keyboard.addKey(Phaser.Keyboard.B);
         this.keyboard_B.onDown.add(this.BagOnClick, this);
+        this.BagOpen = false;
         //map
-
+        this.mapimage = game.add.image(200, 100, 'background');
+        this.mapimage.height = game.height - 100;
+        this.mapimage.width = game.width - 200;
+        this.mapimage.alpha = 0;
+        this.mapbutton = game.add.button(1160 - 100, 720 - 100, 'Map', this.MapOnClick, this);
+        this.mapbutton.fixedToCamera = true;
+        this.mapbutton.height = 100;
+        this.mapbutton.width = 100;
+        this.keyboard_M = game.input.keyboard.addKey(Phaser.Keyboard.M);
+        this.keyboard_M.onDown.add(this.MapOnClick, this);
+        this.MapOpen = false;
 
     },
 
     update: function () {
-        if (game.input.activePointer.leftButton.isDown) {
-            
-            //set destination point
-            this.player.destin_x = game.input.mousePointer.x;
-            this.player.destin_y = game.input.mousePointer.y;
-            //player moving
+
+        game.physics.arcade.collide(this.player, this.wall);
+
+        //Bag open
+        if (this.BagOpen) {
+            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
+                if (game.input.activePointer.leftButton.isDown) {
+                    console.log("Use the bag!!");
+                }
+            } else {
+                if (game.input.activePointer.leftButton.isDown) {
+                    //click outside the bag,then close the bag
+                    this.BagOnClick();
+                }
+            }
+
+        } else if (this.MapOpen) {
+            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
+                if (game.input.activePointer.leftButton.isDown) {
+                    console.log("Use the Map!!");
+                }
+            } else {
+                if (game.input.activePointer.leftButton.isDown) {
+                    //click outside the map,then close the map
+                }
+            }
         }
-        if (game.input.mousePointer.x <= 1190 && game.input.mousePointer.x >= 90 && game.input.mousePointer.y >= 40 && game.input.mousePointer.y <= 800) {
+        //player moving
+        if (game.time.now - this.player.movetime > 1000) {
             this.moveplayer();
         }
+
+        /*
+        if (game.input.mousePointer.x <= 1070 && game.input.mousePointer.x >= 90 && game.input.mousePointer.y >= 40 && game.input.mousePointer.y <= 680) {
+            if (game.input.activePointer.leftButton.isDown) {
+
+                //set destination point
+                this.player.destin_x = game.input.mousePointer.x;
+                this.player.destin_y = game.input.mousePointer.y;
+                //player moving
+            }
+
+            this.moveplayer();
+        }
+        */
     },
 
+    House: function () {
+
+        let housemap = [];
+        housemap[0] = [1, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        housemap[1] = [4, 7, 7, 7, 7, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        housemap[2] = [4, 8, 8, 8, 8, 8, 8, 4, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 3];
+        housemap[3] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 7, 7, 7, 7, 7, 7, 7, 4];
+        housemap[4] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 8, 8, 8, 8, 8, 8, 8, 4];
+        housemap[5] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[6] = [4, 11, 11, 11, 11, 11, 11, 5, 2, 2, 2, 2, 2, 6, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[7] = [4, 11, 11, 11, 11, 11, 11, 7, 7, 7, 7, 7, 7, 7, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[8] = [4, 11, 11, 11, 11, 11, 11, 8, 8, 8, 8, 8, 8, 8, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[9] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[10] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[11] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[12] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[13] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[14] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[15] = [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 0, 0, 10, 2, 2, 2, 6];
+        housemap[16] = [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7];
+        var width = housemap[0].length;
+        var height = 17;
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                var x = 100 + 32 * j;
+                var y = 100 + 32 * i;
+                switch (housemap[i][j]) {
+                    case 1:
+                        var tmp = game.add.sprite(x, y, 'wall_1');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 2:
+                        var tmp = game.add.sprite(x, y, 'wall_2');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 3:
+                        var tmp = game.add.sprite(x, y, 'wall_3');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 4:
+                        var tmp = game.add.sprite(x, y, 'wall_4');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 5:
+                        var tmp = game.add.sprite(x, y, 'wall_5');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 6:
+                        var tmp = game.add.sprite(x, y, 'wall_6');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 7:
+                        var tmp = game.add.sprite(x, y, 'wall_7');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 8:
+                        var tmp = game.add.sprite(x, y, 'wall_8');
+                        break;
+                    case 9:
+                        var tmp = game.add.sprite(x, y, 'wall_9');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 10:
+                        var tmp = game.add.sprite(x, y, 'wall_10');
+                        game.physics.arcade.enable(tmp);
+                        tmp.body.immovable = true;
+                        this.wall.add(tmp);
+                        break;
+                    case 11:
+                        var tmp = game.add.sprite(x, y, 'floor');
+                        break;
+
+                }
+            }
+        }
+
+
+    },
+
+    Farm: function () {
+        let housemap = [];
+        housemap[0] = [1, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        housemap[1] = [4, 7, 7, 7, 7, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        housemap[2] = [4, 8, 8, 8, 8, 8, 8, 4, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 3];
+        housemap[3] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 7, 7, 7, 7, 7, 7, 7, 4];
+        housemap[4] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 8, 8, 8, 8, 8, 8, 8, 4];
+        housemap[5] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[6] = [4, 11, 11, 11, 11, 11, 11, 5, 2, 2, 2, 2, 2, 6, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[7] = [4, 11, 11, 11, 11, 11, 11, 7, 7, 7, 7, 7, 7, 7, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[8] = [4, 11, 11, 11, 11, 11, 11, 8, 8, 8, 8, 8, 8, 8, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[9] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[10] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[11] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[12] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[13] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[14] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
+        housemap[15] = [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 0, 0, 10, 2, 2, 2, 6];
+        housemap[16] = [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7];
+    }
+    ,
     moveplayer: function () {
-       
+
+        if (this.cursor.left.isDown) {
+            this.player.body.velocity.x = -200;
+
+        } else if (this.cursor.right.isDown) {
+            this.player.body.velocity.x = 200;
+        } else if (this.cursor.up.isDown) {
+            this.player.body.velocity.y = -200;
+            this.player.animations.play('up');
+        } else if (this.cursor.down.isDown) {
+            this.player.body.velocity.y = 200;
+            this.player.animations.play('down');
+        } else {
+            this.player.body.velocity.x = 0;
+            this.player.body.velocity.y = 0;
+            this.player.animations.stop();
+        }
+
+
+
         //player move - x axis
+        /*
         if (this.player.x < this.player.destin_x) {
             if (this.player.x + this.player.move_x >= this.player.destin_x) {
                 this.player.x = this.player.destin_x;
@@ -162,16 +284,39 @@ var mainState = {
         } else {
             this.player.y = this.player.destin_y;
         }
+        */
     },
 
     BagOnClick: function () {
-        console.log('Open the Bag!');
+
+        if (this.BagOpen == false) {
+            console.log('Open the Bag!');
+            this.initOpen();
+            this.BagOpen = true;
+            game.add.tween(this.bagimage).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
+        } else {
+            console.log('Close the Bag!');
+            this.initOpen();
+
+        }
+    },
+
+    MapOnClick: function () {
+        if (this.MapOpen == false) {
+            console.log('Open the Map!');
+            this.initOpen();
+            this.MapOpen = true;
+            game.add.tween(this.mapimage).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
+        } else {
+            console.log('Close the Map!');
+            this.initOpen();
+        }
+    },
+
+    initOpen: function () {
+        this.MapOpen = false;
+        this.BagOpen = false;
+        game.add.tween(this.bagimage).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
+        game.add.tween(this.mapimage).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
     },
 };
-
-var game = new Phaser.Game(1160, 720, Phaser.AUTO, 'canvas');
-game.state.add('menu', menuState);
-game.state.add('main', mainState);
-//game.state.add('leader', LeaderboardState);
-//game.state.add('end', EndState);
-game.state.start('menu');
