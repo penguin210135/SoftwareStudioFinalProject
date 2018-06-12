@@ -5,8 +5,8 @@ var mainState = {
     create: function () {
         /*Default Init*/
         //game.world.resize(6000, 600);
-        game.world.setBounds(0, 0, 2000, 2000);
         game.stage.backgroundColor = '#000000';
+        //game.physics.setBoundsToWorld();
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.renderer.renderSession.roundPixels = true;
 
@@ -15,26 +15,38 @@ var mainState = {
         game.input.mouse.capture = true;
 
         //set the default background
-        this.wall = game.add.group();
-        this.wall.enableBody = true;
-        this.House();
+        this.map = this.game.add.tilemap('map');
 
+        // 新增圖塊 addTilesetImage( '圖塊名稱' , 'load 時png的命名' )
+        this.map.addTilesetImage('tileset1', 'tiles1');
+        this.map.addTilesetImage('tileset2', 'tiles2');
+        this.map.addTilesetImage('tileset3', 'tiles3');
+        this.map.addTilesetImage('tileset4', 'tiles4');
+
+        // 建立圖層 (圖層名稱為 tile 中所設定)
+        this.map_floor = this.map.createLayer('floor');
+        this.map_wall = this.map.createLayer('wall');
+        this.map_obj = this.map.createLayer('object');
+        this.map_smallobj = this.map.createLayer('small object');
+
+        this.map.setCollisionBetween(344, 350, true, this.map_wall);
+        this.map.setCollisionBetween(371, 377, true, this.map_wall);
+        this.map.setCollisionBetween(425, 431, true, this.map_wall);
+        this.map.setCollisionBetween(452, 458, true, this.map_wall);
+        this.map.setCollisionBetween(0, 441, true, this.map_obj);
 
         //player
         this.player = game.add.sprite(game.width / 2, game.height / 2, 'player');
-        this.player.animations.add('down', [0, 3, 6], 6);    //player animations
-        this.player.animations.add('up', [2, 5, 8], 6);
-
+        this.player.animations.add('down', [0, 4, 8], 8);    //player animations
+        this.player.animations.add('up', [2, 6, 10], 8);
+        this.player.animations.add('left', [3, 7, 11], 8);
+        this.player.animations.add('right', [1, 5, 9], 8);
         game.physics.arcade.enable(this.player);
+        this.player.body.collideWorldBounds = true;
+        this.player.body.setSize(32, 32, 0, 0);
         this.player.anchor.setTo(0.5, 0.5);
         this.player.movetime = game.time.now;
         this.game.camera.follow(this.player);
-        /*
-        this.player.move_x = 10;
-        this.player.move_y = 10;
-        this.player.destin_x = 300;
-        this.player.destin_y = 315;
-        */
 
         //Timer
 
@@ -43,11 +55,13 @@ var mainState = {
         this.bagimage = game.add.image(200, 100, 'bag');
         this.bagimage.height = game.height - 100;
         this.bagimage.width = game.width - 200;
+        this.bagimage.fixedToCamera = true;
         this.bagimage.alpha = 0;
-        this.bagbutton = game.add.button(1160 - 200 - 50, 720 - 100, 'Bag', this.BagOnClick, this);
+        this.bagbutton = game.add.button(1160 - 250, 720 - 100, 'Bag', this.BagOnClick, this);
         this.bagbutton.fixedToCamera = true;
         this.bagbutton.height = 100;
         this.bagbutton.width = 100;
+        game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', 'B', 32);
         this.keyboard_B = game.input.keyboard.addKey(Phaser.Keyboard.B);
         this.keyboard_B.onDown.add(this.BagOnClick, this);
         this.BagOpen = false;
@@ -55,20 +69,43 @@ var mainState = {
         this.mapimage = game.add.image(200, 100, 'background');
         this.mapimage.height = game.height - 100;
         this.mapimage.width = game.width - 200;
+        this.mapimage.fixedToCamera = true;
         this.mapimage.alpha = 0;
         this.mapbutton = game.add.button(1160 - 100, 720 - 100, 'Map', this.MapOnClick, this);
         this.mapbutton.fixedToCamera = true;
         this.mapbutton.height = 100;
         this.mapbutton.width = 100;
+        game.add.bitmapText(1160 - 50, 720 - 50, 'carrier_command', 'M', 32);
         this.keyboard_M = game.input.keyboard.addKey(Phaser.Keyboard.M);
         this.keyboard_M.onDown.add(this.MapOnClick, this);
         this.MapOpen = false;
+        //kitchen
+        this.kitchenbutton = game.add.button(1160 - 400, 720 - 100, 'Map', this.MapOnClick, this);
+        this.kitchenbutton.fixedToCamera = true;
+        this.kitchenbutton.height = 100;
+        this.kitchenbutton.width = 100;
+        game.add.bitmapText(1160 - 350, 720 - 50, 'carrier_command', 'K', 32);
+        this.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
+        this.keyboard_K.onDown.add(this.MapOnClick, this);
+        this.KitchenOpen = false;
 
+        //NPC
+        this.messageimage = game.add.image(0, 500, 'msgblock_1');
+        this.messageimage.height = 200;
+        this.messageimage.width = game.width;
+        this.messageimage.fixedToCamera = true;
+        this.messageimage.alpha = 0;
+        this.keyboard_T = game.input.keyboard.addKey(Phaser.Keyboard.T);
+        this.keyboard_T.onDown.add(this.communication, this, null);
+        this.NpcOpen = false;
     },
 
     update: function () {
 
-        game.physics.arcade.collide(this.player, this.wall);
+        //game.physics.arcade.collide(this.player, this.wall);
+        game.physics.arcade.collide(this.player, this.map_wall);
+        game.physics.arcade.collide(this.player, this.map_obj);
+        game.physics.arcade.collide(this.player, this.bound);
 
         //Bag open
         if (this.BagOpen) {
@@ -91,152 +128,35 @@ var mainState = {
             } else {
                 if (game.input.activePointer.leftButton.isDown) {
                     //click outside the map,then close the map
+                    this.MapOnClick();
+                }
+            }
+        } else if (this.KitchenOpen) {
+            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
+                if (game.input.activePointer.leftButton.isDown) {
+                    console.log("Use the Kitchen!!");
+                }
+            } else {
+                if (game.input.activePointer.leftButton.isDown) {
+                    //click outside the map,then close the map
+                    //this.MapOnClick();
                 }
             }
         }
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
-            this.moveplayer();
+            if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) this.moveplayer();
         }
-
-        /*
-        if (game.input.mousePointer.x <= 1070 && game.input.mousePointer.x >= 90 && game.input.mousePointer.y >= 40 && game.input.mousePointer.y <= 680) {
-            if (game.input.activePointer.leftButton.isDown) {
-
-                //set destination point
-                this.player.destin_x = game.input.mousePointer.x;
-                this.player.destin_y = game.input.mousePointer.y;
-                //player moving
-            }
-
-            this.moveplayer();
-        }
-        */
     },
 
-    House: function () {
-
-        let housemap = [];
-        housemap[0] = [1, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        housemap[1] = [4, 7, 7, 7, 7, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        housemap[2] = [4, 8, 8, 8, 8, 8, 8, 4, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 3];
-        housemap[3] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 7, 7, 7, 7, 7, 7, 7, 4];
-        housemap[4] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 8, 8, 8, 8, 8, 8, 8, 4];
-        housemap[5] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[6] = [4, 11, 11, 11, 11, 11, 11, 5, 2, 2, 2, 2, 2, 6, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[7] = [4, 11, 11, 11, 11, 11, 11, 7, 7, 7, 7, 7, 7, 7, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[8] = [4, 11, 11, 11, 11, 11, 11, 8, 8, 8, 8, 8, 8, 8, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[9] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[10] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[11] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[12] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[13] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[14] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[15] = [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 0, 0, 10, 2, 2, 2, 6];
-        housemap[16] = [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7];
-        var width = housemap[0].length;
-        var height = 17;
-        for (var i = 0; i < height; i++) {
-            for (var j = 0; j < width; j++) {
-                var x = 100 + 32 * j;
-                var y = 100 + 32 * i;
-                switch (housemap[i][j]) {
-                    case 1:
-                        var tmp = game.add.sprite(x, y, 'wall_1');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 2:
-                        var tmp = game.add.sprite(x, y, 'wall_2');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 3:
-                        var tmp = game.add.sprite(x, y, 'wall_3');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 4:
-                        var tmp = game.add.sprite(x, y, 'wall_4');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 5:
-                        var tmp = game.add.sprite(x, y, 'wall_5');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 6:
-                        var tmp = game.add.sprite(x, y, 'wall_6');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 7:
-                        var tmp = game.add.sprite(x, y, 'wall_7');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 8:
-                        var tmp = game.add.sprite(x, y, 'wall_8');
-                        break;
-                    case 9:
-                        var tmp = game.add.sprite(x, y, 'wall_9');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 10:
-                        var tmp = game.add.sprite(x, y, 'wall_10');
-                        game.physics.arcade.enable(tmp);
-                        tmp.body.immovable = true;
-                        this.wall.add(tmp);
-                        break;
-                    case 11:
-                        var tmp = game.add.sprite(x, y, 'floor');
-                        break;
-
-                }
-            }
-        }
-
-
-    },
-
-    Farm: function () {
-        let housemap = [];
-        housemap[0] = [1, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        housemap[1] = [4, 7, 7, 7, 7, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        housemap[2] = [4, 8, 8, 8, 8, 8, 8, 4, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 3];
-        housemap[3] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 7, 7, 7, 7, 7, 7, 7, 4];
-        housemap[4] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 8, 8, 8, 8, 8, 8, 8, 4];
-        housemap[5] = [4, 11, 11, 11, 11, 11, 11, 4, 0, 0, 0, 0, 0, 4, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[6] = [4, 11, 11, 11, 11, 11, 11, 5, 2, 2, 2, 2, 2, 6, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[7] = [4, 11, 11, 11, 11, 11, 11, 7, 7, 7, 7, 7, 7, 7, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[8] = [4, 11, 11, 11, 11, 11, 11, 8, 8, 8, 8, 8, 8, 8, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[9] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[10] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[11] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[12] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[13] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[14] = [4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 4];
-        housemap[15] = [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 0, 0, 10, 2, 2, 2, 6];
-        housemap[16] = [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7];
-    }
-    ,
     moveplayer: function () {
 
         if (this.cursor.left.isDown) {
             this.player.body.velocity.x = -200;
-
+            this.player.animations.play('left');
         } else if (this.cursor.right.isDown) {
             this.player.body.velocity.x = 200;
+            this.player.animations.play('right');
         } else if (this.cursor.up.isDown) {
             this.player.body.velocity.y = -200;
             this.player.animations.play('up');
@@ -248,43 +168,6 @@ var mainState = {
             this.player.body.velocity.y = 0;
             this.player.animations.stop();
         }
-
-
-
-        //player move - x axis
-        /*
-        if (this.player.x < this.player.destin_x) {
-            if (this.player.x + this.player.move_x >= this.player.destin_x) {
-                this.player.x = this.player.destin_x;
-            } else {
-                this.player.x += this.player.move_x;
-            }
-        } else if (this.player.x > this.player.destin_x) {
-            if (this.player.x - this.player.move_x <= this.player.destin_x) {
-                this.player.x = this.player.destin_x;
-            } else {
-                this.player.x -= this.player.move_x;
-            }
-        } else {
-            this.player.x = this.player.destin_x;
-        }
-        //player move - y axis
-        if (this.player.y < this.player.destin_y) {
-            if (this.player.y + this.player.move_y >= this.player.destin_y) {
-                this.player.y = this.player.destin_y;
-            } else {
-                this.player.y += this.player.move_y;
-            }
-        } else if (this.player.y > this.player.destin_y) {
-            if (this.player.y - this.player.move_y <= this.player.destin_y) {
-                this.player.y = this.player.destin_y;
-            } else {
-                this.player.y -= this.player.move_y;
-            }
-        } else {
-            this.player.y = this.player.destin_y;
-        }
-        */
     },
 
     BagOnClick: function () {
@@ -293,7 +176,11 @@ var mainState = {
             console.log('Open the Bag!');
             this.initOpen();
             this.BagOpen = true;
-            game.add.tween(this.bagimage).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
+            game.world.bringToTop(this.bagimage);
+            game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+            //add button
+
         } else {
             console.log('Close the Bag!');
             this.initOpen();
@@ -306,7 +193,11 @@ var mainState = {
             console.log('Open the Map!');
             this.initOpen();
             this.MapOpen = true;
-            game.add.tween(this.mapimage).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
+            game.world.bringToTop(this.mapimage);
+            game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+            //add button
+
         } else {
             console.log('Close the Map!');
             this.initOpen();
@@ -316,7 +207,26 @@ var mainState = {
     initOpen: function () {
         this.MapOpen = false;
         this.BagOpen = false;
-        game.add.tween(this.bagimage).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
-        game.add.tween(this.mapimage).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
+        this.NpcOpen = false;
+        game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        game.add.tween(this.messageimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
     },
+
+    communication: function (npc) {
+        if (this.NpcOpen == false) {
+            console.log("Talk with NPC!!");
+            this.initOpen();
+            this.NpcOpen = true;
+            game.world.bringToTop(this.messageimage);
+            game.add.tween(this.messageimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+            //add button
+
+        } else {
+            console.log('Close the Map!');
+            this.initOpen();
+        }
+    },
+
 };

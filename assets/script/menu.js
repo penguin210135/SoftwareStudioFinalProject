@@ -26,10 +26,12 @@ var menuState = {
         this.buttontime = game.time.now;
 
         //bgm
-        this.menu_bgm = game.add.audio('menu_bgm');
-        this.menu_bgm.loop = true;
-        this.menu_bgm.volume = bgm_volumn;
-        this.menu_bgm.play();
+        if (!this.menu_bgm) {
+            this.menu_bgm = game.add.audio('menu_bgm');
+            this.menu_bgm.loop = true;
+            this.menu_bgm.volume = bgm_volumn;
+            this.menu_bgm.play();
+        }
 
         //Enter
         this.enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
