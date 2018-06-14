@@ -19,7 +19,7 @@ var farmState = {
         this.cut1 = game.add.sprite(250, 200, 'cut1');
 
         this.fields_xy = [{ x: 450, y: 330 }, { x: 550, y: 330 }, { x: 650, y: 330 }, { x: 450, y: 430 }, { x: 550, y: 430 }, { x: 650, y: 430 }];
-        this.plant_warehouse = [0, 0];
+        //this.plant_warehouse = [0, 0];
         //this.btn_plant = [0, 0, 0, 0, 0, 0];
         //this.btn_killPlant = [0, 0, 0, 0];
         this.btn_seed = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -28,7 +28,7 @@ var farmState = {
         this.fields = [0, 0, 0, 0, 0, 0];  //田地植物狀態
         this.field = [0, 0, 0, 0, 0, 0];
         this.createField();
-        this.plant = game.add.group();
+        plant = game.add.group();
 
         this.fields_time_show = game.add.text(30, 30, 'life: ', { font: '15px Arial', fill: '#ffffff' });
         this.fields_time_show.visible = false;
@@ -291,7 +291,7 @@ var farmState = {
     },
 
     updatetmp: function () {
-        this.plant.forEachAlive(function (items) {
+        plant.forEachAlive(function (items) {
             if (items.time + 3000 < game.time.now) {
                 if (items.state < 3) {
                     items.time = game.time.now;
@@ -452,7 +452,7 @@ var farmState = {
     plantInputOver: function (index) {
         var state;
         this.fields_time_show.visible = true;
-        this.plant.forEachAlive(function (items) {
+        plant.forEachAlive(function (items) {
             if (items.index == index) {
                 state = items.state + 1;
             }
@@ -484,7 +484,7 @@ var farmState = {
 
         //seed
         this.box_seed.visible = false;
-        this.btn_seed_index = -1
+        this.btn_seed_index = -1;
         if(this.btn_seed[0] != 0) this.btn_seed[0].destroy();
         if(this.btn_seed[1] != 0) this.btn_seed[1].destroy();
     },
