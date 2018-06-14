@@ -14,8 +14,36 @@ var mainState = {
         this.cursor = game.input.keyboard.createCursorKeys();
         game.input.mouse.capture = true;
 
+        //map
+        this.createmap();
+        //player 
+        createplayer(this);
+        if(pre_state == "farm"){
+            this.player.position.setTo(300,580);
+        }else if(pre_state == "forest"){
+
+        }
+        //
+        this.createbutton();
+        
+        //ui & button
+        createclock(this);
+        createfire(this);
+
+        //NPC
+        this.messageimage = game.add.image(0, 500, 'msgblock_1');
+        this.messageimage.height = 200;
+        this.messageimage.width = game.width;
+        this.messageimage.fixedToCamera = true;
+        this.messageimage.alpha = 0;
+        this.keyboard_T = game.input.keyboard.addKey(Phaser.Keyboard.T);
+        this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.keyboard_T.onDown.add(this.communication, this, null);
+        this.NpcOpen = false;
+    },
+    createmap: function () {
         //set the default background
-        this.map = this.game.add.tilemap('map');
+        this.map = game.add.tilemap('house_map');
 
         // 新增圖塊 addTilesetImage( '圖塊名稱' , 'load 時png的命名' )
         this.map.addTilesetImage('tileset1', 'tiles1');
@@ -35,27 +63,14 @@ var mainState = {
         this.map.setCollisionBetween(452, 458, true, this.map_wall);
         this.map.setCollisionBetween(0, 441, true, this.map_obj);
 
-        //player
-        this.player = game.add.sprite(game.width / 2, game.height / 2, 'player');
-        this.player.animations.add('down', [0, 4, 8], 8);    //player animations
-        this.player.animations.add('up', [2, 6, 10], 8);
-        this.player.animations.add('left', [3, 7, 11], 8);
-        this.player.animations.add('right', [1, 5, 9], 8);
-        game.physics.arcade.enable(this.player);
-        this.player.body.collideWorldBounds = true;
-        this.player.body.setSize(32, 32, 0, 0);
-        this.player.anchor.setTo(0.5, 0.5);
-        this.player.movetime = game.time.now;
-        this.game.camera.follow(this.player);
+    },
 
-        //Timer
-
+    createbutton: function () {
         //Add button and set hot key
         //bag
-        this.bagimage = game.add.image(200, 100, 'bag');
-        this.bagimage.height = game.height - 100;
-        this.bagimage.width = game.width - 200;
+        this.bagimage = game.add.image(600, 200, 'bag_0');
         this.bagimage.fixedToCamera = true;
+        this.bagimage.inputEnabled = true;
         this.bagimage.alpha = 0;
         this.bagbutton = game.add.button(1160 - 250, 720 - 100, 'Bag', this.BagOnClick, this);
         this.bagbutton.fixedToCamera = true;
@@ -66,10 +81,9 @@ var mainState = {
         this.keyboard_B.onDown.add(this.BagOnClick, this);
         this.BagOpen = false;
         //map
-        this.mapimage = game.add.image(200, 100, 'background');
-        this.mapimage.height = game.height - 100;
-        this.mapimage.width = game.width - 200;
+        this.mapimage = game.add.image(600, 200, 'background');
         this.mapimage.fixedToCamera = true;
+        this.mapimage.inputEnabled = true;
         this.mapimage.alpha = 0;
         this.mapbutton = game.add.button(1160 - 100, 720 - 100, 'Map', this.MapOnClick, this);
         this.mapbutton.fixedToCamera = true;
@@ -88,16 +102,6 @@ var mainState = {
         this.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
         this.keyboard_K.onDown.add(this.MapOnClick, this);
         this.KitchenOpen = false;
-
-        //NPC
-        this.messageimage = game.add.image(0, 500, 'msgblock_1');
-        this.messageimage.height = 200;
-        this.messageimage.width = game.width;
-        this.messageimage.fixedToCamera = true;
-        this.messageimage.alpha = 0;
-        this.keyboard_T = game.input.keyboard.addKey(Phaser.Keyboard.T);
-        this.keyboard_T.onDown.add(this.communication, this, null);
-        this.NpcOpen = false;
     },
 
     update: function () {
@@ -107,66 +111,19 @@ var mainState = {
         game.physics.arcade.collide(this.player, this.map_obj);
         game.physics.arcade.collide(this.player, this.bound);
 
-        //Bag open
-        if (this.BagOpen) {
-            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
-                if (game.input.activePointer.leftButton.isDown) {
-                    console.log("Use the bag!!");
-                }
-            } else {
-                if (game.input.activePointer.leftButton.isDown) {
-                    //click outside the bag,then close the bag
-                    this.BagOnClick();
-                }
-            }
+        updateclock(this.clock,this.arror,this.short_arror);
+        updatefire(this.fire,this.fire_middle,this.fire_small,this.health_text);
 
-        } else if (this.MapOpen) {
-            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
-                if (game.input.activePointer.leftButton.isDown) {
-                    console.log("Use the Map!!");
-                }
-            } else {
-                if (game.input.activePointer.leftButton.isDown) {
-                    //click outside the map,then close the map
-                    this.MapOnClick();
-                }
-            }
-        } else if (this.KitchenOpen) {
-            if (game.input.mousePointer.x <= 1160 && game.input.mousePointer.x >= 200 && game.input.mousePointer.y >= 100 && game.input.mousePointer.y <= 720) {
-                if (game.input.activePointer.leftButton.isDown) {
-                    console.log("Use the Kitchen!!");
-                }
-            } else {
-                if (game.input.activePointer.leftButton.isDown) {
-                    //click outside the map,then close the map
-                    //this.MapOnClick();
-                }
-            }
-        }
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
-            if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) this.moveplayer();
+            if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this.cursor,this.player);
         }
-    },
 
-    moveplayer: function () {
-
-        if (this.cursor.left.isDown) {
-            this.player.body.velocity.x = -200;
-            this.player.animations.play('left');
-        } else if (this.cursor.right.isDown) {
-            this.player.body.velocity.x = 200;
-            this.player.animations.play('right');
-        } else if (this.cursor.up.isDown) {
-            this.player.body.velocity.y = -200;
-            this.player.animations.play('up');
-        } else if (this.cursor.down.isDown) {
-            this.player.body.velocity.y = 200;
-            this.player.animations.play('down');
-        } else {
-            this.player.body.velocity.x = 0;
-            this.player.body.velocity.y = 0;
-            this.player.animations.stop();
+        if (this.player.x <= 400 && this.player.x >= 300 && this.player.y > 600) {
+            if(this.cursor.down.isDown){
+                pre_state = "main";
+                game.state.start('farm');
+            }
         }
     },
 
@@ -180,11 +137,11 @@ var mainState = {
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-
+            this.bagimage.events.onInputDown.add(this.BagFunction, this);
         } else {
             console.log('Close the Bag!');
             this.initOpen();
-
+            this.bagimage.events.onInputDown.removeAll();
         }
     },
 
@@ -197,10 +154,11 @@ var mainState = {
             game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-
+            this.mapimage.events.onInputDown.add(this.MapFunction, this);
         } else {
             console.log('Close the Map!');
             this.initOpen();
+            this.mapimage.events.onInputDown.removeAll();
         }
     },
 
@@ -228,5 +186,12 @@ var mainState = {
             this.initOpen();
         }
     },
-
+    BagFunction: function () {
+        console.log("Use the Bag!!");
+    },
+    MapFunction: function () {
+        console.log("Use the Map!!");
+        pre_state = "main";
+        game.state.start('forest');
+    },
 };
