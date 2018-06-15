@@ -20,10 +20,22 @@ Technotip.Preloader.prototype = {
         //main
         this.load.spritesheet('player', 'assets/image/main/charactor.png', 29, 32);
 
-        //function 
-        this.load.image('Bag', 'assets/image/main/button_bag.png');
-        this.load.image('Map', 'assets/image/main/button_map.png');
+        //icon
+        this.load.image('Bag', 'assets/image/icon/button_bag.png');
+        this.load.image('Map', 'assets/image/icon/button_map.png');
+        this.load.image('Cook', 'assets/image/icon/button_cooking.png');
+        this.load.image('icon_kitchen', 'assets/image/icon/cook.png');
+        this.load.image('Map_Town', 'assets/image/icon/icon_town.png');
+        this.load.image('Map_House', 'assets/image/icon/icon_house.png');
+        this.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');
+        this.load.image('Map_Farm', 'assets/image/icon/icon_farm.png');
+        this.load.image('Bagitem_0', 'assets/image/item/beef.png');
+        this.load.image('Bagitem_1', 'assets/image/item/mashroom.png');
+        this.load.image('Bagitem_2', 'assets/image/item/egg.png');
+        this.load.image('Bagitem_3', 'assets/image/item/vegetable.png');
+        
         //function background
+        this.load.image('map_0', 'assets/image/main/globalmap.png');
         this.load.image('bag_0', 'assets/image/main/packbag0.png');
         this.load.image('bag_1', 'assets/image/main/packbag1.png');
         this.load.image('bag_2', 'assets/image/main/packbag2.png');
@@ -39,6 +51,15 @@ Technotip.Preloader.prototype = {
         //message block
         this.load.image('msgblock_1', 'assets/image/main/messageblock_1.png')
         this.load.image('msgblock_2', 'assets/image/main/messageblock_2.png')
+
+        //talk
+        this.load.image('talk_front_run', 'assets/image/talk/run_start.png');
+        this.load.image('talk_front_1', 'assets/image/talk/talk_start1.png');
+        this.load.image('talk_front_2', 'assets/image/talk/talk_start2.png');
+        this.load.image('talk_front_3', 'assets/image/talk/talk_start3.png');
+        this.load.image('talk_front_4', 'assets/image/talk/talk_start4.png');
+        this.load.image('talk_front_5', 'assets/image/talk/talk_start5.png');
+        this.load.image('talk_front_6', 'assets/image/talk/talk_start6.png');
 
         //farm
         this.load.image('farm_bg', 'assets/image/farm/back.png');

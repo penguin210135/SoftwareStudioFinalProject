@@ -70,8 +70,9 @@ var forestState = {
         if (temp == 0) {
             this.enterbattle.play();
             game.camera.shake(0.02, 300);
+            ConsumeTime(10,50);
             game.time.events.add(500, function () { game.state.start('fight'); }, this);
-
+            
         }
     }
 };

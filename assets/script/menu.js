@@ -61,7 +61,7 @@ var menuState = {
 
         if (this.arrow.position.y == 315) {   //start
             this.menu_bgm.stop();
-            game.state.start('main');
+            game.state.start('story_front');
         } else if (this.arrow.position.y == 415) { //set
             game.state.start('set');
         } else if (this.arrow.position.y == 515) { //rank
