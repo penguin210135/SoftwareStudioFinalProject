@@ -17,9 +17,15 @@ var pre_state = "house";
 //battle
 var mainlife = 40;
 var ghost_life = 10;
+var ghost_power = 8;
 var octopus_life = 25;
+var octopus_power = 10;
+var pig_power = 13;
+var pig_life = 40;
 var snake_life = 50;
+var snake_power = 16;
 var dragon_life = 120;
+var dragon_power = 25;
 var protect = 3;
 
 //farm

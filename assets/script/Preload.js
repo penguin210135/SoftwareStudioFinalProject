@@ -160,6 +160,24 @@ Technotip.Preloader.prototype = {
         this.load.audio('attack_audio1', 'assets/audio/attack_audio1.mp3');
         this.load.audio('win', 'assets/audio/win.mp3');
 
+        game.load.bitmapFont('fightnumber', 'assets/image/word/fightnumber.png', 'assets/image/word/fightnumber.xml');
+        game.load.spritesheet('attack3','assets/image/skill/attack3.png',384,355);
+        game.load.spritesheet('attack4','assets/image/skill/attack4.png',201,153);
+        game.load.spritesheet('attack5','assets/image/skill/attack5.png',230,243);
+        game.load.spritesheet('attack6','assets/image/skill/attack6.png',318,273);
+        game.load.spritesheet('partial_rebound','assets/image/skill/partial_rebound.png',240,225);
+        game.load.spritesheet('burn','assets/image/skill/burn.png',300,300);
+        game.load.audio('attack_audio2','assets/audio/attack_audio2.mp3');
+        game.load.audio('attack_audio3','assets/audio/attack_audio3.wav');
+        game.load.audio('attack_audio4','assets/audio/attack_audio4.mp3');
+        game.load.audio('attack_audio5','assets/audio/attack_audio5.wav');
+        game.load.audio('attack_audio6','assets/audio/attack_audio6.wav');
+        game.load.audio('heal_audio1','assets/audio/heallife_audio.mp3');
+        game.load.audio('heal_audio2','assets/audio/healmagic_audio.mp3');
+        game.load.audio('heal_audio3','assets/audio/shield.mp3');
+        game.load.audio('heal_audio4','assets/audio/rebound.mp3');
+        game.load.audio('burn_audio','assets/audio/burn.mp3');
+
         this.load.onLoadComplete.add(this.loadComplete, this);
     },
     loadComplete: function () {
