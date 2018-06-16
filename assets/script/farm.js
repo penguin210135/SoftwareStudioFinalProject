@@ -18,6 +18,7 @@ var farmState = {
         this.cut = game.add.sprite(200, 130, 'cut');
         this.cut1 = game.add.sprite(250, 200, 'cut1');
 
+        createplayer(this);
         //ui & button
         createiconbag(this);
         createiconmap(this);
@@ -50,9 +51,6 @@ var farmState = {
 
         this.createGroupSeed();
         this.createFishMenu();
-
-        createplayer(this);
-
 
         this.fishopen = false;
         this.seedopen = false;

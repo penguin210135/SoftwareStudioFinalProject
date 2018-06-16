@@ -10,8 +10,6 @@ var forestState = {
 
         //cursor input
         this.cursor = game.input.keyboard.createCursorKeys();
-        //map
-        //this.createmap();
         //player 
         createplayer(this);
         //ui & button
