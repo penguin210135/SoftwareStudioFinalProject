@@ -18,6 +18,15 @@ var townState = {
 
         //NPC
         this.createNPC();
+        createmessageblock(this);
+
+        this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+        this.keyboard_enter.onDown.add(this.nextstorystep, this, null);
+
+        this.talk_dan = game.add.image(0, 500, 'talk_dan_1');
+        this.talk_dan.visible = false;
+        this.talk_gugu = game.add.image(0, 500, 'talk_front_1');
+        this.talk_gugu.visible = false;
     },
     createmap: function () {
         this.town_map = game.add.tilemap('town_map');
@@ -39,7 +48,8 @@ var townState = {
     },
 
     createNPC: function () {
-        this.dan = game.add.button(100, 100, 'icon_dandan', this.NPC_dan, this);
+        this.dan = game.add.button(100, 320, 'npc_dan', this.NPC_dan, this);
+        this.gugu = game.add.button(300, 120, 'npc_gugu', this.NPC_gugu, this);
     },
 
     update: function () {
@@ -50,11 +60,11 @@ var townState = {
         updatebag(this);
 
         if (game.time.now - this.player.movetime > 1000) {
-            if (!this.BagOpen && !this.MapOpen ) moveplayer(this);
+            if (!this.BagOpen && !this.MapOpen) moveplayer(this);
         }
 
-        if (this.player.x <= 20 && this.player.y > 600 && this.player.y > 600) {
-            if (this.cursor.down.isDown) {
+        if (this.player.x <= 20 && this.player.y > 520 && this.player.y <= 560) {
+            if (this.cursor.left.isDown) {
                 ToNewPlace('farm');
             }
         }
@@ -71,7 +81,7 @@ var townState = {
             this.bagimage.inputEnabled = true;
             this.bagitem.visible = true;
             game.world.bringToTop(this.bagimage);
-            game.world.bringToTop(this.bagitem); 
+            game.world.bringToTop(this.bagitem);
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
@@ -97,7 +107,7 @@ var townState = {
             if (game.state.current != "farm") this.map_icon_farm.visible = true;
             if (game.state.current != "forest") this.map_icon_forest.visible = true;
             if (game.state.current != "town") this.map_icon_town.visible = true;
-            
+
         } else {
             console.log('Close the Map!');
             this.initOpen();
@@ -113,10 +123,18 @@ var townState = {
         this.icon.visible = false;
         game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
         game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
-        
+
     },
 
     NPC_dan: function () {
-        console.log("talk to dan");
+        if (this.player.x >= this.dan.x - 50 && this.player.x <= this.dan.x + 50 && this.player.y >= this.dan.y - 50 && this.player.y <= this.dan.y + 50) {
+            console.log("talk to dan");
+        }
+    },
+
+    NPC_gugu: function () {
+        if (this.player.x >= this.gugu.x - 50 && this.player.x <= this.gugu.x + 50 && this.player.y >= this.gugu.y - 50 && this.player.y <= this.gugu.y + 50) {
+            console.log("talk to gugu");
+        }
     },
 };

@@ -3,7 +3,7 @@ var houseState = {
 
     },
     create: function () {
-        
+
         //game.world.resize(6000, 600);
         //cursor input
         this.cursor = game.input.keyboard.createCursorKeys();
@@ -24,6 +24,8 @@ var houseState = {
         this.keyboard_T = game.input.keyboard.addKey(Phaser.Keyboard.T);
         this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.keyboard_T.onDown.add(this.communication, this, null);
+
+        this.createbed();
     },
     createmap: function () {
         //set the default background
@@ -49,8 +51,8 @@ var houseState = {
 
     },
 
-    createbed:function(){
-        that.kitchen = game.add.button(500, 173, 'icon_bed', that.MapOnClick, that);
+    createbed: function () {
+        this.bed = game.add.button(901, 177, 'icon_bed', this.sleep, this);
     },
 
     update: function () {
@@ -84,7 +86,7 @@ var houseState = {
             this.bagimage.inputEnabled = true;
             this.bagitem.visible = true;
             game.world.bringToTop(this.bagimage);
-            game.world.bringToTop(this.bagitem); 
+            game.world.bringToTop(this.bagitem);
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
@@ -110,28 +112,28 @@ var houseState = {
             if (game.state.current != "farm") this.map_icon_farm.visible = true;
             if (game.state.current != "forest") this.map_icon_forest.visible = true;
             if (game.state.current != "town") this.map_icon_town.visible = true;
-            
+
         } else {
             console.log('Close the Map!');
             this.initOpen();
         }
     },
 
-    KitchenOpen:function(){
+    KitchenOpen: function () {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
-            
+
             this.KitchenOpen = true;
             this.kitchenimage.inputEnabled = true;
             game.world.bringToTop(this.kitchenimage);
             game.add.tween(this.kitchenimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
-            
+
         } else {
             console.log('Close the Bag!');
             this.initOpen();
-            
+
         }
     },
 
@@ -144,7 +146,7 @@ var houseState = {
         this.icon.visible = false;
         game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
         game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
-        
+
         this.KitchenOpen = false;
         this.kitchenimage.inputEnabled = false;
         game.add.tween(this.kitchenimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
@@ -166,5 +168,10 @@ var houseState = {
             console.log('Close the Map!');
             this.initOpen();
         }
+    },
+
+    sleep: function () {
+        player_health = 100;
+        lifetime -= 60;
     },
 };

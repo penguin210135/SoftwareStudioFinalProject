@@ -26,6 +26,9 @@ Technotip.Preloader.prototype = {
         game.load.image('Cook', 'assets/image/icon/button_cooking.png');
         game.load.image('icon_kitchen', 'assets/image/icon/cook.png');
         game.load.image('icon_bed', 'assets/image/icon/bed.png');
+        game.load.image('npc_dan', 'assets/image/icon/npc_dandan.png');
+        game.load.image('npc_game', 'assets/image/icon/npc_game.png');
+        game.load.image('npc_gugu', 'assets/image/icon/npc_gugu.png');
         game.load.image('Map_Town', 'assets/image/icon/icon_town.png');
         game.load.image('Map_House', 'assets/image/icon/icon_house.png');
         game.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');
@@ -63,6 +66,16 @@ Technotip.Preloader.prototype = {
         game.load.image('talk_front_4', 'assets/image/talk/talk_start4.png');
         game.load.image('talk_front_5', 'assets/image/talk/talk_start5.png');
         game.load.image('talk_front_6', 'assets/image/talk/talk_start6.png');
+        game.load.image('talk_gugu_1', 'assets/image/talk/talk_gugu1.png');
+        game.load.image('talk_gugu_2', 'assets/image/talk/talk_gugu2.png');
+        game.load.image('talk_gugu_3', 'assets/image/talk/talk_gugu3.png');
+        game.load.image('talk_gugu_4', 'assets/image/talk/talk_gugu4.png');
+        game.load.image('talk_gugu_5', 'assets/image/talk/talk_gugu5.png');
+        game.load.image('talk_gugu_6', 'assets/image/talk/talk_gugu6.png');
+        game.load.image('talk_end_1', 'assets/image/talk/talk_end1.png');
+        game.load.image('talk_end_2', 'assets/image/talk/talk_end2.png');
+        game.load.image('talk_end_3', 'assets/image/talk/talk_end3.png');
+
 
         //farm
         game.load.image('farm_bg', 'assets/image/farm/back.png');

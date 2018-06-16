@@ -4,7 +4,7 @@ bag_list[0] = [0, 0, 0, 0];
 bag_list[1] = [0, 0, 0, 0];
 bag_list[2] = [0, 0, 0, 0];
 var seed_list = [];
-seed_list[0] = [10, 10, 0, 0];
+seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
 var dish_list = [];
 var bag_index = 10;
@@ -298,4 +298,9 @@ function ToNewPlace(place) {
 function ConsumeTime(health, time) {
     player_health -= health;
     lifetime -= time;
+};
+
+function moveplayerto(x,y){
+    var tmp_time = game.time.now;
+
 };
