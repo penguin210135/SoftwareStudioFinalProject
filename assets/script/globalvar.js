@@ -227,40 +227,41 @@ function createmessageblock(that) {
     that.MsgOpen = false;
 };
 
-function updateclock(clock, arror, short, time) {
-    clock.angle -= 0.2;
-    arror.angle += 0.1;
-    short.angle += 0.01;
+function updateclock(that) {
+
+    that.clock.angle -= 0.2;
+    that.arror.angle += 0.1;
+    that.short_arror.angle += 0.01;
     if (lifetime % 60 < 10) {
-        time.text = ((lifetime / 60) | 0) + ":0" + lifetime % 60;
+        that.time_show.text = ((lifetime / 60) | 0) + ":0" + lifetime % 60;
     } else {
-        time.text = ((lifetime / 60) | 0) + ":" + lifetime % 60;
+        that.time_show.text = ((lifetime / 60) | 0) + ":" + lifetime % 60;
     }
 
 };
 
-function updatefire(fire, fire_middle, fire_small, health_text) {
+function updatefire(that) {
 
-    health_text.text = player_health;
+    that.health_text.text = player_health;
 
     if (player_health == 100) {
-        fire.visible = true;
-        fire_middle.visible = false;
-        fire_small.visible = false;
+        that.fire.visible = true;
+        that.fire_middle.visible = false;
+        that.fire_small.visible = false;
     }
     else if (player_health == 50) {
-        fire.visible = false;
-        fire_middle.visible = true;
-        fire_small.visible = false;
+        that.fire.visible = false;
+        that.fire_middle.visible = true;
+        that.fire_small.visible = false;
     }
     else if (player_health == 10) {
-        fire.visible = false;
-        fire_middle.visible = false;
-        fire_small.visible = true;
+        that.fire.visible = false;
+        that.fire_middle.visible = false;
+        that.fire_small.visible = true;
     }
 };
 
-function updatebag() {
+function updatebag(that) {
 
     that.Bag_item_0_number.text = bag_list[0][0].toString();
     that.Bag_item_1_number.text = bag_list[0][1].toString();
@@ -268,23 +269,23 @@ function updatebag() {
     that.Bag_item_3_number.text = bag_list[0][3].toString();
 };
 
-function moveplayer(cursor, player) {
-    if (cursor.left.isDown) {
-        player.body.velocity.x = -200;
-        player.animations.play('left');
-    } else if (cursor.right.isDown) {
-        player.body.velocity.x = 200;
-        player.animations.play('right');
-    } else if (cursor.up.isDown) {
-        player.body.velocity.y = -200;
-        player.animations.play('up');
-    } else if (cursor.down.isDown) {
-        player.body.velocity.y = 200;
-        player.animations.play('down');
+function moveplayer(that) {
+    if (that.cursor.left.isDown) {
+        that.player.body.velocity.x = -200;
+        that.player.animations.play('left');
+    } else if (that.cursor.right.isDown) {
+        that.player.body.velocity.x = 200;
+        that.player.animations.play('right');
+    } else if (that.cursor.up.isDown) {
+        that.player.body.velocity.y = -200;
+        that.player.animations.play('up');
+    } else if (that.cursor.down.isDown) {
+        that.player.body.velocity.y = 200;
+        that.player.animations.play('down');
     } else {
-        player.body.velocity.x = 0;
-        player.body.velocity.y = 0;
-        player.animations.stop();
+        that.player.body.velocity.x = 0;
+        that.player.body.velocity.y = 0;
+        that.player.animations.stop();
     }
 };
 

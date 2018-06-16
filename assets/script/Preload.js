@@ -25,6 +25,7 @@ Technotip.Preloader.prototype = {
         game.load.image('Map', 'assets/image/icon/button_map.png');
         game.load.image('Cook', 'assets/image/icon/button_cooking.png');
         game.load.image('icon_kitchen', 'assets/image/icon/cook.png');
+        game.load.image('icon_bed', 'assets/image/icon/bed.png');
         game.load.image('Map_Town', 'assets/image/icon/icon_town.png');
         game.load.image('Map_House', 'assets/image/icon/icon_house.png');
         game.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');

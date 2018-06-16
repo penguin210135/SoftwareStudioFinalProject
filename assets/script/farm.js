@@ -60,13 +60,14 @@ var farmState = {
     },
     update: function () {
         if (game.time.now - this.player.movetime > 1000) {
-            moveplayer(this.cursor, this.player);
+            if (!this.BagOpen && !this.MapOpen ) moveplayer(this);
         }
 
         //game.physics.arcade.collide(this.player, this.cushions);
         this.updatetmp();
-        updateclock(this.clock, this.arror, this.short_arror, this.time_show);
-        updatefire(this.fire, this.fire_middle, this.fire_small, this.health_text);
+        updateclock(this);
+        updatefire(this);
+        updatebag(this);
 
         //move to house
         if (this.player.position.x >= 820 && this.player.position.x <= 840 && this.player.position.y <= 290 && this.player.position.y >= 270) {
@@ -477,7 +478,7 @@ var farmState = {
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-            this.bagimage.events.onInputDown.add(BagFunction, this);
+            //this.bagimage.events.onInputDown.add(BagFunction, this);
         } else {
             console.log('Close the Bag!');
             this.initOpen();

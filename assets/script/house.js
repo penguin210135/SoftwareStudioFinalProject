@@ -49,18 +49,22 @@ var houseState = {
 
     },
 
+    createbed:function(){
+        that.kitchen = game.add.button(500, 173, 'icon_bed', that.MapOnClick, that);
+    },
+
     update: function () {
 
         //game.physics.arcade.collide(this.player, this.wall);
         game.physics.arcade.collide(this.player, this.map_wall);
         game.physics.arcade.collide(this.player, this.map_obj);
         game.physics.arcade.collide(this.player, this.bound);
-        updateclock(this.clock, this.arror, this.short_arror,this.time_show);
-        updatefire(this.fire, this.fire_middle, this.fire_small, this.health_text);
-
+        updateclock(this);
+        updatefire(this);
+        updatebag(this);
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
-            if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this.cursor, this.player);
+            if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this);
         }
 
         if (this.player.x <= 400 && this.player.x >= 300 && this.player.y > 600) {
@@ -84,7 +88,7 @@ var houseState = {
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-            this.bagimage.events.onInputDown.add(BagFunction, this);
+            //this.bagimage.events.onInputDown.add(BagFunction, this);
         } else {
             console.log('Close the Bag!');
             this.initOpen();
