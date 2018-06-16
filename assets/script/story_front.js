@@ -23,7 +23,7 @@ var storyfrontState = {
         game.add.tween(this.textroll).to({ y: -1000 }, 8000, Phaser.Easing.Linear.None, true);
 
 
-        this.talkimage = game.add.image(0, 520, 'talk_front_1');
+        this.talkimage = game.add.image(0, 500, 'talk_front_1');
         this.talkimage.visible = false;
     },
     update: function () {

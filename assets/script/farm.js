@@ -51,11 +51,7 @@ var farmState = {
         this.createFishMenu();
 
         createplayer(this);
-        if (pre_state == "house") {
-            this.player.position.setTo(820, 280);
-        } else if (pre_state == "forest") {
-            this.player.position.setTo(1100, 570);
-        }
+
 
         this.fishopen = false;
         this.seedopen = false;
@@ -75,17 +71,23 @@ var farmState = {
         //move to farm
         if (this.player.position.x >= 820 && this.player.position.x <= 840 && this.player.position.y <= 290 && this.player.position.y >= 270) {
             if (this.cursor.up.isDown) {
-                pre_state = "farm";
+                pre_state = game.state.current;
                 game.state.start('house');
             }
         }
 
-        //move to forest
+        //move to town
         if (this.player.position.x >= 1120 && this.player.position.y <= 600 && this.player.position.y >= 550) {
             if (this.cursor.right.isDown) {
-                pre_state = "farm";
-                game.state.start('forest');
+                pre_state = game.state.current;
+                game.state.start('town');
             }
+        }
+
+        //move to forest
+        if (this.player.position.x <= 200 && this.player.position.y <= 350) {
+            pre_state = game.state.current;
+            game.state.start('forest');
         }
     },
 
@@ -175,7 +177,7 @@ var farmState = {
 
     showSeed: function (index) {
 
-        if (this.fish_step == 0)  {
+        if (this.fish_step == 0) {
             if (this.seedopen && this.fields_xy[index].x - 80 == this.box_seed.position.x && this.fields_xy[index].y - 110 == this.box_seed.position.y) {   //按第二下同個位子
                 this.initOpen();
             }
@@ -188,7 +190,7 @@ var farmState = {
                         this.box_seed = game.add.sprite(0, 0, 'box_seed');
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);
                         this.btn_seed[1] = game.add.button(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'moneyseed_0', function () { this.createPlant(index, 'moneyseed_0') }, this, 2, 1, 0);
-                    }else{
+                    } else {
                         this.btn_seed[0].destroy();
                         this.btn_seed[1].destroy();
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);

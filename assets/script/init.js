@@ -7,6 +7,7 @@ game.state.add('set', setState);
 game.state.add('farm', farmState);
 game.state.add('fight', fightState);
 game.state.add('forest', forestState);
+game.state.add('town', townState);
 game.state.add('story_front', storyfrontState);
 //game.state.add('battle', battleState);
 //game.state.add('city', cityState);

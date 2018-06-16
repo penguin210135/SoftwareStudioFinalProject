@@ -37,6 +37,10 @@ fields[1] = [0, 0, 0, 0, 0, 0];  //state
 fields[2] = [0, 0, 0, 0, 0, 0];  //time
 fields[3] = [0, 1, 2, 3, 4, 5];  //state
 
+//forest
+var player_x = 0;
+var player_y = 0;
+
 function createplayer(that) {
     //player
     that.player = game.add.sprite(game.width / 2, game.height / 2, 'player');
@@ -50,6 +54,38 @@ function createplayer(that) {
     that.player.anchor.setTo(0.5, 0.5);
     that.player.movetime = game.time.now;
     that.game.camera.follow(that.player);
+
+    switch (game.state.current) {
+        case "house":
+            that.player.position.setTo(310, 580);
+            break;
+        case "farm":
+            switch (pre_state) {
+                case "house":
+                    that.player.position.setTo(820, 280);
+                    break;
+                case "forest":
+                    that.player.position.setTo(250, 250);
+                    break;
+                case "town":
+                    that.player.position.setTo(1100, 570);
+                    break;
+            }
+            break;
+        case "forest":
+            switch (pre_state) {
+                case "fight":
+                    that.player.position.setTo(player_x, player_y);
+                    break;
+                default:
+                    that.player.position.setTo(1120, 360);
+                    break;
+            }
+            break;
+        case "town":
+            that.player.position.setTo(0, 530);
+            break;
+    }
 };
 
 function createclock(that) {
@@ -62,7 +98,7 @@ function createclock(that) {
     that.short_arror = game.add.sprite(1100, 50, 'short_arror');
     that.short_arror.scale.setTo(0.1, 0.1);
     that.short_arror.anchor.setTo(0.5, 0.85);
-    that.time_show = game.add.text(1080, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '18px Arial', fill: '#696161' });
+    that.time_show = game.add.text(1070, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '20px Arial', fill: '#696161' });
     that.time_show.stroke = '#ffffff';
     that.time_show.strokeThickness = 2;
 };
@@ -82,7 +118,9 @@ function createfire(that) {
     that.fire_middle.visible = false;
     that.fire_small.visible = false;
 
-    that.health_text = game.add.text(1080, 150, player_health, { font: '18px Arial', fill: '#FFFFFF' });
+    that.health_text = game.add.text(1080, 150, player_health, { font: '20px Arial', fill: '#000000' });
+    that.health_text.stroke = '#ffffff';
+    that.health_text.strokeThickness = 2;
 };
 
 
@@ -236,7 +274,7 @@ function MapFunction() {
 function ToTown() {
     console.log("Move to town");
     pre_state = game.state.current;
-    //game.state.start('town');
+    game.state.start('town');
 };
 function ToHouse() {
     console.log("Move to house");

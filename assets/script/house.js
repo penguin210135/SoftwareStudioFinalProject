@@ -18,11 +18,6 @@ var houseState = {
         this.createmap();
         //player 
         createplayer(this);
-        if (pre_state == "farm") {
-            this.player.position.setTo(300, 580);
-        } else if (pre_state == "forest") {
-
-        }
        
         //ui & button
         createiconbag(this);

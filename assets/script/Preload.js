@@ -9,7 +9,7 @@ Technotip.Preloader.prototype = {
 
         //menu
         this.load.audio('menu_bgm', ['assets/audio/menu_bgm.mp3']);
-        this.load.image('background', 'assets/image/menu/background_menu.jpg');
+        this.load.image('background', 'assets/image/menu/background_menu_1.jpg');
         this.load.image('arrow', 'assets/image/menu/arrow.png');
         this.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
 
@@ -43,6 +43,8 @@ Technotip.Preloader.prototype = {
 
         //map 
         this.load.tilemap('house_map', 'assets/image/map/map_room.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('forest_map', 'assets/image/map/map_forest.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('town_map', 'assets/image/map/map_city.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tiles1', 'assets/image/map/spritesheet1.png');
         this.load.image('tiles2', 'assets/image/map/spritesheet2.png');
         this.load.image('tiles3', 'assets/image/map/spritesheet3.png');
@@ -107,7 +109,7 @@ Technotip.Preloader.prototype = {
 
         //forest
         this.load.audio('enterbattle', 'assets/audio/enterbattle.mp3');
-        this.load.tilemap('forest_map', 'assets/image/map/map_forest.json', null, Phaser.Tilemap.TILED_JSON);
+        
         //battle
         this.load.spritesheet('main', 'assets/image/leading role/main.png', 64, 96);
         this.load.spritesheet('attack1', 'assets/image/skill/attack1.png', 388, 149);

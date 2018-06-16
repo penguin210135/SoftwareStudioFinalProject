@@ -183,7 +183,6 @@ var fightState = {
             this.attack_number_enemy_text = game.add.bitmapText(this.enemy_x_position + 80, 320, 'fightnumber', '', 90);
 
         this.menu(0);//0 : initial ,1 : return
-
     },
 
     update: function () {
@@ -301,6 +300,7 @@ var fightState = {
                 this.animation_index = 0;
                 var temp = Math.floor(Math.random() * 3);
                 if (temp == 0) {
+                    pre_state = game.state.current;
                     game.time.events.add(1000, function () { game.state.start('forest'); this.battle_bgm.stop(); }, this);
                 }
                 else {
@@ -615,5 +615,8 @@ var fightState = {
                 console.log('to forest')
             }
         }
-    }
+    },
+
+    
+
 };
