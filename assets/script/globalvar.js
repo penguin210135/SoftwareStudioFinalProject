@@ -6,10 +6,8 @@ bag_list[2] = [0, 0, 0, 0];
 var seed_list = [];
 seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
-var dish_list = [];
-var bag_index = 10;
-var seed_index = 8;
-var lifetime = 1000;
+var dish_score = 0;
+var lifetime = 60;
 var player_health = 100;
 var pet_life = 40;
 var pre_state = "house";
@@ -204,12 +202,12 @@ function createiconkitchen(that) {
     that.kitchenimage.inputEnabled = true;
     that.kitchenimage.alpha = 0;
 
-    that.kitchenbutton = game.add.button(1160 - 400, 720 - 100, 'Cook', that.MapOnClick, that);
+    that.kitchenbutton = game.add.button(1160 - 400, 720 - 100, 'Cook', that.KitchenOnClick, that);
     that.kitchenbutton.fixedToCamera = true;
     that.kitchenbutton.height = 100;
     that.kitchenbutton.width = 100;
 
-    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.MapOnClick, that);
+    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.KitchenOnClick, that);
 
     game.add.bitmapText(1160 - 350, 720 - 50, 'carrier_command', 'K', 32);
     that.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
@@ -300,7 +298,16 @@ function ConsumeTime(health, time) {
     lifetime -= time;
 };
 
-function moveplayerto(x,y){
-    var tmp_time = game.time.now;
+function forcetosleep() {
+    if (player_health <= 0) {
+        ToNewPlace('house');
+        ConsumeTime(60, 0);
+    }
 
+};
+
+function gameover() {
+    if (lifetime < 0) {
+        ToNewPlace('gamewin');
+    }
 };

@@ -64,6 +64,9 @@ var houseState = {
         updateclock(this);
         updatefire(this);
         updatebag(this);
+        forcetosleep();
+        gameover();
+        
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
             if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this);
@@ -119,7 +122,7 @@ var houseState = {
         }
     },
 
-    KitchenOpen: function () {
+    KitchenOnClick: function () {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
@@ -133,7 +136,6 @@ var houseState = {
         } else {
             console.log('Close the Bag!');
             this.initOpen();
-
         }
     },
 

@@ -18,7 +18,7 @@ Technotip.Preloader.prototype = {
         game.load.image('setting-control', 'assets/image/setting/setting-circle.png');
 
         //main
-        game.load.spritesheet('player', 'assets/image/main/charactor.png', 29, 32);
+        game.load.spritesheet('player', 'assets/image/main/character.png', 32, 34);
 
         //icon
         game.load.image('Bag', 'assets/image/icon/button_bag.png');
@@ -29,6 +29,7 @@ Technotip.Preloader.prototype = {
         game.load.image('npc_dan', 'assets/image/icon/npc_dandan.png');
         game.load.image('npc_game', 'assets/image/icon/npc_game.png');
         game.load.image('npc_gugu', 'assets/image/icon/npc_gugu.png');
+        game.load.image('npc_seed', 'assets/image/icon/npc_seed.png');
         game.load.image('Map_Town', 'assets/image/icon/icon_town.png');
         game.load.image('Map_House', 'assets/image/icon/icon_house.png');
         game.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');
@@ -72,9 +73,23 @@ Technotip.Preloader.prototype = {
         game.load.image('talk_gugu_4', 'assets/image/talk/talk_gugu4.png');
         game.load.image('talk_gugu_5', 'assets/image/talk/talk_gugu5.png');
         game.load.image('talk_gugu_6', 'assets/image/talk/talk_gugu6.png');
+        game.load.image('talk_gugu_7', 'assets/image/talk/talk_gugu7.png');
         game.load.image('talk_end_1', 'assets/image/talk/talk_end1.png');
         game.load.image('talk_end_2', 'assets/image/talk/talk_end2.png');
         game.load.image('talk_end_3', 'assets/image/talk/talk_end3.png');
+        game.load.image('talk_end_4', 'assets/image/talk/talk_end4.png');
+        game.load.image('talk_end_5', 'assets/image/talk/talk_end5.png');
+        game.load.image('talk_dan_1', 'assets/image/talk/talk_dandan1.png');
+        game.load.image('talk_dan_2', 'assets/image/talk/talk_dandan2.png');
+        game.load.image('talk_dan_3', 'assets/image/talk/talk_dandan3.png');
+        game.load.image('talk_dan_4', 'assets/image/talk/talk_dandan4.png');
+        game.load.image('talk_dan_5', 'assets/image/talk/talk_dandan5.png');
+        game.load.image('talk_dan_6', 'assets/image/talk/talk_dandan6.png');
+        game.load.image('talk_seed_1', 'assets/image/talk/talk_seed1.png');
+        game.load.image('talk_seed_2', 'assets/image/talk/talk_seed2.png');
+        game.load.image('talk_seed_3', 'assets/image/talk/talk_seed3.png');
+        game.load.image('talk_seed_4', 'assets/image/talk/talk_seed4.png');
+        game.load.image('talk_seed_5', 'assets/image/talk/talk_seed5.png');
 
 
         //farm
@@ -193,6 +208,8 @@ Technotip.Preloader.prototype = {
         game.load.audio('heal_audio3', 'assets/audio/shield.mp3');
         game.load.audio('heal_audio4', 'assets/audio/rebound.mp3');
         game.load.audio('burn_audio', 'assets/audio/burn.mp3');
+        game.load.audio('enter_sound', 'assets/audio/enter_sound.mp3');
+        
 
         this.load.onLoadComplete.add(this.loadComplete, this);
     },

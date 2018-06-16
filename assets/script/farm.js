@@ -69,7 +69,9 @@ var farmState = {
         updateclock(this);
         updatefire(this);
         updatebag(this);
-
+        forcetosleep();
+        gameover();
+        
         //move to house
         if (this.player.position.x >= 820 && this.player.position.x <= 840 && this.player.position.y <= 290 && this.player.position.y >= 270) {
             if (this.cursor.up.isDown) {
@@ -266,14 +268,6 @@ var farmState = {
             ConsumeTime(10, 50);
         }
     },
-    /*killPlant: function (index) {
-        this.plant[index].state = 0;
-        this.field[index].events.onInputDown.removeAll();
-        this.fields_time[index] = -1;
-        this.grass[index].destroy();
-        this.btn_plant[index].destroy();
-        this.btn_killPlant[index].destroy();
-    },*/
     harvest: function (item) {
 
         var index = item.index;

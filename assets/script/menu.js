@@ -16,7 +16,7 @@ var menuState = {
         this.start = game.add.bitmapText(360, 300, 'carrier_command', 'Start', 40);
         this.set = game.add.bitmapText(360, 400, 'carrier_command', 'Set', 40);
         this.rank = game.add.bitmapText(360, 500, 'carrier_command', 'Rank', 40);
-        this.story = game.add.bitmapText(360, 600, 'carrier_command', 'Story', 40);
+        this.story = game.add.bitmapText(360, 600, 'carrier_command', 'Author', 40);
 
         this.Title.anchor.setTo(0.5, 0.5);
         this.Title.position.setTo(game.width / 2, 150);
@@ -49,6 +49,7 @@ var menuState = {
         //Enter
         this.enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.enter.onDown.add(this.changepage, this);
+        this.enter_sound = game.add.audio('enter_sound');
     },
 
     update: function () {
@@ -86,7 +87,7 @@ var menuState = {
     },
 
     changepage: function () {
-
+        this.enter_sound.play();
         switch (this.arrow.pos) {
             case 0:
                 this.menu_bgm.stop();

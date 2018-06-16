@@ -20,6 +20,8 @@ var storyfrontState = {
 
         this.talkimage = game.add.image(0, 500, 'talk_front_1');
         this.talkimage.visible = false;
+
+        this.enter_sound = game.add.audio('enter_sound');
     },
     update: function () {
         if (this.storystep >= 5) {
@@ -56,6 +58,7 @@ var storyfrontState = {
     nextstorystep: function () {
         console.log('step: ' + this.storystep);
         if (this.Rollisend == true) {
+            this.enter_sound.play();
             this.storystep += 1;
         }else {
             this.textroll.visible = false;
