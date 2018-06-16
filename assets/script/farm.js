@@ -274,7 +274,7 @@ var farmState = {
         fields[1][index] = 0;
 
         if (item.key == 'grass_3') {
-            bag_list[0][0] += 5;
+            bag_list[2][2] += 5;
             grassHarvest = game.add.sprite(this.fields_xy[index].x - 10, this.fields_xy[index].y - 40, 'grass_3');
             grassHarvest.scale.setTo(0.3, 0.3);
             harvestText = game.add.text(this.fields_xy[index].x + 10, this.fields_xy[index].y - 20, '+5', { font: '15px Arial', fill: '#ffffff' });
@@ -282,7 +282,7 @@ var farmState = {
             game.add.tween(harvestText).to({ y: this.fields_xy[index].y - 30 }, 500).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
         }
         else if (item.key == 'moneyseed_3') {
-            bag_list[0][1] += 5;
+            bag_list[2][3] += 5;
             grassHarvest = game.add.sprite(this.fields_xy[index].x - 10, this.fields_xy[index].y - 40, 'moneyseed_3');
             grassHarvest.scale.setTo(0.3, 0.3);
             harvestText = game.add.text(this.fields_xy[index].x + 10, this.fields_xy[index].y - 30, '+5', { font: '15px Arial', fill: '#ffffff' });

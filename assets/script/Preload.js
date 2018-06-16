@@ -18,6 +18,7 @@ Technotip.Preloader.prototype = {
         game.load.image('setting-control', 'assets/image/setting/setting-circle.png');
 
         //main
+        game.load.image('submit', 'assets/image/submit_1.png');
         game.load.spritesheet('player', 'assets/image/main/character.png', 32, 34);
 
         //icon
@@ -34,6 +35,7 @@ Technotip.Preloader.prototype = {
         game.load.image('Map_House', 'assets/image/icon/icon_house.png');
         game.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');
         game.load.image('Map_Farm', 'assets/image/icon/icon_farm.png');
+
         game.load.image('Bagitem_0', 'assets/image/item/beef.png');
         game.load.image('Bagitem_1', 'assets/image/item/mashroom.png');
         game.load.image('Bagitem_2', 'assets/image/item/egg.png');
@@ -144,6 +146,7 @@ Technotip.Preloader.prototype = {
 
         //forest
         game.load.audio('enterbattle', 'assets/audio/enterbattle.mp3');
+        game.load.image('forest_background', 'assets/image/map_forest.png');
 
         //battle
         game.load.spritesheet('main', 'assets/image/leading role/main.png', 64, 96);
@@ -216,6 +219,23 @@ Technotip.Preloader.prototype = {
         game.load.audio('burn_audio', 'assets/audio/burn.mp3');
         game.load.audio('enter_sound', 'assets/audio/enter_sound.mp3');
         
+        game.load.audio('lose','assets/audio/lose.mp3');
+        game.load.image('attack1_name','assets/image/fight ui/skill_attack1.png',600,120);
+        game.load.image('attack2_name','assets/image/fight ui/skill_attack2.png',600,120);
+        game.load.image('attack3_name','assets/image/fight ui/skill_attack3.png',600,120);
+        game.load.image('attack4_name','assets/image/fight ui/skill_attack4.png',600,120);
+        game.load.image('attack5_name','assets/image/fight ui/skill_attack5.png',600,120);
+        game.load.image('attack6_name','assets/image/fight ui/skill_attack6.png',600,120);
+        game.load.image('heal1_name','assets/image/fight ui/skill_heal1.png',600,120);
+        game.load.image('heal2_name','assets/image/fight ui/skill_heal2.png',600,120);
+        game.load.image('heal3_name','assets/image/fight ui/skill_heal3.png',600,120);
+        game.load.image('heal4_name','assets/image/fight ui/skill_heal4.png',600,120);
+        game.load.spritesheet('power_add','assets/image/skill/power_add.png',200,500);
+        game.load.image('win_dragon','assets/image/fight ui/win_dragon.png',600,500);
+        game.load.image('win_pig','assets/image/fight ui/win_pig.png',600,500);
+        game.load.image('win_snake','assets/image/fight ui/win_snake.png',600,500);
+        game.load.image('win_normal','assets/image/fight ui/win_normal.png',600,500);
+        game.load.image('win_lose','assets/image/fight ui/lose.png',600,500);
 
         this.load.onLoadComplete.add(this.loadComplete, this);
     },

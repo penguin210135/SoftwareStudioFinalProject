@@ -15,17 +15,48 @@ var storyfrontState = {
         createmessageblock(this);
         this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.keyboard_enter.onDown.add(this.nextstorystep, this, null);
-        
+
         game.add.tween(this.textroll).to({ y: -1000 }, 8000, Phaser.Easing.Linear.None, true);
 
         this.talkimage = game.add.image(0, 500, 'talk_front_1');
         this.talkimage.visible = false;
 
         this.enter_sound = game.add.audio('enter_sound');
+
+        //input text
+        game.add.plugin(PhaserInput.Plugin);
+        this.name = game.add.bitmapText(200, 150, 'carrier_command', 'Enter Your Name: ', 32);
+        this.name.anchor.setTo(0.5, 0.5);
+        this.name.position.setTo(game.width / 2, 150);
+        this.name.visible = false;
+
+        this.account = game.add.inputField(400, 250, {
+            font: '18px Arial',
+            fill: '#212121',
+            fontWeight: 'bold',
+            width: 300,
+            padding: 8,
+            borderWidth: 1,
+            borderColor: '#000',
+            borderRadius: 6,
+            placeHolder: 'Name',
+            type: PhaserInput.InputType.text
+        });
+        this.account.visible = false;
+
+        this.submit = game.add.button(350, 250, 'submit', this.SubmitOnClick, this);
+        this.submit.anchor.setTo(0.5, 0.5);
+        this.submit.position.setTo(game.width / 2, 450);
+        this.submit.visible = false;
     },
     update: function () {
         if (this.storystep >= 5) {
-            ToNewPlace('house');
+            //ToNewPlace('house');
+            this.messageimage.visible = false;
+            this.talkimage.visible = false;
+            this.account.visible = true;
+            this.name.visible = true;
+            this.submit.visible = true;
         }
 
         if (this.textroll.y <= -1000) {
@@ -57,14 +88,24 @@ var storyfrontState = {
 
     nextstorystep: function () {
         console.log('step: ' + this.storystep);
-        if (this.Rollisend == true) {
+        if (this.Rollisend == true && this.messageimage.visible == true) {
             this.enter_sound.play();
             this.storystep += 1;
-        }else {
+        } else if (this.storystep < 5) {
+
             this.textroll.visible = false;
             this.Rollisend = true;
             this.messageimage.visible = true;
             this.talkimage.visible = true;
         }
-    }
+    },
+
+    SubmitOnClick: function () {
+        var input_id = this.account.domElement.id;
+        //set user name
+        if (input_id != "") user_name = document.getElementById(input_id).value;
+
+        ToNewPlace('house');
+        console.log(user_name);
+    },
 };

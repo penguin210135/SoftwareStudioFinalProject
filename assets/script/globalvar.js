@@ -11,6 +11,7 @@ var lifetime = 600;
 var player_health = 100;
 var pet_life = 40;
 var pre_state = "house";
+var user_name = "Visitor";
 
 //battle
 var mainlife = 40;
@@ -138,14 +139,23 @@ function createiconbag(that) {
     that.BagOpen = false;
 
     that.Bag_item_0 = game.add.image(660, 268, 'Bagitem_0');
-    that.Bag_item_0_number = game.add.bitmapText(700, 305, 'carrier_command', bag_list[0][0].toString(), 16);
-
     that.Bag_item_1 = game.add.image(755, 268, 'Bagitem_1');
-    that.Bag_item_1_number = game.add.bitmapText(795, 305, 'carrier_command', bag_list[0][1].toString(), 16);
     that.Bag_item_2 = game.add.image(855, 268, 'Bagitem_2');
-    that.Bag_item_2_number = game.add.bitmapText(895, 305, 'carrier_command', bag_list[0][2].toString(), 16);
     that.Bag_item_3 = game.add.image(960, 268, 'Bagitem_3');
+
+    that.Bag_item_0_number = game.add.bitmapText(700, 305, 'carrier_command', bag_list[0][0].toString(), 16);
+    that.Bag_item_1_number = game.add.bitmapText(795, 305, 'carrier_command', bag_list[0][1].toString(), 16);
+    that.Bag_item_2_number = game.add.bitmapText(895, 305, 'carrier_command', bag_list[0][2].toString(), 16);
     that.Bag_item_3_number = game.add.bitmapText(1000, 305, 'carrier_command', bag_list[0][3].toString(), 16);
+    that.Bag_item_4_number = game.add.bitmapText(700, 355, 'carrier_command', bag_list[1][0].toString(), 16);
+    that.Bag_item_5_number = game.add.bitmapText(795, 355, 'carrier_command', bag_list[1][1].toString(), 16);
+    that.Bag_item_6_number = game.add.bitmapText(895, 355, 'carrier_command', bag_list[1][2].toString(), 16);
+    that.Bag_item_7_number = game.add.bitmapText(1000, 355, 'carrier_command', bag_list[1][3].toString(), 16);
+    that.Bag_item_8_number = game.add.bitmapText(700, 405, 'carrier_command', bag_list[2][0].toString(), 16);
+    that.Bag_item_9_number = game.add.bitmapText(795, 405, 'carrier_command', bag_list[2][1].toString(), 16);
+    that.Bag_item_10_number = game.add.bitmapText(895, 405, 'carrier_command', bag_list[2][2].toString(), 16);
+    that.Bag_item_11_number = game.add.bitmapText(1000, 405, 'carrier_command', bag_list[2][3].toString(), 16);
+
 
     that.bagitem = game.add.group();
     that.bagitem.add(that.Bag_item_0);
@@ -156,6 +166,15 @@ function createiconbag(that) {
     that.bagitem.add(that.Bag_item_1_number);
     that.bagitem.add(that.Bag_item_2_number);
     that.bagitem.add(that.Bag_item_3_number);
+    that.bagitem.add(that.Bag_item_4_number);
+    that.bagitem.add(that.Bag_item_5_number);
+    that.bagitem.add(that.Bag_item_6_number);
+    that.bagitem.add(that.Bag_item_7_number);
+    that.bagitem.add(that.Bag_item_8_number);
+    that.bagitem.add(that.Bag_item_9_number);
+    that.bagitem.add(that.Bag_item_10_number);
+    that.bagitem.add(that.Bag_item_11_number);
+
 
     that.bagitem.visible = false;
 };
@@ -265,6 +284,14 @@ function updatebag(that) {
     that.Bag_item_1_number.text = bag_list[0][1].toString();
     that.Bag_item_2_number.text = bag_list[0][2].toString();
     that.Bag_item_3_number.text = bag_list[0][3].toString();
+    that.Bag_item_4_number.text = bag_list[1][0].toString();
+    that.Bag_item_5_number.text = bag_list[1][1].toString();
+    that.Bag_item_6_number.text = bag_list[1][2].toString();
+    that.Bag_item_7_number.text = bag_list[1][3].toString();
+    that.Bag_item_8_number.text = bag_list[2][0].toString();
+    that.Bag_item_9_number.text = bag_list[2][1].toString();
+    that.Bag_item_10_number.text = bag_list[2][2].toString();
+    that.Bag_item_11_number.text = bag_list[2][3].toString();
 };
 
 function moveplayer(that) {

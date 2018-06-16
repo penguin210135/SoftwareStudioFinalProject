@@ -1,9 +1,9 @@
 var config = {
-    apiKey: "AIzaSyCKjm3ZSUzaKXMzUa87C8wMMxMiQBk-CXI",
-    authDomain: "penguin-littlefriend.firebaseapp.com",
-    databaseURL: "https://penguin-littlefriend.firebaseio.com",
-    projectId: "penguin-littlefriend",
-    storageBucket: "penguin-littlefriend.appspot.com",
-    messagingSenderId: "339061123779"
-};
-firebase.initializeApp(config);
+    apiKey: "AIzaSyCxXFFD8Hh_ga8FBpbQyKSKBd-jpSFWYGM",
+    authDomain: "softwarefinal-df8a8.firebaseapp.com",
+    databaseURL: "https://softwarefinal-df8a8.firebaseio.com",
+    projectId: "softwarefinal-df8a8",
+    storageBucket: "softwarefinal-df8a8.appspot.com",
+    messagingSenderId: "278641620665"
+  };
+  firebase.initializeApp(config);

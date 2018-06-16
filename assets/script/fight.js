@@ -1,18 +1,21 @@
 var fightState = {
     preload: function () {
-        this.enemy_random = Math.floor(Math.random() * 4);
+        this.enemy_random = Math.floor(Math.random() * 5);
         if (this.enemy_random == 1)
             game.load.spritesheet('enemy1', 'assets/image/monster/snake_144x100.png', 144, 100);
         else if (this.enemy_random == 2)
             game.load.spritesheet('enemy1', 'assets/image/monster/dragon_188x171.png', 188, 171);
         else if (this.enemy_random == 3)
             game.load.spritesheet('enemy1', 'assets/image/monster/octopus_76x84.png', 76, 84);
+        else if (this.enemy_random == 4) {
+            game.load.spritesheet('enemy1', 'assets/image/monster/mountainPig_149x98.png', 149, 98);//new!!!!!!!!
+        }
         else
             game.load.spritesheet('enemy1', 'assets/image/monster/enemy1.png', 75, 75.5);
     },
     create: function () {
         this.life = mainlife;
-        this.magic = 9;
+        this.magic = 3;
         this.enemymagic = 3;
         this.animation_index = 0;//決定撥放哪個動畫
         this.enemytime = 0;//延遲用
@@ -131,6 +134,7 @@ var fightState = {
         this.burn_audio = game.add.audio('burn_audio');
         this.enemyattack_audio1 = game.add.audio('enemyattack_audio1');
         this.win = game.add.audio('win');
+        this.lose = game.add.audio('lose');
 
         //攻擊
         this.attack1 = game.add.sprite(69, 300, 'attack1');
@@ -167,13 +171,68 @@ var fightState = {
         this.partial_rebound.animations.play('heal_partial_rebound');
         this.partial_rebound.alpha = 0;
 
+        //enemy power add
+        this.power_add = game.add.sprite(120, 150, 'power_add');
+        this.power_add.animations.add('add', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0], 12);
+
+        //招式名稱
+        this.attack1_name = game.add.image(300, 600, 'attack1_name');
+        this.attack2_name = game.add.image(300, 600, 'attack2_name');
+        this.attack3_name = game.add.image(300, 600, 'attack3_name');
+        this.attack4_name = game.add.image(300, 600, 'attack4_name');
+        this.attack5_name = game.add.image(300, 600, 'attack5_name');
+        this.attack6_name = game.add.image(300, 600, 'attack6_name');
+        this.heal1_name = game.add.image(300, 600, 'heal1_name');
+        this.heal2_name = game.add.image(300, 600, 'heal2_name');
+        this.heal3_name = game.add.image(300, 600, 'heal3_name');
+        this.heal4_name = game.add.image(300, 600, 'heal4_name');
+        this.attack1_name.alpha = 0;
+        this.attack2_name.alpha = 0;
+        this.attack3_name.alpha = 0;
+        this.attack4_name.alpha = 0;
+        this.attack5_name.alpha = 0;
+        this.attack6_name.alpha = 0;
+        this.heal1_name.alpha = 0;
+        this.heal2_name.alpha = 0;
+        this.heal3_name.alpha = 0;
+        this.heal4_name.alpha = 0;
+        this.attack1_name.scale.setTo(0.8);
+        this.attack2_name.scale.setTo(0.8);
+        this.attack3_name.scale.setTo(0.8);
+        this.attack4_name.scale.setTo(0.8);
+        this.attack5_name.scale.setTo(0.8);
+        this.attack6_name.scale.setTo(0.8);
+        this.heal1_name.scale.setTo(0.8);
+        this.heal2_name.scale.setTo(0.8);
+        this.heal3_name.scale.setTo(0.8);
+        this.heal4_name.scale.setTo(0.8);
+
+        //結算畫面
+        this.win_dragon = game.add.image(335, 100, 'win_dragon');
+        this.win_pig = game.add.image(335, 100, 'win_pig');
+        this.win_snake = game.add.image(335, 100, 'win_snake');
+        this.win_normal = game.add.image(335, 100, 'win_normal');
+        this.win_lose = game.add.image(335, 100, 'win_lose');
+        this.win_dragon.scale.setTo(0.8);
+        this.win_pig.scale.setTo(0.8);
+        this.win_snake.scale.setTo(0.8);
+        this.win_normal.scale.setTo(0.8);
+        this.win_lose.scale.setTo(0.8);
+        this.win_dragon.alpha = 0;
+        this.win_pig.alpha = 0;
+        this.win_snake.alpha = 0;
+        this.win_normal.alpha = 0;
+        this.win_lose.alpha = 0;
+
         //enemy 攻擊
         this.enemyattack1 = game.add.sprite(850, 300, 'attack2');
         this.enemyattack1.animations.add('enemyhit2', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10);
 
         //life magic text
-        this.player_text = game.add.bitmapText(950, 30, 'fightnumber', this.life + ' ' + this.magic, 70);
-        this.enemy_text = game.add.bitmapText(85, 30, 'fightnumber', this.enemylife + ' ' + this.enemymagic, 70);
+        this.playerlife_text = game.add.bitmapText(950, 30, 'fightnumber', this.life, 65);
+        this.playermagic_text = game.add.bitmapText(1045, 30, 'fightnumber', this.magic, 65);
+        this.enemylife_text = game.add.bitmapText(80, 30, 'fightnumber', this.enemylife, 65);
+        this.enemymagic_text = game.add.bitmapText(175, 30, 'fightnumber', this.enemymagic, 65);
         this.attack_number_player_text = game.add.bitmapText(900, 320, 'fightnumber', '', 90);
         if (this.enemy_power == dragon_power)
             this.attack_number_enemy_text = game.add.bitmapText(this.enemy_x_position + 160, 320, 'fightnumber', '', 90);
@@ -281,9 +340,6 @@ var fightState = {
                         }
                         this.defendbuff = 0;
                     }
-                    console.log(this.attack_number_enemy);
-                    console.log(this.attack_number_player);
-
                     this.attack_number_player_text.text = this.attack_number_player;
                     this.attack_number_player_text.y = 320;
                     this.attack_number_player_text.alpha = 1;
@@ -298,10 +354,10 @@ var fightState = {
             }
             else {
                 this.animation_index = 0;
-                var temp = Math.floor(Math.random() * 3);
+                var temp = Math.floor(Math.random() * 2);
                 if (temp == 0) {
-                    
-                    game.time.events.add(1000, function () { ToNewPlace('forest'); this.battle_bgm.stop(); }, this);
+                    pre_state = game.state.current;
+                    game.time.events.add(1000, function () { game.state.start('forest'); this.battle_bgm.stop(); }, this);
                 }
                 else {
                     this.main.body.x = 880;
@@ -359,6 +415,18 @@ var fightState = {
             this.uiattack4.scale.setTo(0.6, 0.6);
             this.uiattack5.scale.setTo(0.6, 0.6);
             this.uiattack6.scale.setTo(0.6, 0.6);
+            this.uiattack1.onInputOver.add(function () { this.attack1_name.alpha = 1 }, this);
+            this.uiattack1.onInputOut.add(function () { this.attack1_name.alpha = 0 }, this);
+            this.uiattack2.onInputOver.add(function () { this.attack2_name.alpha = 1 }, this);
+            this.uiattack2.onInputOut.add(function () { this.attack2_name.alpha = 0 }, this);
+            this.uiattack3.onInputOver.add(function () { this.attack3_name.alpha = 1 }, this);
+            this.uiattack3.onInputOut.add(function () { this.attack3_name.alpha = 0 }, this);
+            this.uiattack4.onInputOver.add(function () { this.attack4_name.alpha = 1 }, this);
+            this.uiattack4.onInputOut.add(function () { this.attack4_name.alpha = 0 }, this);
+            this.uiattack5.onInputOver.add(function () { this.attack5_name.alpha = 1 }, this);
+            this.uiattack5.onInputOut.add(function () { this.attack5_name.alpha = 0 }, this);
+            this.uiattack6.onInputOver.add(function () { this.attack6_name.alpha = 1 }, this);
+            this.uiattack6.onInputOut.add(function () { this.attack6_name.alpha = 0 }, this);
             this.animation_index = 1;
         }
         else {//defend
@@ -371,6 +439,14 @@ var fightState = {
             this.heal.scale.setTo(0.6, 0.6);
             this.defence.scale.setTo(0.6, 0.6);
             this.rebound.scale.setTo(0.6, 0.6);
+            this.rest.onInputOver.add(function () { this.heal1_name.alpha = 1 }, this);
+            this.rest.onInputOut.add(function () { this.heal1_name.alpha = 0 }, this);
+            this.heal.onInputOver.add(function () { this.heal2_name.alpha = 1 }, this);
+            this.heal.onInputOut.add(function () { this.heal2_name.alpha = 0 }, this);
+            this.defence.onInputOver.add(function () { this.heal3_name.alpha = 1 }, this);
+            this.defence.onInputOut.add(function () { this.heal3_name.alpha = 0 }, this);
+            this.rebound.onInputOver.add(function () { this.heal4_name.alpha = 1 }, this);
+            this.rebound.onInputOut.add(function () { this.heal4_name.alpha = 0 }, this);
             this.animation_index = 2;
         }
     },
@@ -383,6 +459,7 @@ var fightState = {
     attack: function (index) {
         if (index == 1) {
             if (this.magic > 0) {
+                this.attack1_name.alpha = 0
                 this.attack1.animations.play('hit1');
                 this.attack_audio1.play();
                 this.enemylife -= (5 + this.attackbuff);
@@ -396,11 +473,18 @@ var fightState = {
         }
         else if (index == 2) {
             if (this.magic > 1) {
+                this.attack2_name.alpha = 0;
+                var hit2_power;
+                var attack_temp = Math.floor(Math.random() * 2);
+                if (attack_temp == 0)
+                    hit2_power = 16;
+                else
+                    hit2_power = 8
                 this.attack2.animations.play('hit2');
                 this.attack_audio2.play();
-                this.enemylife -= (8 + this.attackbuff);
+                this.enemylife -= (hit2_power + this.attackbuff);
                 this.magic -= 2;
-                this.attack_number_enemy_text.text = (8 + this.attackbuff);
+                this.attack_number_enemy_text.text = (hit2_power + this.attackbuff);
                 this.attack_number_enemy_text.y = 320;
                 this.attack_number_enemy_text.alpha = 1;
                 game.add.tween(this.attack_number_enemy_text).to({ y: 270 }, 500).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
@@ -409,6 +493,7 @@ var fightState = {
         }
         else if (index == 3) {
             if (this.magic > 3) {
+                this.attack3_name.alpha = 0;
                 this.attack3.alpha = 1;
                 this.attack3.animations.play('hit3');
                 this.attack_audio3.play();
@@ -424,6 +509,7 @@ var fightState = {
         }
         else if (index == 4) {
             if (this.magic > 5) {
+                this.attack4_name.alpha = 0;
                 this.attack4.animations.play('hit4');
                 this.attack_audio4.play();
                 this.enemylife -= (40 + this.attackbuff);
@@ -440,11 +526,11 @@ var fightState = {
                 this.uiattack6.destroy();
                 this.return.destroy();
                 game.time.events.add(1200, function () { this.menu(0); }, this);
-
             }
         }
         else if (index == 5) {
             if (this.magic > 6) {
+                this.attack5_name.alpha = 0;
                 this.attack5.alpha = 1;
                 this.attack5.animations.play('hit5');
                 this.attack_audio5.play();
@@ -460,6 +546,7 @@ var fightState = {
         }
         else if (index == 6) {
             if (this.magic > 8) {
+                this.attack6_name.alpha = 0;
                 this.attack6.alpha = 1;
                 this.attack6.animations.play('hit6');
                 this.attack_audio6.play();
@@ -472,11 +559,11 @@ var fightState = {
                 this.enemyattack(1);
             }
         }
-
     },
 
     defend: function (index) {
         if (index == 1) {
+            this.heal1_name.alpha = 0;
             this.defendbuff = 5;
             if (this.magic < 10) {
                 this.magic += 1;
@@ -487,6 +574,7 @@ var fightState = {
         }
         if (index == 2) {
             if (this.magic > 1) {
+                this.heal2_name.alpha = 0;
                 if (this.life + 20 <= mainlife) {
                     this.life += 20;
                 }
@@ -501,6 +589,7 @@ var fightState = {
         }
         if (index == 3) {
             if (this.magic > 4) {
+                this.heal3_name.alpha = 0;
                 this.absolute_defence = true;
                 this.magic -= 5;
                 this.shield.animations.play('heal_shield');
@@ -510,6 +599,7 @@ var fightState = {
         }
         if (index == 4) {
             if (this.magic > 7) {
+                this.heal4_name.alpha = 0;
                 console.log('rebound');
                 this.partial_reboundbuff = true;
                 this.magic -= 8;
@@ -544,7 +634,16 @@ var fightState = {
         }
         this.animation_index = 3;
         this.enemytime = game.time.now;
-        this.enemymagic += 1;
+
+        if (this.enemymagic < 10)
+            this.enemymagic += 1;
+
+        if (this.enemymagic == 10) {
+            console.log('add');
+            this.enemy_power = this.enemy_power * 2;
+            this.enemymagic -= 10;
+            game.time.events.add(400, function () { this.power_add.animations.play('add') }, this);
+        }
 
     },
 
@@ -552,7 +651,8 @@ var fightState = {
         //主角
         if (this.enemydie == false && this.playerdie == false) {
             //life magic text
-            this.player_text.text = this.life + ' ' + this.magic;
+            this.playerlife_text.text = this.life;
+            this.playermagic_text.text = this.magic;
             var ratio = (this.life / mainlife) * 10;
             if (ratio > 0) {
                 for (var i = 9; i >= (10 - ratio); i--) {
@@ -570,7 +670,8 @@ var fightState = {
             }
 
             //敵人
-            this.enemy_text.text = this.enemylife + ' ' + this.enemymagic;
+            this.enemylife_text.text = this.enemylife;
+            this.enemymagic_text.text = this.enemymagic;
             ratio = (this.enemylife / this.main_enemylife) * 10;
             if (ratio > 0) {
                 for (var i = 9; i >= (10 - ratio); i--) {
@@ -588,35 +689,55 @@ var fightState = {
             }
 
             if (this.enemylife <= 0) {//判斷敵人死亡
+                //get health
+                mainlife += 4;
+
                 for (var i = 0; i <= 9; i++)
                     this.enemylife_array[i].visible = false;
-                this.enemy_text.text = '0 ' + this.enemymagic;
+                this.enemylife_text.text = '0';
                 this.btn_attack.destroy();
                 this.btn_heal.destroy();
                 this.btn_escape.destroy();
                 this.enemydie == true;
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
-                game.time.events.add(8000, function () { ToNewPlace('forest');}, this);
+                game.time.events.add(8000, function () { game.state.start('forest'); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.enemy1).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
+                if (this.enemy_random == 1){
+                    game.time.events.add(1200, function () { game.add.tween(this.win_snake).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
+                }
+                else if (this.enemy_random == 2){
+                    game.time.events.add(1200, function () { game.add.tween(this.win_dragon).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
+                }
+                else if (this.enemy_random == 4){
+                    game.time.events.add(1200, function () { game.add.tween(this.win_pig).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
+                }
+                else{
+                    game.time.events.add(1200, function () { game.add.tween(this.win_normal).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
+                }
+                   
+
+
                 this.enemydie = true;
                 console.log('to forest')
             }
             else if (this.life <= 0) {//判斷我方死亡
                 for (var i = 0; i <= 9; i++)
                     this.life_array[i].visible = false;
-                this.player_text.text = '0 ' + this.magic;
+                this.playerlife_text.text = '0';
                 this.btn_attack.destroy();
                 this.btn_heal.destroy();
                 this.btn_escape.destroy();
                 this.playerdie = true;
-                game.time.events.add(8000, function () { game.state.start('forest'); }, this);
-                game.time.events.add(1200, function () { game.add.tween(this.main).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
+                ConsumeTime(5, 5);
+                game.time.events.add(6000, function () { game.state.start('forest'); }, this);
+                game.time.events.add(1200, function () { game.add.tween(this.main).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.lose.play(); }, this);
+                game.time.events.add(1200, function () { game.add.tween(this.win_lose).to({ alpha: 1 }, 100, Phaser.Easing.Linear.None).start(); }, this);
                 console.log('to forest')
             }
         }
     },
 
-    
+
 
 };
