@@ -68,26 +68,21 @@ var farmState = {
         updateclock(this.clock, this.arror, this.short_arror, this.time_show);
         updatefire(this.fire, this.fire_middle, this.fire_small, this.health_text);
 
-        //move to farm
+        //move to house
         if (this.player.position.x >= 820 && this.player.position.x <= 840 && this.player.position.y <= 290 && this.player.position.y >= 270) {
             if (this.cursor.up.isDown) {
-                pre_state = game.state.current;
-                game.state.start('house');
+                ToNewPlace('house');
             }
         }
-
         //move to town
         if (this.player.position.x >= 1120 && this.player.position.y <= 600 && this.player.position.y >= 550) {
             if (this.cursor.right.isDown) {
-                pre_state = game.state.current;
-                game.state.start('town');
+                ToNewPlace('town');
             }
         }
-
         //move to forest
         if (this.player.position.x <= 200 && this.player.position.y <= 350) {
-            pre_state = game.state.current;
-            game.state.start('forest');
+            ToNewPlace('forest');
         }
     },
 
@@ -177,7 +172,7 @@ var farmState = {
 
     showSeed: function (index) {
 
-        if (this.fish_step == 0) {
+        if (this.fish_step == 0)  {
             if (this.seedopen && this.fields_xy[index].x - 80 == this.box_seed.position.x && this.fields_xy[index].y - 110 == this.box_seed.position.y) {   //按第二下同個位子
                 this.initOpen();
             }
@@ -190,7 +185,7 @@ var farmState = {
                         this.box_seed = game.add.sprite(0, 0, 'box_seed');
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);
                         this.btn_seed[1] = game.add.button(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'moneyseed_0', function () { this.createPlant(index, 'moneyseed_0') }, this, 2, 1, 0);
-                    } else {
+                    }else{
                         this.btn_seed[0].destroy();
                         this.btn_seed[1].destroy();
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);
@@ -208,7 +203,7 @@ var farmState = {
                 } else {
 
                     plant.forEachAlive(function (items) {
-                        if (items.index == index && items.state == 3) {
+                        if (items.index == index && items.state == 4) {
                             this.harvest(items);
                         }
                     }, this);
@@ -238,7 +233,7 @@ var farmState = {
         tmp_plant.events.onInputOut.add(function () { this.plantInputOut(index) }, this);
         tmp_plant.scale.setTo(0.5, 0.5);
         tmp_plant.time = game.time.now;
-        tmp_plant.state = 0;
+        tmp_plant.state = 1;
         tmp_plant.index = index;
         tmp_plant.key = key;
         plant.add(tmp_plant);
@@ -263,9 +258,8 @@ var farmState = {
         var index = item.index;
         fields[1][index] = 0;
 
-        console.log(plant_warehouse);
         if (item.key == 'grass_3') {
-            plant_warehouse[0] += 5;
+            bag_list[0][0] += 5;
             grassHarvest = game.add.sprite(this.fields_xy[index].x - 10, this.fields_xy[index].y - 40, 'grass_3');
             grassHarvest.scale.setTo(0.3, 0.3);
             harvestText = game.add.text(this.fields_xy[index].x + 10, this.fields_xy[index].y - 20, '+5', { font: '15px Arial', fill: '#ffffff' });
@@ -273,7 +267,7 @@ var farmState = {
             game.add.tween(harvestText).to({ y: this.fields_xy[index].y - 30 }, 500).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
         }
         else if (item.key == 'moneyseed_3') {
-            plant_warehouse[1] += 5;
+            bag_list[0][1] += 5;
             grassHarvest = game.add.sprite(this.fields_xy[index].x - 10, this.fields_xy[index].y - 40, 'moneyseed_3');
             grassHarvest.scale.setTo(0.3, 0.3);
             harvestText = game.add.text(this.fields_xy[index].x + 10, this.fields_xy[index].y - 30, '+5', { font: '15px Arial', fill: '#ffffff' });
@@ -287,21 +281,21 @@ var farmState = {
     updatetmp: function () {
         plant.forEachAlive(function (items) {
             if (items.time + 3000 < game.time.now) {
-                if (items.state < 3) {
+                if (items.state < 4) {
                     items.time = game.time.now;
                     items.state += 1;
                     fields[2][items.index] = game.time.now;
-                    fields[1][items.index] = items.state + 1;
+                    fields[1][items.index] = items.state;
                 }
             }
 
             switch (items.state) {
-                case -1:
+                case 0:
                     items.destroy();
                     break;
-                case 0:
-                    break;
                 case 1:
+                    break;
+                case 2:
                     if (items.key == 'grass_0') {
                         items.loadTexture('grass_1', 0);
                         console.log(items.index);
@@ -310,11 +304,11 @@ var farmState = {
                     }
                     else if (items.key == 'moneyseed_0') items.loadTexture('moneyseed_1', 0);
                     break;
-                case 2:
+                case 3:
                     if (items.key == 'grass_1') items.loadTexture('grass_2', 0);
                     else if (items.key == 'moneyseed_1') items.loadTexture('moneyseed_2', 0);
                     break;
-                case 3:
+                case 4:
                     if (items.key == 'grass_2') items.loadTexture('grass_3', 0);
                     else if (items.key == 'moneyseed_2') items.loadTexture('moneyseed_3', 0);
                     break;
@@ -453,7 +447,7 @@ var farmState = {
         this.fields_time_show.visible = true;
         plant.forEachAlive(function (items) {
             if (items.index == index) {
-                state = items.state + 1;
+                state = items.state;
             }
         }, this);
         if (state == 4) {
@@ -474,13 +468,15 @@ var farmState = {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
+
             this.BagOpen = true;
+            this.bagimage.inputEnabled = true;
+            this.bagitem.visible = true;
             game.world.bringToTop(this.bagimage);
+            game.world.bringToTop(this.bagitem); 
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-            this.bagitem.visible = true;
-            game.world.bringToTop(this.bagitem);
             this.bagimage.events.onInputDown.add(BagFunction, this);
         } else {
             console.log('Close the Bag!');
@@ -493,26 +489,34 @@ var farmState = {
         if (this.MapOpen == false) {
             console.log('Open the Map!');
             this.initOpen();
+
             this.MapOpen = true;
+            this.icon.visible = true;
             game.world.bringToTop(this.mapimage);
+            game.world.bringToTop(this.icon);
             game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
-            console.log(game.state.current);
-            this.icon.visible = true;
             if (game.state.current != "house") this.map_icon_house.visible = true;
             if (game.state.current != "farm") this.map_icon_farm.visible = true;
             if (game.state.current != "forest") this.map_icon_forest.visible = true;
             if (game.state.current != "town") this.map_icon_town.visible = true;
-
-            //this.map_icon_forest.visible = true;
-            game.world.bringToTop(this.icon);
+            
         } else {
             console.log('Close the Map!');
             this.initOpen();
         }
     },
     initOpen: function () {
-        //console.log('hi');
+        this.MapOpen = false;
+        this.BagOpen = false;
+        this.mapimage.inputEnabled = false;
+        this.bagimage.inputEnabled = false;
+        this.bagitem.visible = false;
+        this.icon.visible = false;
+        game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        
+        
         this.fishopen = false;
         this.seedopen = false;
 
@@ -528,17 +532,6 @@ var farmState = {
         this.btn_seed_index = -1;
         if (this.btn_seed[0] != 0) this.btn_seed[0].destroy();
         if (this.btn_seed[1] != 0) this.btn_seed[1].destroy();
-
-        this.MapOpen = false;
-        this.BagOpen = false;
-        //this.NpcOpen = false;
-
-        this.bagitem.visible = false;
-        this.icon.visible = false;
-
-        game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
-        game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
-        //game.add.tween(this.messageimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
     },
     replantPlant: function () {
         console.log('new');
@@ -548,20 +541,20 @@ var farmState = {
             if (fields[1][i] != 0) {
                 tmp_index[i] = 1;
                 if (fields[0][i] == 'grass_0') {
-                    switch (fields[1][i] - 1) {
-                        case 0:
+                    switch (fields[1][i]) {
+                        case 1:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 20, this.fields_xy[i].y - 10, 'grass_0');
                             tmp_plant.state = 0;
                             break;
-                        case 1:
+                        case 2:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'grass_1');
                             tmp_plant.state = 1;
                             break;
-                        case 2:
+                        case 3:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'grass_2');
                             tmp_plant.state = 2;
                             break;
-                        case 3:
+                        case 4:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'grass_3');
                             tmp_plant.state = 3;
                             break;
@@ -569,20 +562,20 @@ var farmState = {
                     tmp_plant.index = fields[3][i];
                 }
                 else if (fields[0][i] == 'moneyseed_0') {
-                    switch (fields[1][i] - 1) {
-                        case 0:
+                    switch (fields[1][i]) {
+                        case 1:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 20, this.fields_xy[i].y - 10, 'moneyseed_0');
                             tmp_plant.state = 0;
                             break;
-                        case 1:
+                        case 2:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'moneyseed_1');
                             tmp_plant.state = 1;
                             break;
-                        case 2:
+                        case 3:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'moneyseed_2');
                             tmp_plant.state = 2;
                             break;
-                        case 3:
+                        case 4:
                             tmp_plant = game.add.sprite(this.fields_xy[i].x + 15, this.fields_xy[i].y - 25, 'moneyseed_3');
                             tmp_plant.state = 3;
                             break;
@@ -595,7 +588,6 @@ var farmState = {
                 //tmp_plant.events.onInputOut.add(function () { this.plantInputOut(tmp_plant.index ) }, this);
                 tmp_plant.scale.setTo(0.5, 0.5);
                 tmp_plant.time = game.time.now;
-                tmp_plant.key = fields[0][tmp_plant.index];
                 console.log(tmp_plant);
                 plant.add(tmp_plant);
             }

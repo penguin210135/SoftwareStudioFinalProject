@@ -3,22 +3,14 @@ var houseState = {
 
     },
     create: function () {
-        /*Default Init*/
+        
         //game.world.resize(6000, 600);
-        game.stage.backgroundColor = '#000000';
-        //game.physics.setBoundsToWorld();
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.renderer.renderSession.roundPixels = true;
-
-        //input
+        //cursor input
         this.cursor = game.input.keyboard.createCursorKeys();
-        game.input.mouse.capture = true;
-
         //map
         this.createmap();
         //player 
         createplayer(this);
-       
         //ui & button
         createiconbag(this);
         createiconmap(this);
@@ -26,16 +18,12 @@ var houseState = {
         createclock(this);
         createfire(this);
 
-        //NPC
-        this.messageimage = game.add.image(0, 500, 'msgblock_1');
-        this.messageimage.height = 200;
-        this.messageimage.width = game.width;
-        this.messageimage.fixedToCamera = true;
-        this.messageimage.alpha = 0;
+        //msg
+        createmessageblock(this);
+
         this.keyboard_T = game.input.keyboard.addKey(Phaser.Keyboard.T);
         this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.keyboard_T.onDown.add(this.communication, this, null);
-        this.NpcOpen = false;
     },
     createmap: function () {
         //set the default background
@@ -67,7 +55,6 @@ var houseState = {
         game.physics.arcade.collide(this.player, this.map_wall);
         game.physics.arcade.collide(this.player, this.map_obj);
         game.physics.arcade.collide(this.player, this.bound);
-
         updateclock(this.clock, this.arror, this.short_arror,this.time_show);
         updatefire(this.fire, this.fire_middle, this.fire_small, this.health_text);
 
@@ -78,8 +65,7 @@ var houseState = {
 
         if (this.player.x <= 400 && this.player.x >= 300 && this.player.y > 600) {
             if (this.cursor.down.isDown) {
-                pre_state = game.state.current;
-                game.state.start('farm');
+                ToNewPlace('farm');
             }
         }
     },
@@ -89,13 +75,15 @@ var houseState = {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
+
             this.BagOpen = true;
+            this.bagimage.inputEnabled = true;
+            this.bagitem.visible = true;
             game.world.bringToTop(this.bagimage);
+            game.world.bringToTop(this.bagitem); 
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
-            this.bagitem.visible = true;
-            game.world.bringToTop(this.bagitem); 
             this.bagimage.events.onInputDown.add(BagFunction, this);
         } else {
             console.log('Close the Bag!');
@@ -109,18 +97,16 @@ var houseState = {
             console.log('Open the Map!');
             this.initOpen();
             this.MapOpen = true;
-            game.world.bringToTop(this.mapimage);
-            game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
-            
-            console.log(game.state.current);
             this.icon.visible = true;
+            game.world.bringToTop(this.mapimage);
+            game.world.bringToTop(this.icon);
+            game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
             if (game.state.current != "house") this.map_icon_house.visible = true;
             if (game.state.current != "farm") this.map_icon_farm.visible = true;
             if (game.state.current != "forest") this.map_icon_forest.visible = true;
             if (game.state.current != "town") this.map_icon_town.visible = true;
             
-            //this.map_icon_forest.visible = true;
-            game.world.bringToTop(this.icon);
         } else {
             console.log('Close the Map!');
             this.initOpen();
@@ -131,31 +117,35 @@ var houseState = {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
-            this.BagOpen = true;
-            game.world.bringToTop(this.bagimage);
-            game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+            
+            this.KitchenOpen = true;
+            this.kitchenimage.inputEnabled = true;
+            game.world.bringToTop(this.kitchenimage);
+            game.add.tween(this.kitchenimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
-            //add button
-            this.bagitem.visible = true;
-            game.world.bringToTop(this.bagitem); 
-            this.bagimage.events.onInputDown.add(BagFunction, this);
+            
         } else {
             console.log('Close the Bag!');
             this.initOpen();
-            this.bagimage.events.onInputDown.removeAll();
+            
         }
     },
 
     initOpen: function () {
         this.MapOpen = false;
         this.BagOpen = false;
-        this.NpcOpen = false;
-       
+        this.mapimage.inputEnabled = false;
+        this.bagimage.inputEnabled = false;
         this.bagitem.visible = false;
         this.icon.visible = false;
         game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
         game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        
+        this.KitchenOpen = false;
+        this.kitchenimage.inputEnabled = false;
+        game.add.tween(this.kitchenimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
         game.add.tween(this.messageimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        this.NpcOpen = false;
     },
 
     communication: function (npc) {

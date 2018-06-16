@@ -300,8 +300,8 @@ var fightState = {
                 this.animation_index = 0;
                 var temp = Math.floor(Math.random() * 3);
                 if (temp == 0) {
-                    pre_state = game.state.current;
-                    game.time.events.add(1000, function () { game.state.start('forest'); this.battle_bgm.stop(); }, this);
+                    
+                    game.time.events.add(1000, function () { ToNewPlace('forest'); this.battle_bgm.stop(); }, this);
                 }
                 else {
                     this.main.body.x = 880;
@@ -597,7 +597,7 @@ var fightState = {
                 this.enemydie == true;
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
-                game.time.events.add(8000, function () { game.state.start('forest'); }, this);
+                game.time.events.add(8000, function () { ToNewPlace('forest');}, this);
                 game.time.events.add(1200, function () { game.add.tween(this.enemy1).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
                 this.enemydie = true;
                 console.log('to forest')

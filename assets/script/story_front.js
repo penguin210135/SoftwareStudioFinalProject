@@ -12,23 +12,18 @@ var storyfrontState = {
         this.textroll = game.add.image(85, 720, 'talk_front_run');
 
         //msg
-        this.messageimage = game.add.image(0, 500, 'msgblock_1');
-        this.messageimage.height = 200;
-        this.messageimage.width = game.width;
-        this.messageimage.fixedToCamera = true;
+        createmessageblock(this);
         this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.keyboard_enter.onDown.add(this.nextstorystep, this, null);
-        this.messageimage.visible = false;
-
+        
         game.add.tween(this.textroll).to({ y: -1000 }, 8000, Phaser.Easing.Linear.None, true);
-
 
         this.talkimage = game.add.image(0, 500, 'talk_front_1');
         this.talkimage.visible = false;
     },
     update: function () {
         if (this.storystep >= 5) {
-            game.state.start('house');
+            ToNewPlace('house');
         }
 
         if (this.textroll.y <= -1000) {

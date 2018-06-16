@@ -4,7 +4,7 @@ bag_list[0] = [0, 0, 0, 0];
 bag_list[1] = [0, 0, 0, 0];
 bag_list[2] = [0, 0, 0, 0];
 var seed_list = [];
-seed_list[0] = [0, 0, 0, 0];
+seed_list[0] = [10, 10, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
 var dish_list = [];
 var bag_index = 10;
@@ -140,14 +140,14 @@ function createiconbag(that) {
     that.BagOpen = false;
 
     that.Bag_item_0 = game.add.image(660, 268, 'Bagitem_0');
-    that.Bag_item_0_number = game.add.bitmapText(680, 300, 'carrier_command', bag_list[0][0].toString(), 16);
+    that.Bag_item_0_number = game.add.bitmapText(700, 305, 'carrier_command', bag_list[0][0].toString(), 16);
 
     that.Bag_item_1 = game.add.image(755, 268, 'Bagitem_1');
-    that.Bag_item_1_number = game.add.bitmapText(775, 300, 'carrier_command', bag_list[0][1].toString(), 16);
+    that.Bag_item_1_number = game.add.bitmapText(795, 305, 'carrier_command', bag_list[0][1].toString(), 16);
     that.Bag_item_2 = game.add.image(855, 268, 'Bagitem_2');
-    that.Bag_item_2_number = game.add.bitmapText(875, 300, 'carrier_command', bag_list[0][2].toString(), 16);
+    that.Bag_item_2_number = game.add.bitmapText(895, 305, 'carrier_command', bag_list[0][2].toString(), 16);
     that.Bag_item_3 = game.add.image(960, 268, 'Bagitem_3');
-    that.Bag_item_3_number = game.add.bitmapText(980, 300, 'carrier_command', bag_list[0][3].toString(), 16);
+    that.Bag_item_3_number = game.add.bitmapText(1000, 305, 'carrier_command', bag_list[0][3].toString(), 16);
 
     that.bagitem = game.add.group();
     that.bagitem.add(that.Bag_item_0);
@@ -176,13 +176,13 @@ function createiconmap(that) {
     that.keyboard_M.onDown.add(that.MapOnClick, that, that);
     that.MapOpen = false;
 
-    that.map_icon_forest = game.add.button(700, 300, 'Map_Forest', ToForest, that);
+    that.map_icon_forest = game.add.button(700, 300, 'Map_Forest', function () { ToNewPlace('forest') }, this);
     that.map_icon_forest.scale.setTo(0.5, 0.5);
-    that.map_icon_house = game.add.button(800, 350, 'Map_House', ToHouse, that);
+    that.map_icon_house = game.add.button(800, 350, 'Map_House', function () { ToNewPlace('house') }, this);
     that.map_icon_house.scale.setTo(0.5, 0.5);
-    that.map_icon_farm = game.add.button(950, 300, 'Map_Farm', ToFarm, that);
+    that.map_icon_farm = game.add.button(950, 300, 'Map_Farm', function () { ToNewPlace('farm') }, this);
     that.map_icon_farm.scale.setTo(0.5, 0.5);
-    that.map_icon_town = game.add.button(800, 460, 'Map_Town', ToTown, that);
+    that.map_icon_town = game.add.button(800, 460, 'Map_Town', function () { ToNewPlace('town') }, this);
     that.map_icon_town.scale.setTo(0.5, 0.5);
 
     that.map_icon_farm.visible = false;
@@ -199,6 +199,11 @@ function createiconmap(that) {
 };
 
 function createiconkitchen(that) {
+    that.kitchenimage = game.add.image(600, 200, 'map_0');
+    that.kitchenimage.fixedToCamera = true;
+    that.kitchenimage.inputEnabled = true;
+    that.kitchenimage.alpha = 0;
+
     that.kitchenbutton = game.add.button(1160 - 400, 720 - 100, 'Cook', that.MapOnClick, that);
     that.kitchenbutton.fixedToCamera = true;
     that.kitchenbutton.height = 100;
@@ -210,6 +215,16 @@ function createiconkitchen(that) {
     that.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
     that.keyboard_K.onDown.add(that.MapOnClick, that);
     that.KitchenOpen = false;
+};
+
+function createmessageblock(that) {
+    //msg
+    that.messageimage = game.add.image(0, 500, 'msgblock_1');
+    that.messageimage.height = 200;
+    that.messageimage.width = game.width;
+    that.messageimage.fixedToCamera = true;
+    that.messageimage.visible = false;
+    that.MsgOpen = false;
 };
 
 function updateclock(clock, arror, short, time) {
@@ -245,6 +260,14 @@ function updatefire(fire, fire_middle, fire_small, health_text) {
     }
 };
 
+function updatebag() {
+
+    that.Bag_item_0_number.text = bag_list[0][0].toString();
+    that.Bag_item_1_number.text = bag_list[0][1].toString();
+    that.Bag_item_2_number.text = bag_list[0][2].toString();
+    that.Bag_item_3_number.text = bag_list[0][3].toString();
+};
+
 function moveplayer(cursor, player) {
     if (cursor.left.isDown) {
         player.body.velocity.x = -200;
@@ -264,32 +287,11 @@ function moveplayer(cursor, player) {
         player.animations.stop();
     }
 };
-function BagFunction() {
-    console.log("Use the Bag!!");
-};
-function MapFunction() {
-    console.log(game.state.current);
-};
 
-function ToTown() {
-    console.log("Move to town");
+function ToNewPlace(place) {
+    //console.log("Move to " + place._onOverFrame);
     pre_state = game.state.current;
-    game.state.start('town');
-};
-function ToHouse() {
-    console.log("Move to house");
-    pre_state = game.state.current;
-    game.state.start('house');
-};
-function ToFarm() {
-    console.log("Move to farm");
-    pre_state = game.state.current;
-    game.state.start('farm');
-};
-function ToForest() {
-    console.log("Move to forest");
-    pre_state = game.state.current;
-    game.state.start('forest');
+    game.state.start(place);
 };
 
 function ConsumeTime(health, time) {
