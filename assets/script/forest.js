@@ -16,11 +16,11 @@ var forestState = {
         this.map_ground = this.forest_map.createLayer('groud');
         this.map_tree = this.forest_map.createLayer('tree');
         this.map_npc = this.forest_map.createLayer('npc');
-    
-        this.map_floor.anchor.set(-0.035,-0.02);
-        this.map_ground.anchor.set(-0.035,-0.02);
-        this.map_tree.anchor.set(-0.035,-0.02);
-        this.map_npc.anchor.set(-0.035,-0.02);
+
+        this.map_floor.anchor.set(-0.035, -0.02);
+        this.map_ground.anchor.set(-0.035, -0.02);
+        this.map_tree.anchor.set(-0.035, -0.02);
+        this.map_npc.anchor.set(-0.035, -0.02);
         //this.layer1.x = 200;
 
         this.forest_map.setCollisionBetween(286, 315, true, this.map_tree);
@@ -46,11 +46,11 @@ var forestState = {
             'd': Phaser.Keyboard.D
         });
 
-         //ui & button
-         createiconbag(this);
-         createiconmap(this);
-         createclock(this);
-         createfire(this);
+        //ui & button
+        createiconbag(this);
+        createiconmap(this);
+        createclock(this);
+        createfire(this);
     },
     update: function () {
 
@@ -62,10 +62,10 @@ var forestState = {
             this.player_prey == this.player.position.y;
             this.fight_random();
         }
-        if(this.player.x >= 1120){
-            if(this.cursor.right.isDown){
+        if (this.player.x >= 1120) {
+            if (this.cursor.right.isDown) {
                 pre_state = game.state.current;
-                game.state.start('farm'); 
+                game.state.start('farm');
             }
         }
     },
@@ -74,11 +74,14 @@ var forestState = {
         if (temp == 0) {
             this.enterbattle.play();
             game.camera.shake(0.02, 300);
-            ConsumeTime(10,50);
-            player_x = this.player.x;
-            player_y = this.player.y;
-            game.time.events.add(500, function () { game.state.start('fight'); }, this);
-            
+            ConsumeTime(10, 50);
+
+            game.time.events.add(500, function () {
+                player_x = this.player.x;
+                player_y = this.player.y;
+                game.state.start('fight');
+            }, this);
+
         }
     },
     BagOnClick: function () {
@@ -92,7 +95,7 @@ var forestState = {
 
             //add button
             this.bagitem.visible = true;
-            game.world.bringToTop(this.bagitem); 
+            game.world.bringToTop(this.bagitem);
             this.bagimage.events.onInputDown.add(BagFunction, this);
         } else {
             console.log('Close the Bag!');
@@ -108,14 +111,14 @@ var forestState = {
             this.MapOpen = true;
             game.world.bringToTop(this.mapimage);
             game.add.tween(this.mapimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
-            
+
             console.log(game.state.current);
             this.icon.visible = true;
             if (game.state.current != "house") this.map_icon_house.visible = true;
             if (game.state.current != "farm") this.map_icon_farm.visible = true;
             if (game.state.current != "forest") this.map_icon_forest.visible = true;
             if (game.state.current != "town") this.map_icon_town.visible = true;
-            
+
             //this.map_icon_forest.visible = true;
             game.world.bringToTop(this.icon);
         } else {
@@ -128,7 +131,7 @@ var forestState = {
         this.MapOpen = false;
         this.BagOpen = false;
         //this.NpcOpen = false;
-       
+
         this.bagitem.visible = false;
         this.icon.visible = false;
         game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
