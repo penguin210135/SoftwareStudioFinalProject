@@ -90,6 +90,12 @@ Technotip.Preloader.prototype = {
         game.load.image('talk_seed_3', 'assets/image/talk/talk_seed3.png');
         game.load.image('talk_seed_4', 'assets/image/talk/talk_seed4.png');
         game.load.image('talk_seed_5', 'assets/image/talk/talk_seed5.png');
+        game.load.image('talk_die_1', 'assets/image/talk/talk_die1.png');
+        game.load.image('talk_die_2', 'assets/image/talk/talk_die2.png');
+        game.load.image('talk_die_3', 'assets/image/talk/talk_die3.png');
+        game.load.image('talk_die_4', 'assets/image/talk/talk_die4.png');
+        game.load.image('talk_die_5', 'assets/image/talk/talk_die5.png');
+        game.load.image('talk_die_6', 'assets/image/talk/talk_die6.png');
 
 
         //farm

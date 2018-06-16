@@ -10,6 +10,7 @@ game.state.add('forest', forestState);
 game.state.add('town', townState);
 game.state.add('story_front', storyfrontState);
 game.state.add('gamewin', GamewinState);
+game.state.add('gameover', GameoverState);
 //game.state.add('battle', battleState);
 //game.state.add('city', cityState);
 

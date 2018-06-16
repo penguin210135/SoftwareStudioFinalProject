@@ -43,6 +43,9 @@ var setState = {
         //Enter
         this.enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.enter.onDown.add(this.changepage, this);
+
+        this.enter_sound = game.add.audio('enter_sound');
+        this.enter_sound.volume = bgm_volumn;
     },
 
     update: function () {
@@ -73,9 +76,11 @@ var setState = {
     },
     changepage:function(){
         if(this.arrow.position.x == 315){    //submit
+            this.enter_sound.play();
             console.log("set volumn: "+ this.set_volumn);
             menuState.menu_bgm.volume = bgm_volumn;
         }else if (this.arrow.position.x == 750){
+            this.enter_sound.play();
             game.state.start('menu');
         }
     }

@@ -7,7 +7,7 @@ var seed_list = [];
 seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
 var dish_score = 0;
-var lifetime = 60;
+var lifetime = 600;
 var player_health = 100;
 var pet_life = 40;
 var pre_state = "house";
@@ -302,12 +302,13 @@ function forcetosleep() {
     if (player_health <= 0) {
         ToNewPlace('house');
         ConsumeTime(60, 0);
+        player_health = 100;
     }
 
 };
 
 function gameover() {
     if (lifetime < 0) {
-        ToNewPlace('gamewin');
+        ToNewPlace('gameover');
     }
 };

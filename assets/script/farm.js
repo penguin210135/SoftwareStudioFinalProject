@@ -190,8 +190,8 @@ var farmState = {
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);
                         this.btn_seed[1] = game.add.button(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'moneyseed_0', function () { this.createPlant(index, 'moneyseed_0') }, this, 2, 1, 0);
 
-                        this.seed_number[0] = game.add.bitmapText(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'carrier_command', seed_list[0][0].toString(), 8);
-                        this.seed_number[1] = game.add.bitmapText(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'carrier_command', seed_list[0][1].toString(), 8);
+                        this.seed_number[0] = game.add.bitmapText(this.fields_xy[index].x - 40, this.fields_xy[index].y - 76, 'carrier_command', seed_list[0][0].toString(), 12);
+                        this.seed_number[1] = game.add.bitmapText(this.fields_xy[index].x + 10, this.fields_xy[index].y - 76, 'carrier_command', seed_list[0][1].toString(), 12);
                     } else {
                         this.btn_seed[0].destroy();
                         this.btn_seed[1].destroy();
@@ -200,8 +200,8 @@ var farmState = {
 
                         this.btn_seed[0] = game.add.button(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'grass_0', function () { this.createPlant(index, 'grass_0') }, this, 2, 1, 0);
                         this.btn_seed[1] = game.add.button(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'moneyseed_0', function () { this.createPlant(index, 'moneyseed_0') }, this, 2, 1, 0);
-                        this.seed_number[0] = game.add.bitmapText(this.fields_xy[index].x - 65, this.fields_xy[index].y - 126, 'carrier_command', seed_list[0][0].toString(), 8);
-                        this.seed_number[1] = game.add.bitmapText(this.fields_xy[index].x - 10, this.fields_xy[index].y - 143, 'carrier_command', seed_list[0][1].toString(), 8);
+                        this.seed_number[0] = game.add.bitmapText(this.fields_xy[index].x - 40, this.fields_xy[index].y - 76, 'carrier_command', seed_list[0][0].toString(), 12);
+                        this.seed_number[1] = game.add.bitmapText(this.fields_xy[index].x + 10, this.fields_xy[index].y - 76, 'carrier_command', seed_list[0][1].toString(), 12);
                     }
 
                     this.box_seed.scale.setTo(0.5, 0.5);

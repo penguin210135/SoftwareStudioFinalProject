@@ -12,7 +12,7 @@ var menuState = {
         background.height = game.height;
         background.width = game.width;
 
-        this.Title = game.add.bitmapText(game.width / 2, game.height / 2, 'carrier_command', 'Foome', 64);
+        this.Title = game.add.bitmapText(game.width / 2, game.height / 2, 'carrier_command', 'MeiShi', 64);
         this.start = game.add.bitmapText(360, 300, 'carrier_command', 'Start', 40);
         this.set = game.add.bitmapText(360, 400, 'carrier_command', 'Set', 40);
         this.rank = game.add.bitmapText(360, 500, 'carrier_command', 'Rank', 40);
@@ -50,6 +50,7 @@ var menuState = {
         this.enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.enter.onDown.add(this.changepage, this);
         this.enter_sound = game.add.audio('enter_sound');
+        this.enter_sound.volume = bgm_volumn;
     },
 
     update: function () {
@@ -81,7 +82,7 @@ var menuState = {
                 this.arrow.position.setTo(this.rank.position.x - 120, 500);
                 break;
             case 3:
-                this.arrow.position.setTo(this.story.position.x - 150, 600);
+                this.arrow.position.setTo(this.story.position.x - 170, 600);
                 break;
         }
     },
@@ -91,10 +92,10 @@ var menuState = {
         switch (this.arrow.pos) {
             case 0:
                 this.menu_bgm.stop();
-                game.state.start('story_front');
+                ToNewPlace('story_front');
                 break;
             case 1:
-                game.state.start('set');
+                ToNewPlace('set');
                 break;
             case 2:
 
