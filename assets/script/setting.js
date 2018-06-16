@@ -4,10 +4,8 @@ var setState = {
     },
 
     create: function () {
-        game.stage.backgroundColor = '#3498db';
-        game.renderer.renderSession.roundPixels = true;
+       
         this.cursor = game.input.keyboard.createCursorKeys();
-        game.input.mouse.capture = true;
 
         var background = game.add.image(0, 0, 'background');
         background.height = game.height;

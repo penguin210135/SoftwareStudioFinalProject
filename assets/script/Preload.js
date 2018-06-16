@@ -12,6 +12,7 @@ Technotip.Preloader.prototype = {
         game.load.image('background', 'assets/image/menu/background_menu_1.jpg');
         game.load.image('arrow', 'assets/image/menu/arrow.png');
         game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
+        game.load.image('author', 'assets/image/menu/author.png');
 
         //setting
         game.load.image('setting-bar', 'assets/image/setting/setting-rect.png');

@@ -25,6 +25,7 @@ var forestState = {
         this.temp = 100;
 
         this.enterbattle = game.add.audio('enterbattle');
+
     },
 
     update: function () {
@@ -34,10 +35,10 @@ var forestState = {
         updatefire(this);
         updatebag(this);
 
-        if(this.temp!=0){
-            if (!this.BagOpen && !this.MapOpen ) moveplayer(this);
+        if (this.temp != 0) {
+            if (!this.BagOpen && !this.MapOpen) moveplayer(this);
         }
-        
+
         if (this.player_prex != this.player.position.x || this.player_prey != this.player.position.y) {
             this.player_prex = this.player.position.x;
             this.player_prey = this.player.position.y;
@@ -70,12 +71,12 @@ var forestState = {
         if (this.BagOpen == false) {
             console.log('Open the Bag!');
             this.initOpen();
-            
+
             this.BagOpen = true;
             this.bagimage.inputEnabled = true;
             this.bagitem.visible = true;
             game.world.bringToTop(this.bagimage);
-            game.world.bringToTop(this.bagitem); 
+            game.world.bringToTop(this.bagitem);
             game.add.tween(this.bagimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
             //add button
@@ -103,7 +104,7 @@ var forestState = {
             if (game.state.current != "town") this.map_icon_town.visible = true;
 
             //this.map_icon_forest.visible = true;
-            
+
         } else {
             console.log('Close the Map!');
             this.initOpen();
@@ -119,6 +120,6 @@ var forestState = {
         this.icon.visible = false;
         game.add.tween(this.bagimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
         game.add.tween(this.mapimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
-        
+
     },
 };

@@ -1,4 +1,4 @@
-var GameoverState = {
+var gameoverState = {
     preload: function () {
 
     },

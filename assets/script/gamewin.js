@@ -1,4 +1,4 @@
-var GamewinState = {
+var gamewinState = {
     preload: function () {
 
     },

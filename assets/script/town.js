@@ -51,7 +51,6 @@ var townState = {
         this.seed = game.add.button(500, 140, 'npc_seed', this.NPC_seed, this);
 
         this.talkimage = game.add.image(0, 500, 'talk_dan_1');
-
         this.talkimage.visible = false;
 
         this.Talktodan = false;

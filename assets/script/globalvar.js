@@ -6,12 +6,16 @@ bag_list[2] = [0, 0, 0, 0];
 var seed_list = [];
 seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
-var dish_score = 0;
+
 var lifetime = 600;
 var player_health = 100;
 var pet_life = 40;
 var pre_state = "house";
+
+//rank
 var user_name = "Visitor";
+var player_score = 0;
+var database = firebase.database().ref();
 
 //battle
 var mainlife = 40;
@@ -338,4 +342,18 @@ function gameover() {
     if (lifetime < 0) {
         ToNewPlace('gameover');
     }
+};
+
+function senddata() {
+    var currentdate = new Date();
+    var datetime =
+        currentdate.getFullYear() + "/" +
+        (currentdate.getMonth() + 1) + "/" +
+        currentdate.getDate();
+    var Data = {
+        name: user_name,
+        score: player_score,
+        time: datetime
+    };
+    database.push(Data);
 };

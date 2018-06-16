@@ -17,20 +17,23 @@ var menuState = {
         this.set = game.add.bitmapText(360, 400, 'carrier_command', 'Set', 40);
         this.rank = game.add.bitmapText(360, 500, 'carrier_command', 'Rank', 40);
         this.story = game.add.bitmapText(360, 600, 'carrier_command', 'Author', 40);
+        this.skill = game.add.bitmapText(360, 600, 'carrier_command', 'Skill', 40);
 
         this.Title.anchor.setTo(0.5, 0.5);
-        this.Title.position.setTo(game.width / 2, 150);
+        this.Title.position.setTo(game.width / 2, 100);
         this.start.anchor.setTo(0.5, 0.5);
-        this.start.position.setTo(game.width / 2, 300);
+        this.start.position.setTo(game.width / 2, 200);
         this.set.anchor.setTo(0.5, 0.5);
-        this.set.position.setTo(game.width / 2, 400);
+        this.set.position.setTo(game.width / 2, 300);
         this.rank.anchor.setTo(0.5, 0.5);
-        this.rank.position.setTo(game.width / 2, 500);
+        this.rank.position.setTo(game.width / 2, 400);
+        this.skill.anchor.setTo(0.5, 0.5);
+        this.skill.position.setTo(game.width / 2, 500);
         this.story.anchor.setTo(0.5, 0.5);
         this.story.position.setTo(game.width / 2, 600);
-        //set list
 
-        this.arrow = game.add.image(300, 315, 'arrow');
+
+        this.arrow = game.add.image(300, 215, 'arrow');
         this.arrow.anchor.setTo(0.5, 0.5);
         this.arrow.scale.setTo(0.02, 0.02);
         this.arrow.angle = -90;
@@ -66,22 +69,25 @@ var menuState = {
                 this.arrow.pos -= 1;
             }
         } else if (this.cursor.down.isDown) {
-            if (this.arrow.pos != 3) {
+            if (this.arrow.pos != 4) {
                 this.arrow.pos += 1;
             }
         }
 
         switch (this.arrow.pos) {
             case 0:
-                this.arrow.position.setTo(this.start.position.x - 150, 300);
+                this.arrow.position.setTo(this.start.position.x - 150, 200);
                 break;
             case 1:
-                this.arrow.position.setTo(this.set.position.x - 100, 400);
+                this.arrow.position.setTo(this.set.position.x - 100, 300);
                 break;
             case 2:
-                this.arrow.position.setTo(this.rank.position.x - 120, 500);
+                this.arrow.position.setTo(this.rank.position.x - 120, 400);
                 break;
             case 3:
+                this.arrow.position.setTo(this.skill.position.x - 150, 500);
+                break;
+            case 4:
                 this.arrow.position.setTo(this.story.position.x - 170, 600);
                 break;
         }
@@ -98,10 +104,13 @@ var menuState = {
                 ToNewPlace('set');
                 break;
             case 2:
-
+                ToNewPlace('rank');
                 break;
             case 3:
 
+                break;
+            case 4:
+                ToNewPlace('author');
                 break;
         }
     }
