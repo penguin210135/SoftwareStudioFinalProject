@@ -31,6 +31,7 @@ var forestState = {
         createplayer(this);
         this.player_prex = this.player.position.x;
         this.player_prey = this.player.position.y;
+        this.temp = 100;
 
         this.enterbattle = game.add.audio('enterbattle');
 
@@ -56,7 +57,10 @@ var forestState = {
 
         game.physics.arcade.collide(this.player, this.map_tree);
 
-        moveplayer(this.cursor, this.player);
+        if(this.temp!=0){
+            moveplayer(this.cursor, this.player);
+        }
+        
         if (this.player_prex != this.player.position.x || this.player_prey != this.player.position.y) {
             this.player_prex == this.player.position.x;
             this.player_prey == this.player.position.y;
@@ -70,15 +74,14 @@ var forestState = {
         }
     },
     fight_random: function () {
-        var temp = Math.floor(Math.random() * 200);
-        if (temp == 0) {
+        this.temp = Math.floor(Math.random() * 200);
+        if (this.temp == 0) {
             this.enterbattle.play();
             game.camera.shake(0.02, 300);
             ConsumeTime(10, 50);
-
+            player_x = this.player.x;
+            player_y = this.player.y;
             game.time.events.add(500, function () {
-                player_x = this.player.x;
-                player_y = this.player.y;
                 game.state.start('fight');
             }, this);
 
