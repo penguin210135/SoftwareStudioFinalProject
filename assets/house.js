@@ -26,6 +26,12 @@ var houseState = {
         this.keyboard_T.onDown.add(this.communication, this, null);
 
         this.createbed();
+
+        this.composeIngredient = [0, 0, 0];
+        this.composeindex = [0, 0, 0];
+        this.dish;
+        this.click_btn_cook = true; 
+        this.count = 0;
     },
     createmap: function () {
         //set the default background
@@ -64,9 +70,6 @@ var houseState = {
         updateclock(this);
         updatefire(this);
         updatebag(this);
-        forcetosleep();
-        gameover();
-        
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
             if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this);
@@ -232,7 +235,6 @@ var houseState = {
         }
         console.log(bag_list);
     },
-
     initOpen: function () {
         this.MapOpen = false;
         this.BagOpen = false;

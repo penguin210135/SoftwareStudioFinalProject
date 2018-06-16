@@ -1,21 +1,18 @@
 var bgm_volumn = 0.5;
 var bag_list = [];
-bag_list[0] = [1, 0, 0, 0];
-bag_list[1] = [1, 0, 0, 0];
-bag_list[2] = [1, 0, 0, 0];
+bag_list[0] = [2, 2, 0, 0];
+bag_list[1] = [0, 0, 2, 2];
+bag_list[2] = [2, 2, 0, 0];
 var seed_list = [];
 seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
-
-var lifetime = 600;
+var dish_list = [];
+var bag_index = 10;
+var seed_index = 8;
+var lifetime = 1000;
 var player_health = 100;
 var pet_life = 40;
 var pre_state = "house";
-
-//rank
-var user_name = "Visitor";
-var player_score = 0;
-var database = firebase.database().ref();
 
 //battle
 var mainlife = 40;
@@ -145,70 +142,25 @@ function createiconbag(that) {
     that.keyboard_B.onDown.add(that.BagOnClick, that);
     that.BagOpen = false;
 
-    that.Bag_item_0 = game.add.image(660, 268, 'fish_2');
-    that.Bag_item_1 = game.add.image(755, 268, 'fish_3');
-    that.Bag_item_2 = game.add.image(855, 268, 'fish_0');
-    that.Bag_item_3 = game.add.image(960, 268, 'fish_1');
-    that.Bag_item_4 = game.add.image(660, 368, 'fish_4');
-    that.Bag_item_5 = game.add.image(755, 368, 'meat_dragon');
-    that.Bag_item_6 = game.add.image(855, 368, 'meat_snake');
-    that.Bag_item_7 = game.add.image(960, 368, 'meat_pig');
-    that.Bag_item_8 = game.add.image(660, 468, 'egg');
-    that.Bag_item_9 = game.add.image(755, 468, 'mushroom');
-    that.Bag_item_10 = game.add.image(855, 468, 'grass_3');
-    that.Bag_item_11 = game.add.image(960, 468, 'moneyseed_1');
-
-    that.Bag_item_0.scale.setTo(0.35, 0.35);
-    that.Bag_item_1.scale.setTo(0.15, 0.15);
-    that.Bag_item_2.scale.setTo(0.5, 0.5);
-    that.Bag_item_3.scale.setTo(0.5, 0.5);
-    that.Bag_item_4.scale.setTo(0.4, 0.4);
-    that.Bag_item_10.scale.setTo(0.6, 0.6);
-    that.Bag_item_11.scale.setTo(0.6, 0.6);
-
-    that.Bag_item_1.position.setTo(755, 278);
-    that.Bag_item_10.position.setTo(855, 448);
-    that.Bag_item_11.position.setTo(960, 448);
-
+    that.Bag_item_0 = game.add.image(660, 268, 'Bagitem_0');
     that.Bag_item_0_number = game.add.bitmapText(700, 305, 'carrier_command', bag_list[0][0].toString(), 16);
-    that.Bag_item_1_number = game.add.bitmapText(795, 305, 'carrier_command', bag_list[0][1].toString(), 16);
-    that.Bag_item_2_number = game.add.bitmapText(895, 305, 'carrier_command', bag_list[0][2].toString(), 16);
-    that.Bag_item_3_number = game.add.bitmapText(1000, 305, 'carrier_command', bag_list[0][3].toString(), 16);
-    that.Bag_item_4_number = game.add.bitmapText(700, 405, 'carrier_command', bag_list[1][0].toString(), 16);
-    that.Bag_item_5_number = game.add.bitmapText(795, 405, 'carrier_command', bag_list[1][1].toString(), 16);
-    that.Bag_item_6_number = game.add.bitmapText(895, 405, 'carrier_command', bag_list[1][2].toString(), 16);
-    that.Bag_item_7_number = game.add.bitmapText(1000, 405, 'carrier_command', bag_list[1][3].toString(), 16);
-    that.Bag_item_8_number = game.add.bitmapText(700, 505, 'carrier_command', bag_list[2][0].toString(), 16);
-    that.Bag_item_9_number = game.add.bitmapText(795, 505, 'carrier_command', bag_list[2][1].toString(), 16);
-    that.Bag_item_10_number = game.add.bitmapText(895, 505, 'carrier_command', bag_list[2][2].toString(), 16);
-    that.Bag_item_11_number = game.add.bitmapText(1000, 505, 'carrier_command', bag_list[2][3].toString(), 16);
 
+    that.Bag_item_1 = game.add.image(755, 268, 'Bagitem_1');
+    that.Bag_item_1_number = game.add.bitmapText(795, 305, 'carrier_command', bag_list[0][1].toString(), 16);
+    that.Bag_item_2 = game.add.image(855, 268, 'Bagitem_2');
+    that.Bag_item_2_number = game.add.bitmapText(895, 305, 'carrier_command', bag_list[0][2].toString(), 16);
+    that.Bag_item_3 = game.add.image(960, 268, 'Bagitem_3');
+    that.Bag_item_3_number = game.add.bitmapText(1000, 305, 'carrier_command', bag_list[0][3].toString(), 16);
 
     that.bagitem = game.add.group();
     that.bagitem.add(that.Bag_item_0);
     that.bagitem.add(that.Bag_item_1);
     that.bagitem.add(that.Bag_item_2);
     that.bagitem.add(that.Bag_item_3);
-    that.bagitem.add(that.Bag_item_4);
-    that.bagitem.add(that.Bag_item_5);
-    that.bagitem.add(that.Bag_item_6);
-    that.bagitem.add(that.Bag_item_7);
-    that.bagitem.add(that.Bag_item_8);
-    that.bagitem.add(that.Bag_item_9);
-    that.bagitem.add(that.Bag_item_10);
-    that.bagitem.add(that.Bag_item_11);
     that.bagitem.add(that.Bag_item_0_number);
     that.bagitem.add(that.Bag_item_1_number);
     that.bagitem.add(that.Bag_item_2_number);
     that.bagitem.add(that.Bag_item_3_number);
-    that.bagitem.add(that.Bag_item_4_number);
-    that.bagitem.add(that.Bag_item_5_number);
-    that.bagitem.add(that.Bag_item_6_number);
-    that.bagitem.add(that.Bag_item_7_number);
-    that.bagitem.add(that.Bag_item_8_number);
-    that.bagitem.add(that.Bag_item_9_number);
-    that.bagitem.add(that.Bag_item_10_number);
-    that.bagitem.add(that.Bag_item_11_number);
 
     that.bagitem.visible = false;
 };
@@ -267,7 +219,7 @@ function createiconkitchen(that) {
     that.keyboard_K.onDown.add(that.KitchenOnClick, that);
     that.KitchenOpen = false;
 
-    that.btn_cook = game.add.button(960, 530, 'btn_cook', function () { that.cookResult() }, this);
+    that.btn_cook = game.add.button(960, 530, 'btn_cook', function(){that.cookResult()}, this);
 
     that.kitchen_icon_0_0 = game.add.button(610, 245, 'fish_2', function () { that.putStufftoCom(that.kitchen_icon_0_0.key, 0, 0, 0.35) }, this);
     that.kitchen_icon_0_0.scale.setTo(0.25, 0.25);
@@ -296,7 +248,7 @@ function createiconkitchen(that) {
     that.kitchen_icon_2_3 = game.add.button(770, 455, 'moneyseed_1', function () { that.putStufftoCom(that.kitchen_icon_2_3.key, 2, 3, 0.64) }, this);
     that.kitchen_icon_2_3.scale.setTo(0.4, 0.4);
 
-
+    
     that.kitchen_icon = game.add.group();
     that.kitchen_icon.add(that.btn_cook);
     that.kitchen_icon.add(that.kitchen_icon_0_0);
@@ -311,13 +263,7 @@ function createiconkitchen(that) {
     that.kitchen_icon.add(that.kitchen_icon_2_1);
     that.kitchen_icon.add(that.kitchen_icon_2_2);
     that.kitchen_icon.add(that.kitchen_icon_2_3);
-    that.kitchen_icon.visible = false;
-
-    that.composeIngredient = [0, 0, 0];
-    that.composeindex = [0, 0, 0];
-    that.dish;
-    that.click_btn_cook = true;
-    that.count = 0;
+    that.kitchen_icon .visible = false;
 };
 
 function createmessageblock(that) {
@@ -370,14 +316,6 @@ function updatebag(that) {
     that.Bag_item_1_number.text = bag_list[0][1].toString();
     that.Bag_item_2_number.text = bag_list[0][2].toString();
     that.Bag_item_3_number.text = bag_list[0][3].toString();
-    that.Bag_item_4_number.text = bag_list[1][0].toString();
-    that.Bag_item_5_number.text = bag_list[1][1].toString();
-    that.Bag_item_6_number.text = bag_list[1][2].toString();
-    that.Bag_item_7_number.text = bag_list[1][3].toString();
-    that.Bag_item_8_number.text = bag_list[2][0].toString();
-    that.Bag_item_9_number.text = bag_list[2][1].toString();
-    that.Bag_item_10_number.text = bag_list[2][2].toString();
-    that.Bag_item_11_number.text = bag_list[2][3].toString();
 };
 
 function moveplayer(that) {
@@ -411,31 +349,7 @@ function ConsumeTime(health, time) {
     lifetime -= time;
 };
 
-function forcetosleep() {
-    if (player_health <= 0) {
-        ToNewPlace('house');
-        ConsumeTime(60, 0);
-        player_health = 100;
-    }
+function moveplayerto(x,y){
+    var tmp_time = game.time.now;
 
-};
-
-function gameover() {
-    if (lifetime < 0) {
-        ToNewPlace('gameover');
-    }
-};
-
-function senddata() {
-    var currentdate = new Date();
-    var datetime =
-        currentdate.getFullYear() + "/" +
-        (currentdate.getMonth() + 1) + "/" +
-        currentdate.getDate();
-    var Data = {
-        name: user_name,
-        score: player_score,
-        time: datetime
-    };
-    database.push(Data);
 };

@@ -25,12 +25,12 @@ var storyfrontState = {
 
         //input text
         game.add.plugin(PhaserInput.Plugin);
-        this.name = game.add.bitmapText(200, 150, 'carrier_command', 'Enter Your Name: ', 32);
+        this.name = game.add.bitmapText(200, 300, 'carrier_command', 'Enter Your Name: ', 32);
         this.name.anchor.setTo(0.5, 0.5);
-        this.name.position.setTo(game.width / 2, 150);
+        this.name.position.setTo(game.width / 2 + 40, 300);
         this.name.visible = false;
 
-        this.account = game.add.inputField(400, 250, {
+        this.account = game.add.inputField(420, 400, {
             font: '18px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -44,9 +44,9 @@ var storyfrontState = {
         });
         this.account.visible = false;
 
-        this.submit = game.add.button(350, 250, 'submit', this.SubmitOnClick, this);
+        this.submit = game.add.button(350, 0, 'submit', this.SubmitOnClick, this);
         this.submit.anchor.setTo(0.5, 0.5);
-        this.submit.position.setTo(game.width / 2, 450);
+        this.submit.position.setTo(game.width / 2, 500);
         this.submit.visible = false;
     },
     update: function () {

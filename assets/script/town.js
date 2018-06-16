@@ -122,6 +122,9 @@ var townState = {
                 case 5:
                     this.talkimage.loadTexture('talk_gugu_6');
                     break;
+                case 6:
+                    this.talkimage.loadTexture('talk_gugu_7');
+                    break;
             }
         }
         if (this.Talktoseed) {
@@ -237,24 +240,38 @@ var townState = {
                 this.talkimage.visible = false;
                 this.Talktodan = false;
                 this.storystep = -1;
+                bag_list[2][0] += 1;
                 ConsumeTime(5, 0);
             }
-            else{
+            else {
                 this.enter_sound.play();
                 this.storystep += 1;
-            } 
+            }
         } else if (this.Talktogugu) {
-            if (this.storystep > 5) {
+            if (this.storystep > 6) {
                 this.messageimage.visible = false;
                 this.talkimage.visible = false;
                 this.Talktogugu = false;
                 this.storystep = -1;
                 ConsumeTime(5, 0);
+            } else if (this.storystep == 5) {
+
+                if (bag_list[2][1] == 0) {
+                    bag_list[2][1] += 2;
+                    this.messageimage.visible = false;
+                    this.talkimage.visible = false;
+                    this.Talktogugu = false;
+                    this.storystep = -1;
+                    ConsumeTime(5, 0);
+                } else {
+                    this.enter_sound.play();
+                    this.storystep += 1;
+                }
             }
-            else{
+            else {
                 this.enter_sound.play();
                 this.storystep += 1;
-            } 
+            }
         } else if (this.Talktoseed) {
             if (this.storystep > 4) {
                 this.messageimage.visible = false;
@@ -283,10 +300,10 @@ var townState = {
                     ConsumeTime(5, 0);
                 }
             }
-            else{
+            else {
                 this.enter_sound.play();
                 this.storystep += 1;
-            } 
+            }
         }
     },
 };

@@ -704,12 +704,15 @@ var fightState = {
                 game.time.events.add(8000, function () { game.state.start('forest'); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.enemy1).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
                 if (this.enemy_random == 1){
+                    bag_list[1][2] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_snake).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
                 else if (this.enemy_random == 2){
+                    bag_list[1][1] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_dragon).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
                 else if (this.enemy_random == 4){
+                    bag_list[1][3] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_pig).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
                 else{

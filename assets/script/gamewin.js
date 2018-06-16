@@ -17,6 +17,8 @@ var gamewinState = {
 
         this.enter_sound = game.add.audio('enter_sound');
         this.enter_sound.volume = bgm_volumn;
+
+        senddata();
     },
     update: function () {
         if (this.storystep > 3) {

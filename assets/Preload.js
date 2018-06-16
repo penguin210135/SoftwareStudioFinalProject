@@ -12,15 +12,13 @@ Technotip.Preloader.prototype = {
         game.load.image('background', 'assets/image/menu/background_menu_1.jpg');
         game.load.image('arrow', 'assets/image/menu/arrow.png');
         game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
-        game.load.image('author', 'assets/image/menu/author.png');
 
         //setting
         game.load.image('setting-bar', 'assets/image/setting/setting-rect.png');
         game.load.image('setting-control', 'assets/image/setting/setting-circle.png');
 
         //main
-        game.load.image('submit', 'assets/image/submit_1.png');
-        game.load.spritesheet('player', 'assets/image/main/character.png', 32, 34);
+        game.load.spritesheet('player', 'assets/image/main/charactor.png', 29, 32);
 
         //icon
         game.load.image('Bag', 'assets/image/icon/button_bag.png');
@@ -31,12 +29,10 @@ Technotip.Preloader.prototype = {
         game.load.image('npc_dan', 'assets/image/icon/npc_dandan.png');
         game.load.image('npc_game', 'assets/image/icon/npc_game.png');
         game.load.image('npc_gugu', 'assets/image/icon/npc_gugu.png');
-        game.load.image('npc_seed', 'assets/image/icon/npc_seed.png');
         game.load.image('Map_Town', 'assets/image/icon/icon_town.png');
         game.load.image('Map_House', 'assets/image/icon/icon_house.png');
         game.load.image('Map_Forest', 'assets/image/icon/icon_forest.png');
         game.load.image('Map_Farm', 'assets/image/icon/icon_farm.png');
-
         game.load.image('Bagitem_0', 'assets/image/item/beef.png');
         game.load.image('Bagitem_1', 'assets/image/item/mashroom.png');
         game.load.image('Bagitem_2', 'assets/image/item/egg.png');
@@ -49,6 +45,17 @@ Technotip.Preloader.prototype = {
         game.load.image('bag_2', 'assets/image/main/packbag2.png');
         game.load.image('bag_3', 'assets/image/main/packbag3.png');
         game.load.image('compose', 'assets/image/main/compose.png');
+
+        //kitchen
+        game.load.image('btn_cook', 'assets/image/kitchen/button_cook.png');
+        game.load.image('meat_snake', 'assets/image/kitchen/meat_snake.png');
+        game.load.image('meat_pig', 'assets/image/kitchen/meat_pig.png')
+        game.load.image('meat_dragon', 'assets/image/kitchen/meat_dragon.png')
+        game.load.image('egg', 'assets/image/kitchen/egg.png')
+        game.load.image('mushroom', 'assets/image/kitchen/mushroom.png')
+        game.load.image('dish3', 'assets/image/kitchen/dish3.png')
+        game.load.image('dish2', 'assets/image/kitchen/dish2.png')
+        game.load.image('dish1', 'assets/image/kitchen/dish1.png')
 
         //map 
         game.load.tilemap('house_map', 'assets/image/map/map_room.json', null, Phaser.Tilemap.TILED_JSON);
@@ -77,40 +84,10 @@ Technotip.Preloader.prototype = {
         game.load.image('talk_gugu_4', 'assets/image/talk/talk_gugu4.png');
         game.load.image('talk_gugu_5', 'assets/image/talk/talk_gugu5.png');
         game.load.image('talk_gugu_6', 'assets/image/talk/talk_gugu6.png');
-        game.load.image('talk_gugu_7', 'assets/image/talk/talk_gugu7.png');
         game.load.image('talk_end_1', 'assets/image/talk/talk_end1.png');
         game.load.image('talk_end_2', 'assets/image/talk/talk_end2.png');
         game.load.image('talk_end_3', 'assets/image/talk/talk_end3.png');
-        game.load.image('talk_end_4', 'assets/image/talk/talk_end4.png');
-        game.load.image('talk_end_5', 'assets/image/talk/talk_end5.png');
-        game.load.image('talk_dan_1', 'assets/image/talk/talk_dandan1.png');
-        game.load.image('talk_dan_2', 'assets/image/talk/talk_dandan2.png');
-        game.load.image('talk_dan_3', 'assets/image/talk/talk_dandan3.png');
-        game.load.image('talk_dan_4', 'assets/image/talk/talk_dandan4.png');
-        game.load.image('talk_dan_5', 'assets/image/talk/talk_dandan5.png');
-        game.load.image('talk_dan_6', 'assets/image/talk/talk_dandan6.png');
-        game.load.image('talk_seed_1', 'assets/image/talk/talk_seed1.png');
-        game.load.image('talk_seed_2', 'assets/image/talk/talk_seed2.png');
-        game.load.image('talk_seed_3', 'assets/image/talk/talk_seed3.png');
-        game.load.image('talk_seed_4', 'assets/image/talk/talk_seed4.png');
-        game.load.image('talk_seed_5', 'assets/image/talk/talk_seed5.png');
-        game.load.image('talk_die_1', 'assets/image/talk/talk_die1.png');
-        game.load.image('talk_die_2', 'assets/image/talk/talk_die2.png');
-        game.load.image('talk_die_3', 'assets/image/talk/talk_die3.png');
-        game.load.image('talk_die_4', 'assets/image/talk/talk_die4.png');
-        game.load.image('talk_die_5', 'assets/image/talk/talk_die5.png');
-        game.load.image('talk_die_6', 'assets/image/talk/talk_die6.png');
 
-        //kitchen
-        game.load.image('btn_cook', 'assets/image/kitchen/button_cook.png');
-        game.load.image('meat_snake', 'assets/image/kitchen/meat_snake.png');
-        game.load.image('meat_pig', 'assets/image/kitchen/meat_pig.png')
-        game.load.image('meat_dragon', 'assets/image/kitchen/meat_dragon.png')
-        game.load.image('egg', 'assets/image/kitchen/egg.png')
-        game.load.image('mushroom', 'assets/image/kitchen/mushroom.png')
-        game.load.image('dish3', 'assets/image/kitchen/dish3.png')
-        game.load.image('dish2', 'assets/image/kitchen/dish2.png')
-        game.load.image('dish1', 'assets/image/kitchen/dish1.png')
 
         //farm
         game.load.image('farm_bg', 'assets/image/farm/back.png');
@@ -158,7 +135,6 @@ Technotip.Preloader.prototype = {
 
         //forest
         game.load.audio('enterbattle', 'assets/audio/enterbattle.mp3');
-        game.load.image('forest_background', 'assets/image/map_forest.png');
 
         //battle
         game.load.spritesheet('main', 'assets/image/leading role/main.png', 64, 96);
@@ -229,25 +205,6 @@ Technotip.Preloader.prototype = {
         game.load.audio('heal_audio3', 'assets/audio/shield.mp3');
         game.load.audio('heal_audio4', 'assets/audio/rebound.mp3');
         game.load.audio('burn_audio', 'assets/audio/burn.mp3');
-        game.load.audio('enter_sound', 'assets/audio/enter_sound.mp3');
-        
-        game.load.audio('lose','assets/audio/lose.mp3');
-        game.load.image('attack1_name','assets/image/fight ui/skill_attack1.png',600,120);
-        game.load.image('attack2_name','assets/image/fight ui/skill_attack2.png',600,120);
-        game.load.image('attack3_name','assets/image/fight ui/skill_attack3.png',600,120);
-        game.load.image('attack4_name','assets/image/fight ui/skill_attack4.png',600,120);
-        game.load.image('attack5_name','assets/image/fight ui/skill_attack5.png',600,120);
-        game.load.image('attack6_name','assets/image/fight ui/skill_attack6.png',600,120);
-        game.load.image('heal1_name','assets/image/fight ui/skill_heal1.png',600,120);
-        game.load.image('heal2_name','assets/image/fight ui/skill_heal2.png',600,120);
-        game.load.image('heal3_name','assets/image/fight ui/skill_heal3.png',600,120);
-        game.load.image('heal4_name','assets/image/fight ui/skill_heal4.png',600,120);
-        game.load.spritesheet('power_add','assets/image/skill/power_add.png',200,500);
-        game.load.image('win_dragon','assets/image/fight ui/win_dragon.png',600,500);
-        game.load.image('win_pig','assets/image/fight ui/win_pig.png',600,500);
-        game.load.image('win_snake','assets/image/fight ui/win_snake.png',600,500);
-        game.load.image('win_normal','assets/image/fight ui/win_normal.png',600,500);
-        game.load.image('win_lose','assets/image/fight ui/lose.png',600,500);
 
         this.load.onLoadComplete.add(this.loadComplete, this);
     },

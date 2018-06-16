@@ -71,7 +71,7 @@ var farmState = {
         updatebag(this);
         forcetosleep();
         gameover();
-        
+
         //move to house
         if (this.player.position.x >= 820 && this.player.position.x <= 840 && this.player.position.y <= 290 && this.player.position.y >= 270) {
             if (this.cursor.up.isDown) {
@@ -456,6 +456,24 @@ var farmState = {
         if (this.fail.visible)
             this.fail.visible = false;
         this.fish_step = 0;
+
+        switch (this.num) {
+            case 0:
+                bag_list[0][2] += 1;
+                break;
+            case 1:
+                bag_list[0][3] += 1;
+                break;
+            case 2:
+                bag_list[0][0] += 1;
+                break;
+            case 3:
+                bag_list[0][1] += 1;
+                break;
+            case 4:
+                bag_list[1][0] += 1;
+                break;
+        }
     },
     plantInputOver: function (index) {
         var state;
