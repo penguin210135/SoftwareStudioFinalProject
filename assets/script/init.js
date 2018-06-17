@@ -13,5 +13,7 @@ game.state.add('gamewin', gamewinState);
 game.state.add('gameover', gameoverState);
 game.state.add('author', authorState);
 game.state.add('rank', rankState);
+game.state.add('sleep', sleepState);
+game.state.add('skill', skillState);
 
 game.state.start('Boot');

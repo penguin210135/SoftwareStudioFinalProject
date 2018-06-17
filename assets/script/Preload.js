@@ -13,10 +13,9 @@ Technotip.Preloader.prototype = {
         game.load.image('arrow', 'assets/image/menu/arrow.png');
         game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
         game.load.image('author', 'assets/image/menu/author.png');
-
-        //setting
-        game.load.image('setting-bar', 'assets/image/setting/setting-rect.png');
-        game.load.image('setting-control', 'assets/image/setting/setting-circle.png');
+        game.load.image('fightimage', 'assets/image/menu/fight.png');
+        game.load.image('setting-bar', 'assets/image/menu/bar.png');
+        game.load.image('setting-control', 'assets/image/menu/barBlue.png');
 
         //main
         game.load.image('submit', 'assets/image/submit_1.png');
@@ -100,6 +99,7 @@ Technotip.Preloader.prototype = {
         game.load.image('talk_die_4', 'assets/image/talk/talk_die4.png');
         game.load.image('talk_die_5', 'assets/image/talk/talk_die5.png');
         game.load.image('talk_die_6', 'assets/image/talk/talk_die6.png');
+        game.load.image('talk_sleep', 'assets/image/talk/talk_sleep.png');
 
         //kitchen
         game.load.image('btn_cook', 'assets/image/kitchen/button_cook.png');
@@ -143,7 +143,7 @@ Technotip.Preloader.prototype = {
         game.load.image('fish_4', 'assets/image/farm/fish_4.png')
         game.load.image('fishMenu', 'assets/image/farm/dialogueBox.png')
         game.load.image('treasureBox', 'assets/image/farm/treasureBox.png')
-        game.load.image('btn_close', 'assets/image/farm/btn_close.png')
+        //game.load.image('btn_close', 'assets/image/farm/btn_close.png')
         game.load.spritesheet('fishing_ani', 'assets/image/farm/fishing_ani.png', 150, 143);
         game.load.spritesheet('fish_gone', 'assets/image/farm/fish_gone.png', 127, 234);
         game.load.image('fail', 'assets/image/farm/fail.png');

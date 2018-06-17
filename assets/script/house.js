@@ -66,7 +66,7 @@ var houseState = {
         updatebag(this);
         forcetosleep();
         gameover();
-        
+
         //player moving
         if (game.time.now - this.player.movetime > 1000) {
             if (!this.BagOpen && !this.MapOpen && !this.KitchenOpen && !this.NpcOpen) moveplayer(this);
@@ -140,21 +140,21 @@ var houseState = {
 
         }
     },
-    putStufftoCom: function(key, type, index, scale){
-        if(this.click_btn_cook == false){
-            if(bag_list[type][index] != 0){
+    putStufftoCom: function (key, type, index, scale) {
+        if (this.click_btn_cook == false) {
+            if (bag_list[type][index] != 0) {
                 console.log(key);
                 this.count += 1;
-                switch(type){
+                switch (type) {
                     case 0:
                         this.composeIngredient[0] = key;
                         this.composeindex[0] = index;
-                        if(compose_index[0] == 0){
+                        if (compose_index[0] == 0) {
                             this.compose0 = game.add.image(845, 240, key);
                             this.compose0.scale.setTo(scale, scale);
                             compose_index[0] = 1;
                         }
-                        else{
+                        else {
                             this.compose0.loadTexture(key, 0);
                             this.compose0.scale.setTo(scale, scale);
                         }
@@ -162,14 +162,14 @@ var houseState = {
                     case 1:
                         this.composeIngredient[1] = key;
                         this.composeindex[1] = index;
-                        if(compose_index[1] == 0){
-                            if(key == 'fish_4')this.compose1 = game.add.image(845, 353, key);
+                        if (compose_index[1] == 0) {
+                            if (key == 'fish_4') this.compose1 = game.add.image(845, 353, key);
                             else this.compose1 = game.add.image(840, 347, key);
                             this.compose1.scale.setTo(scale, scale);
                             compose_index[1] = 1;
                         }
-                        else{
-                            if(key == 'fish_4')this.compose1.position.setTo(845, 353);
+                        else {
+                            if (key == 'fish_4') this.compose1.position.setTo(845, 353);
                             else this.compose1.position.setTo(840, 347);
                             this.compose1.loadTexture(key, 0);
                             this.compose1.scale.setTo(scale, scale);
@@ -178,22 +178,22 @@ var houseState = {
                     case 2:
                         this.composeIngredient[2] = key;
                         this.composeindex[2] = index;
-                        if(compose_index[2] == 0){
-                            if(key == 'grass_3'){
+                        if (compose_index[2] == 0) {
+                            if (key == 'grass_3') {
                                 this.compose2 = game.add.image(850, 433, key);
                             }
-                            else if(key == 'moneyseed_1'){
+                            else if (key == 'moneyseed_1') {
                                 this.compose2 = game.add.image(850, 433, key);
                             }
                             else this.compose2 = game.add.image(840, 453, key);
                             this.compose2.scale.setTo(scale, scale);
                             compose_index[2] = 1;
                         }
-                        else{
-                            if(key == 'grass_3'){
+                        else {
+                            if (key == 'grass_3') {
                                 this.compose2.position.setTo(850, 433);
                             }
-                            else if(key == 'moneyseed_1'){
+                            else if (key == 'moneyseed_1') {
                                 this.compose2.position.setTo(850, 433);
                             }
                             else this.compose2.position.setTo(840, 453);
@@ -203,24 +203,24 @@ var houseState = {
                         break;
                 }
             }
-        }        
+        }
 
     },
-    cookResult: function(){
-        if(this.click_btn_cook == false && this.count == 3){
+    cookResult: function () {
+        if (this.click_btn_cook == false && this.count == 3) {
             console.log(this.composeIngredient);
-            if(this.composeIngredient[0] == 'fish_3' && this.composeIngredient[1] == 'meat_dragon' && this.composeIngredient[2] == 'egg'){
-                this.dish = game.add.image(1015, 345, 'dish3');
+            if (this.composeIngredient[0] == 'fish_3' && this.composeIngredient[1] == 'meat_dragon' && this.composeIngredient[2] == 'egg') {
+                this.dish = game.add.button(1015, 345, 'dish3', function () { this.eat('dish3') }, this);
                 this.dish.scale.setTo(1.2, 1.2);
             }
-            else{
+            else {
                 num = game.rnd.integerInRange(0, 1);
-                if(num == 0){
-                    this.dish = game.add.image(1010, 335, 'dish1');
+                if (num == 0) {
+                    this.dish = game.add.button(1010, 335, 'dish1', function () { this.eat('dish1') }, this);
                     this.dish.scale.setTo(1.4, 1.4);
                 }
-                else{
-                    this.dish = game.add.image(1010, 335, 'dish2');
+                else {
+                    this.dish = game.add.button(1010, 335, 'dish2', function () { this.eat('dish2') }, this);
                     this.dish.scale.setTo(1.4, 1.4);
                 }
             }
@@ -232,7 +232,30 @@ var houseState = {
         }
         console.log(bag_list);
     },
-
+    eat: function (key) {
+        this.initOpen();
+        game.add.tween(this.kitchenimage).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+        game.add.tween(this.dish).to({ x: 1070, y: 50 }, 700).to({ alpha: 0 }, 500, Phaser.Easing.Linear.None).start();
+        //life++
+        switch (key) {
+            case "dish1":
+                lifetime += 50;
+                if(player_health + 30 <= 100){
+                    player_health += 30;
+                }
+                
+                break;
+            case "dish2":
+                lifetime += 100;
+                if(player_health + 10 <= 100){
+                    player_health += 10;
+                }
+                break;
+            case "dish3":
+                ToNewPlace('gamewin');
+                break;
+        }
+    },
     initOpen: function () {
         this.MapOpen = false;
         this.BagOpen = false;
@@ -250,13 +273,13 @@ var houseState = {
         this.NpcOpen = false;
         this.kitchen_icon.visible = false;
 
-        if(this.dish != undefined)this.dish.destroy();
-        if(this.compose0 != undefined)this.compose0.destroy();
-        if(this.compose1 != undefined)this.compose1.destroy();
-        if(this.compose2 != undefined)this.compose2.destroy();
+        if (this.dish != undefined && this.count != 3) this.dish.destroy();
+        if (this.compose0 != undefined) this.compose0.destroy();
+        if (this.compose1 != undefined) this.compose1.destroy();
+        if (this.compose2 != undefined) this.compose2.destroy();
         compose_index = [0, 0, 0];
         this.click_btn_cook = false;
-        this.composeindex = [{type: 0, index: 0}, {type: 0, index: 0}, {type: 0, index: 0}];
+        this.composeindex = [{ type: 0, index: 0 }, { type: 0, index: 0 }, { type: 0, index: 0 }];
         this.count = 0;
     },
 

@@ -8,7 +8,7 @@ seed_list[0] = [2, 2, 0, 0];
 seed_list[1] = [0, 0, 0, 0];
 
 var lifetime = 600;
-var player_health = 100;
+var player_health = 50;
 var pet_life = 40;
 var pre_state = "house";
 
@@ -27,7 +27,7 @@ var pig_power = 13;
 var pig_life = 40;
 var snake_life = 50;
 var snake_power = 16;
-var dragon_life = 120;
+var dragon_life = 90;
 var dragon_power = 25;
 var protect = 3;
 
@@ -63,7 +63,11 @@ function createplayer(that) {
 
     switch (game.state.current) {
         case "house":
-            that.player.position.setTo(310, 580);
+            if (pre_state == "sleep") {
+                that.player.position.setTo(850, 150);
+            } else {
+                that.player.position.setTo(310, 580);
+            }
             break;
         case "farm":
             switch (pre_state) {
@@ -413,11 +417,10 @@ function ConsumeTime(health, time) {
 
 function forcetosleep() {
     if (player_health <= 0) {
-        ToNewPlace('house');
+        ToNewPlace('sleep');
         ConsumeTime(60, 0);
         player_health = 100;
     }
-
 };
 
 function gameover() {
@@ -439,3 +442,25 @@ function senddata() {
     };
     database.push(Data);
 };
+
+function initdata() {
+    player_health = 20;
+    lifetime = 200;
+    player_score = 0;
+    player_x = 0;
+    player_y = 0;
+    mainlife = 40;
+
+    bag_list[0] = [1, 0, 0, 0];
+    bag_list[1] = [1, 0, 0, 0];
+    bag_list[2] = [1, 0, 0, 0];
+    seed_list[0] = [2, 2, 0, 0];
+    seed_list[1] = [0, 0, 0, 0];
+
+    fields[0] = [0, 0, 0, 0, 0, 0];  //key
+    fields[1] = [0, 0, 0, 0, 0, 0];  //state
+    fields[2] = [0, 0, 0, 0, 0, 0];  //time
+    fields[3] = [0, 1, 2, 3, 4, 5];  //state
+
+    compose_index = [0, 0, 0];
+}

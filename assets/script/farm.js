@@ -154,7 +154,7 @@ var farmState = {
         this.fishMenu.visible = false;
 
         this.fishResult = game.add.group();
-        this.fishResultBox = game.add.button(570, 330, 'treasureBox', this.closeFishResult, this, 2, 1, 0);
+        this.fishResultBox = game.add.image(570, 330, 'treasureBox');
         this.fish = game.add.image(510, 280, 'fish_0');
         this.fishResultBox.scale.setTo(0.1, 0.1);
         this.fishResultBox.anchor.setTo(0.5, 0.5);
@@ -431,6 +431,7 @@ var farmState = {
                 break;
             case 5:
                 this.fail.visible = true;
+                this.fishResult.visible = false;
                 game.add.tween(this.fail.scale).to({ x: 0.5, y: 0.5 }, 300).start();
                 //tween.delay(1000);
                 game.add.tween(this.fail).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();

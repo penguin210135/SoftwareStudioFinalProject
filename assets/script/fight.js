@@ -245,7 +245,7 @@ var fightState = {
     },
 
     update: function () {
-        this.check_life_magic();
+
         if (this.animation_index == 1) {//attack menu
             if (this.uiattack1.y > 500) {
                 this.uiattack1.y -= 7;
@@ -357,7 +357,7 @@ var fightState = {
                 var temp = Math.floor(Math.random() * 2);
                 if (temp == 0) {
                     pre_state = game.state.current;
-                    game.time.events.add(1000, function () { game.state.start('forest'); this.battle_bgm.stop(); }, this);
+                    game.time.events.add(1000, function () { ToNewPlace('forest'); this.battle_bgm.stop(); }, this);
                 }
                 else {
                     this.main.body.x = 880;
@@ -366,6 +366,7 @@ var fightState = {
                 }
             }
         }
+        this.check_life_magic();
     },
 
     menu: function (index) {//展開menu，順便處理魔力增加,0:新的一回合 1:從攻擊回來 2:從防禦回來
@@ -701,28 +702,25 @@ var fightState = {
                 this.enemydie == true;
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
-                game.time.events.add(8000, function () { game.state.start('forest'); }, this);
+                game.time.events.add(8000, function () { ToNewPlace('forest'); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.enemy1).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
-                if (this.enemy_random == 1){
+                if (this.enemy_random == 1) {
                     bag_list[1][2] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_snake).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
-                else if (this.enemy_random == 2){
+                else if (this.enemy_random == 2) {
                     bag_list[1][1] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_dragon).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
-                else if (this.enemy_random == 4){
+                else if (this.enemy_random == 4) {
                     bag_list[1][3] += 1;
                     game.time.events.add(1200, function () { game.add.tween(this.win_pig).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
-                else{
+                else {
                     game.time.events.add(1200, function () { game.add.tween(this.win_normal).to({ alpha: 1 }, 1, Phaser.Easing.Linear.None).start(); }, this);
                 }
-                   
-
 
                 this.enemydie = true;
-                console.log('to forest')
             }
             else if (this.life <= 0) {//判斷我方死亡
                 for (var i = 0; i <= 9; i++)
@@ -733,10 +731,9 @@ var fightState = {
                 this.btn_escape.destroy();
                 this.playerdie = true;
                 ConsumeTime(5, 5);
-                game.time.events.add(6000, function () { game.state.start('forest'); }, this);
+                game.time.events.add(6000, function () { ToNewPlace('forest'); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.main).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.lose.play(); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.win_lose).to({ alpha: 1 }, 100, Phaser.Easing.Linear.None).start(); }, this);
-                console.log('to forest')
             }
         }
     },

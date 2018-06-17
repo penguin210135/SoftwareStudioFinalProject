@@ -43,6 +43,7 @@ var storyfrontState = {
             type: PhaserInput.InputType.text
         });
         this.account.visible = false;
+        this.account.setText(user_name);
 
         this.submit = game.add.button(350, 0, 'submit', this.SubmitOnClick, this);
         this.submit.anchor.setTo(0.5, 0.5);
@@ -59,7 +60,7 @@ var storyfrontState = {
             this.submit.visible = true;
         }
 
-        if (this.textroll.y <= -1000) {
+        if (this.textroll.y <= -1000 && this.textroll.visible) {
             this.textroll.visible = false;
             this.Rollisend = true;
             this.messageimage.visible = true;

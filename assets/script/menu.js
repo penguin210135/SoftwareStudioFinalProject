@@ -54,6 +54,9 @@ var menuState = {
         this.enter.onDown.add(this.changepage, this);
         this.enter_sound = game.add.audio('enter_sound');
         this.enter_sound.volume = bgm_volumn;
+
+
+        initdata();
     },
 
     update: function () {
@@ -107,7 +110,7 @@ var menuState = {
                 ToNewPlace('rank');
                 break;
             case 3:
-
+                ToNewPlace('skill');
                 break;
             case 4:
                 ToNewPlace('author');

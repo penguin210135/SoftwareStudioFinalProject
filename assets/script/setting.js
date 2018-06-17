@@ -27,13 +27,11 @@ var setState = {
         //set bar
         this.volume_bar = game.add.image(360, 300, 'setting-bar');
         this.volume_bar.anchor.setTo(0.5, 0.5);
-        this.volume_bar.scale.setTo(1, 0.1);
         this.volume_bar.position.setTo(600, 250);
         this.volume_bar.inputEnabled = true;
 
         this.volume_control = game.add.image(360, 300, 'setting-control');
         this.volume_control.anchor.setTo(0.5, 0.5);
-        this.volume_control.scale.setTo(0.05, 0.05);
         this.volume_control.position.setTo(550, 250);
 
         this.set_volumn = bgm_volumn;
