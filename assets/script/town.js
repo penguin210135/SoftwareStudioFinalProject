@@ -50,9 +50,8 @@ var townState = {
         this.gugu = game.add.button(300, 140, 'npc_gugu', this.NPC_gugu, this);
         this.seed = game.add.button(500, 140, 'npc_seed', this.NPC_seed, this);
         this.dan_name = game.add.bitmapText(100 - 20, 360, 'carrier_command', 'Dandan', 10);
-        this.gugu_name = game.add.bitmapText(300, 180, 'carrier_command', 'Gugu', 10);
+        this.gugu_name = game.add.bitmapText(300, 180, 'carrier_command', 'Gour', 10);
         this.seed_name = game.add.bitmapText(500, 180, 'carrier_command', 'Seed', 10);
-
 
         this.talkimage = game.add.image(0, 500, 'talk_dan_1');
         this.talkimage.visible = false;
@@ -88,6 +87,7 @@ var townState = {
     updatemsg: function () {
 
         if (this.Talktodan) {
+            this.talkimage.position.setTo(0, 500);
             switch (this.storystep) {
                 case 0:
                     this.talkimage.loadTexture('talk_dan_1');
@@ -107,6 +107,7 @@ var townState = {
             }
         }
         if (this.Talktogugu) {
+            this.talkimage.position.setTo(0, 500);
             switch (this.storystep) {
                 case 0:
                     this.talkimage.loadTexture('talk_gugu_1');
@@ -132,6 +133,7 @@ var townState = {
             }
         }
         if (this.Talktoseed) {
+            this.talkimage.position.setTo(20, 500);
             switch (this.storystep) {
                 case 0:
                     this.talkimage.loadTexture('talk_seed_1');

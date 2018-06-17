@@ -20,8 +20,8 @@ var rankState = {
 
 
         this.name_list = game.add.bitmapText(100, 100, 'carrier_command', 'Name', 32);
-        this.score_list = game.add.bitmapText(300, 100, 'carrier_command', 'Score', 32);
-        this.time_list = game.add.bitmapText(550, 100, 'carrier_command', 'Time', 32);
+        this.score_list = game.add.bitmapText(450, 100, 'carrier_command', 'Score', 32);
+        this.time_list = game.add.bitmapText(650, 100, 'carrier_command', 'Time', 32);
 
         //list top 5
         var top_list = [];
@@ -42,9 +42,9 @@ var rankState = {
                     //console.log(item);
 
                     if (list_cur < max_number) {
-                        game.add.bitmapText(100, 130 + list_cur * 35, 'carrier_command', item.name, 32);
-                        game.add.bitmapText(300, 130 + list_cur * 35, 'carrier_command', item.score, 32);
-                        game.add.bitmapText(550, 130 + list_cur * 35, 'carrier_command', item.time, 32);
+                        game.add.bitmapText(100, 140 + list_cur * 45, 'carrier_command', item.name, 32);
+                        game.add.bitmapText(450, 140 + list_cur * 45, 'carrier_command', item.score, 32);
+                        game.add.bitmapText(650, 140 + list_cur * 45, 'carrier_command', item.time, 32);
                         list_cur += 1;
                     }
 

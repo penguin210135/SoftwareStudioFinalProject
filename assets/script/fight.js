@@ -121,6 +121,7 @@ var fightState = {
 
         this.battle_bgm = game.add.audio('battle_bgm', 0.9, true);
         this.battle_bgm.play();
+
         this.attack_audio1 = game.add.audio('attack_audio1');
         this.attack_audio2 = game.add.audio('attack_audio2');
         this.attack_audio3 = game.add.audio('attack_audio3');
@@ -135,6 +136,22 @@ var fightState = {
         this.enemyattack_audio1 = game.add.audio('enemyattack_audio1');
         this.win = game.add.audio('win');
         this.lose = game.add.audio('lose');
+
+        this.battle_bgm.volumn = bgm_volumn;
+        this.attack_audio1.volumn = bgm_volumn;
+        this.attack_audio2.volumn = bgm_volumn;
+        this.attack_audio3.volumn = bgm_volumn;
+        this.attack_audio4.volumn = bgm_volumn;
+        this.attack_audio5.volumn = bgm_volumn;
+        this.attack_audio6.volumn = bgm_volumn;
+        this.heal_audio1.volumn = bgm_volumn;
+        this.heal_audio2.volumn = bgm_volumn;
+        this.heal_audio3.volumn = bgm_volumn;
+        this.heal_audio4.volumn = bgm_volumn;
+        this.burn_audio.volumn = bgm_volumn;
+        this.enemyattack_audio1.volumn = bgm_volumn;
+        this.win.volumn = bgm_volumn;
+        this.lose.volumn = bgm_volumn;
 
         //攻擊
         this.attack1 = game.add.sprite(69, 300, 'attack1');

@@ -20,6 +20,7 @@ Technotip.Preloader.prototype = {
         //main
         game.load.image('submit', 'assets/image/submit_1.png');
         game.load.spritesheet('player', 'assets/image/main/character.png', 32, 34);
+        game.load.audio('game_bgm', ['assets/audio/game_bgm.wav']);
 
         //icon
         game.load.image('Bag', 'assets/image/icon/button_bag.png');

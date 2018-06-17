@@ -61,8 +61,8 @@ function createplayer(that) {
     that.player.movetime = game.time.now;
     that.game.camera.follow(that.player);
 
-    that.player.text = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
-    
+    that.player_name = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
+    that.player_name.anchor.setTo(0.5,0.5);
 
     switch (game.state.current) {
         case "house":
@@ -100,7 +100,7 @@ function createplayer(that) {
             break;
     }
 
-    that.player.text.position.setTo(that.player.x - 40,that.player.y - 25);
+    that.player_name.position.setTo(that.player.x,that.player.y - 20);
 };
 
 function createclock(that) {
@@ -113,7 +113,7 @@ function createclock(that) {
     that.short_arror = game.add.sprite(1100, 50, 'short_arror');
     that.short_arror.scale.setTo(0.1, 0.1);
     that.short_arror.anchor.setTo(0.5, 0.85);
-    that.time_show = game.add.text(1070, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '20px Arial', fill: '#696161' });
+    that.time_show = game.add.text(1080, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '20px Arial', fill: '#696161' });
     that.time_show.stroke = '#ffffff';
     that.time_show.strokeThickness = 2;
 };
@@ -408,7 +408,7 @@ function moveplayer(that) {
         that.player.animations.stop();
     }
 
-    that.player.text.position.setTo(that.player.x - 40,that.player.y - 25);
+    that.player_name.position.setTo(that.player.x,that.player.y  - 20);
 };
 
 function ToNewPlace(place) {
@@ -428,7 +428,7 @@ function forcetosleep() {
     if (player_health <= 0) {
 
         ToNewPlace('sleep');
-        ConsumeTime(60, 0);
+        ConsumeTime(0, 60);
         player_health = 100;
     }
 };
@@ -446,7 +446,6 @@ function senddata() {
 
     var currentdate = new Date();
     var datetime =
-        currentdate.getFullYear() + "/" +
         (currentdate.getMonth() + 1) + "/" +
         currentdate.getDate();
     var Data = {

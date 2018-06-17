@@ -6,17 +6,19 @@ var gamewinState = {
 
         game.stage.backgroundColor = '#000000';
         this.storystep = 0
-       
+
         //msg
         createmessageblock(this);
         this.keyboard_enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         this.keyboard_enter.onDown.add(this.nextstorystep, this, null);
-        
+
         this.talkimage = game.add.image(0, 500, 'talk_end_1');
         this.messageimage.visible = true;
 
         this.enter_sound = game.add.audio('enter_sound');
         this.enter_sound.volume = bgm_volumn;
+
+        houseState.game_bgm.stop();
 
         senddata();
     },

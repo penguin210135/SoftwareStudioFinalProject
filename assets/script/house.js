@@ -26,6 +26,13 @@ var houseState = {
         this.keyboard_T.onDown.add(this.communication, this, null);
 
         this.createbed();
+
+        if (!this.game_bgm) {
+            this.game_bgm = game.add.audio('game_bgm');
+            this.game_bgm.volumn = bgm_volumn;
+            this.game_bgm.loop = true;
+            this.game_bgm.play();
+        }
     },
     createmap: function () {
         //set the default background
@@ -240,14 +247,14 @@ var houseState = {
         switch (key) {
             case "dish1":
                 lifetime += 50;
-                if(player_health + 30 <= 100){
+                if (player_health + 30 <= 100) {
                     player_health += 30;
                 }
-                
+
                 break;
             case "dish2":
                 lifetime += 100;
-                if(player_health + 10 <= 100){
+                if (player_health + 10 <= 100) {
                     player_health += 10;
                 }
                 break;
@@ -301,7 +308,7 @@ var houseState = {
 
     sleep: function () {
         ToNewPlace('sleep');
-        ConsumeTime(60, 0);
+        ConsumeTime(0, 60);
         player_health = 100;
     },
 };

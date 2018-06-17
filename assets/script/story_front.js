@@ -106,6 +106,7 @@ var storyfrontState = {
         //set user name
         if (input_id != "") user_name = document.getElementById(input_id).value;
 
+        this.account.visible = false;
         ToNewPlace('house');
         console.log(user_name);
     },

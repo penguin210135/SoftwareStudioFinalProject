@@ -18,6 +18,8 @@ var gameoverState = {
         this.enter_sound = game.add.audio('enter_sound');
         this.enter_sound.volume = bgm_volumn;
 
+        houseState.game_bgm.stop();
+
         senddata();
     },
     update: function () {

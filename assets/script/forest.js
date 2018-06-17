@@ -23,7 +23,7 @@ var forestState = {
         this.temp = 100;
 
         this.enterbattle = game.add.audio('enterbattle');
-
+        this.enterbattle.volumn = bgm_volumn;
     },
 
     update: function () {
