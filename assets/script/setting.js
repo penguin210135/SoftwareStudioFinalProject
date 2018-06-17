@@ -4,7 +4,7 @@ var setState = {
     },
 
     create: function () {
-       
+
         this.cursor = game.input.keyboard.createCursorKeys();
 
         var background = game.add.image(0, 0, 'background');
@@ -32,7 +32,7 @@ var setState = {
 
         this.volume_control = game.add.image(360, 300, 'setting-control');
         this.volume_control.anchor.setTo(0.5, 0.5);
-        this.volume_control.position.setTo(550, 250);
+        this.volume_control.position.setTo(320 + (900 - 320) * bgm_volumn, 250);
 
         this.set_volumn = bgm_volumn;
 
@@ -60,22 +60,22 @@ var setState = {
     },
     SetParameter: function () {
 
-        if (game.input.mousePointer.x <= 800 && game.input.mousePointer.x >= 360 && game.input.mousePointer.y >= 230 && game.input.mousePointer.y <= 250) {
+        if (game.input.mousePointer.x <= 900 && game.input.mousePointer.x >= 320 && game.input.mousePointer.y >= 230 && game.input.mousePointer.y <= 250) {
             if (game.input.activePointer.leftButton.isDown) {
-                
+
                 this.volume_control.position.setTo(game.input.mousePointer.x, 250);
-                this.set_volumn = (game.input.mousePointer.x - 360)/400;
-                console.log("new_volumn = "+ this.set_volumn);
+                this.set_volumn = (game.input.mousePointer.x - 360) / 400;
+                console.log("new_volumn = " + this.set_volumn);
                 bgm_volumn = this.set_volumn;
             }
         }
     },
-    changepage:function(){
-        if(this.arrow.position.x == 315){    //submit
+    changepage: function () {
+        if (this.arrow.position.x == 315) {    //submit
             this.enter_sound.play();
-            console.log("set volumn: "+ this.set_volumn);
+            console.log("set volumn: " + this.set_volumn);
             menuState.menu_bgm.volume = bgm_volumn;
-        }else if (this.arrow.position.x == 750){
+        } else if (this.arrow.position.x == 750) {
             this.enter_sound.play();
             game.state.start('menu');
         }
