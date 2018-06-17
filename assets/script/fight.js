@@ -356,7 +356,14 @@ var fightState = {
                 this.animation_index = 0;
                 var temp = Math.floor(Math.random() * 2);
                 if (temp == 0) {
-                    game.time.events.add(1000, function () { ToNewPlace('forest'); this.battle_bgm.stop(); }, this);
+                    game.time.events.add(1000, function () {
+                        if (player_health <= 0) {
+                            forcetosleep();
+                        } else {
+                            ToNewPlace('forest');
+                        }
+                        this.battle_bgm.stop();
+                    }, this);
                 }
                 else {
                     this.main.body.x = 880;
@@ -701,7 +708,13 @@ var fightState = {
                 this.enemydie == true;
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
-                game.time.events.add(8000, function () { ToNewPlace('forest'); }, this);
+                game.time.events.add(8000, function () {
+                    if (player_health <= 0) {
+                        forcetosleep();
+                    } else {
+                        ToNewPlace('forest');
+                    }
+                }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.enemy1).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.win.play(); }, this);
                 if (this.enemy_random == 1) {
                     bag_list[1][2] += 1;
@@ -730,7 +743,13 @@ var fightState = {
                 this.btn_escape.destroy();
                 this.playerdie = true;
                 ConsumeTime(5, 5);
-                game.time.events.add(6000, function () { ToNewPlace('forest'); }, this);
+                game.time.events.add(6000, function () {
+                    if (player_health <= 0) {
+                        forcetosleep();
+                    } else {
+                        ToNewPlace('forest');
+                    }
+                }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.main).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.lose.play(); }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.win_lose).to({ alpha: 1 }, 100, Phaser.Easing.Linear.None).start(); }, this);
             }

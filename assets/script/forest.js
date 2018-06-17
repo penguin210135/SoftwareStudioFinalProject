@@ -32,8 +32,6 @@ var forestState = {
         updateclock(this);
         updatefire(this);
         updatebag(this);
-        forcetosleep();
-        gameover();
 
         if (this.temp != 0) {
             if (!this.BagOpen && !this.MapOpen) moveplayer(this);

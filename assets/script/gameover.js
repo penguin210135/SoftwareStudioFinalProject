@@ -21,25 +21,28 @@ var gameoverState = {
         senddata();
     },
     update: function () {
-        if (this.storystep > 4) {
+        if (this.storystep > 5) {
             ToNewPlace('menu');
         }
 
         switch (this.storystep) {
             case 0:
-                this.talkimage.loadTexture('talk_die_2');
+                this.talkimage.loadTexture('talk_die_1');
                 break;
             case 1:
-                this.talkimage.loadTexture('talk_die_3');
+                this.talkimage.loadTexture('talk_die_2');
                 break;
             case 2:
-                this.talkimage.loadTexture('talk_die_4');
+                this.talkimage.loadTexture('talk_die_3');
                 break;
             case 3:
-                this.talkimage.loadTexture('talk_die_5');
+                this.talkimage.loadTexture('talk_die_4');
                 break;
             case 4:
                 this.talkimage.loadTexture('talk_die_5');
+                break;
+            case 5:
+                this.talkimage.loadTexture('talk_die_6');
                 break;
         }
 

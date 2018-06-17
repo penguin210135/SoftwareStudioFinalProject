@@ -300,7 +300,8 @@ var houseState = {
     },
 
     sleep: function () {
+        ToNewPlace('sleep');
+        ConsumeTime(60, 0);
         player_health = 100;
-        lifetime -= 60;
     },
 };

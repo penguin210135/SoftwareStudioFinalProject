@@ -49,6 +49,10 @@ var townState = {
         this.dan = game.add.button(100, 320, 'npc_dan', this.NPC_dan, this);
         this.gugu = game.add.button(300, 140, 'npc_gugu', this.NPC_gugu, this);
         this.seed = game.add.button(500, 140, 'npc_seed', this.NPC_seed, this);
+        this.dan_name = game.add.bitmapText(100 - 20, 360, 'carrier_command', 'Dandan', 10);
+        this.gugu_name = game.add.bitmapText(300, 180, 'carrier_command', 'Gugu', 10);
+        this.seed_name = game.add.bitmapText(500, 180, 'carrier_command', 'Seed', 10);
+
 
         this.talkimage = game.add.image(0, 500, 'talk_dan_1');
         this.talkimage.visible = false;

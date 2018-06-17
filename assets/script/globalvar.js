@@ -61,6 +61,9 @@ function createplayer(that) {
     that.player.movetime = game.time.now;
     that.game.camera.follow(that.player);
 
+    that.player.text = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
+    
+
     switch (game.state.current) {
         case "house":
             if (pre_state == "sleep") {
@@ -96,6 +99,8 @@ function createplayer(that) {
             that.player.position.setTo(0, 530);
             break;
     }
+
+    that.player.text.position.setTo(that.player.x - 40,that.player.y - 25);
 };
 
 function createclock(that) {
@@ -402,6 +407,8 @@ function moveplayer(that) {
         that.player.body.velocity.y = 0;
         that.player.animations.stop();
     }
+
+    that.player.text.position.setTo(that.player.x - 40,that.player.y - 25);
 };
 
 function ToNewPlace(place) {
@@ -419,6 +426,7 @@ function ConsumeTime(health, time) {
 
 function forcetosleep() {
     if (player_health <= 0) {
+
         ToNewPlace('sleep');
         ConsumeTime(60, 0);
         player_health = 100;
