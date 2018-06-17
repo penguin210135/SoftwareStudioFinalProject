@@ -20,7 +20,6 @@ Technotip.Preloader.prototype = {
         //main
         game.load.image('submit', 'assets/image/submit_1.png');
         game.load.spritesheet('player', 'assets/image/main/character.png', 32, 34);
-        game.load.audio('game_bgm', ['assets/audio/game_bgm.wav']);
 
         //icon
         game.load.image('Bag', 'assets/image/icon/button_bag.png');
@@ -113,19 +112,19 @@ Technotip.Preloader.prototype = {
         game.load.image('dish2', 'assets/image/kitchen/dish2.png')
         game.load.image('dish1', 'assets/image/kitchen/dish1.png')
 
-         //textfood
-         game.load.image('textfood_0', 'assets/image/foodname/text_bamboo.png');
-         game.load.image('textfood_1', 'assets/image/foodname/text_dragonMeat.png');
-         game.load.image('textfood_2', 'assets/image/foodname/text_egg.png');
-         game.load.image('textfood_3', 'assets/image/foodname/text_fishFish.png');
-         game.load.image('textfood_4', 'assets/image/foodname/text_littleFish.png');
-         game.load.image('textfood_5', 'assets/image/foodname/text_middleFish.png');
-         game.load.image('textfood_6', 'assets/image/foodname/text_middleFish2.png');
-         game.load.image('textfood_7', 'assets/image/foodname/text_mushroom.png');
-         game.load.image('textfood_8', 'assets/image/foodname/text_pigMeat.png');
-         game.load.image('textfood_9', 'assets/image/foodname/text_snackMeat.png');
-         game.load.image('textfood_10', 'assets/image/foodname/text_TzuYuFish.png');
-         game.load.image('textfood_11', 'assets/image/foodname/text_vegetable.png');
+        //textfood
+        game.load.image('textfood_0', 'assets/image/foodname/text_bamboo.png');
+        game.load.image('textfood_1', 'assets/image/foodname/text_dragonMeat.png');
+        game.load.image('textfood_2', 'assets/image/foodname/text_egg.png');
+        game.load.image('textfood_3', 'assets/image/foodname/text_fishFish.png');
+        game.load.image('textfood_4', 'assets/image/foodname/text_littleFish.png');
+        game.load.image('textfood_5', 'assets/image/foodname/text_middleFish.png');
+        game.load.image('textfood_6', 'assets/image/foodname/text_middleFish2.png');
+        game.load.image('textfood_7', 'assets/image/foodname/text_mushroom.png');
+        game.load.image('textfood_8', 'assets/image/foodname/text_pigMeat.png');
+        game.load.image('textfood_9', 'assets/image/foodname/text_snackMeat.png');
+        game.load.image('textfood_10', 'assets/image/foodname/text_TzuYuFish.png');
+        game.load.image('textfood_11', 'assets/image/foodname/text_vegetable.png');
 
         //farm
         game.load.image('farm_bg', 'assets/image/farm/back.png');

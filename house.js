@@ -26,13 +26,6 @@ var houseState = {
         this.keyboard_T.onDown.add(this.communication, this, null);
 
         this.createbed();
-
-        if (!this.game_bgm) {
-            this.game_bgm = game.add.audio('game_bgm');
-            this.game_bgm.volumn = bgm_volumn;
-            this.game_bgm.loop = true;
-            this.game_bgm.play();
-        }
     },
     createmap: function () {
         //set the default background
@@ -131,24 +124,6 @@ var houseState = {
 
     KitchenOnClick: function () {
         if (this.KitchenOpen == false) {
-            console.log(this.kitchen_icon);
-            this.initOpen();
-
-            this.KitchenOpen = true;
-            this.kitchen_icon.visible = true;
-            this.kitchenimage.inputEnabled = true;
-            game.world.bringToTop(this.kitchenimage);
-            game.world.bringToTop(this.kitchen_icon);
-            game.add.tween(this.kitchenimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
-
-        } else {
-            console.log('Close the Bag!');
-            this.initOpen();
-
-        }
-    },
-    KitchenButton: function () {
-        if (this.KitchenOpen == false && this.player.x >= this.kitchen.x - 50 && this.player.x <= this.kitchen.x + 50 && this.player.y >= this.kitchen.y - 50 && this.player.y <= this.kitchen.y + 50) {
             console.log(this.kitchen_icon);
             this.initOpen();
 
@@ -265,14 +240,14 @@ var houseState = {
         switch (key) {
             case "dish1":
                 lifetime += 50;
-                if (player_health + 30 <= 100) {
+                if(player_health + 30 <= 100){
                     player_health += 30;
                 }
-
+                
                 break;
             case "dish2":
                 lifetime += 100;
-                if (player_health + 10 <= 100) {
+                if(player_health + 10 <= 100){
                     player_health += 10;
                 }
                 break;
@@ -325,10 +300,8 @@ var houseState = {
     },
 
     sleep: function () {
-        if (this.player.x >= this.bed.x - 50 && this.player.x <= this.bed.x + 50 && this.player.y >= this.bed.y - 50 && this.player.y <= this.bed.y + 50) {
-            ToNewPlace('sleep');
-            ConsumeTime(0, 60);
-            player_health = 100;
-        } 
+        ToNewPlace('sleep');
+        ConsumeTime(60, 0);
+        player_health = 100;
     },
 };

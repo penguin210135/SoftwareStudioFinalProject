@@ -61,8 +61,8 @@ function createplayer(that) {
     that.player.movetime = game.time.now;
     that.game.camera.follow(that.player);
 
-    that.player_name = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
-    that.player_name.anchor.setTo(0.5,0.5);
+    that.player.text = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
+
 
     switch (game.state.current) {
         case "house":
@@ -100,7 +100,7 @@ function createplayer(that) {
             break;
     }
 
-    that.player_name.position.setTo(that.player.x,that.player.y - 20);
+    that.player.text.position.setTo(that.player.x - 40, that.player.y - 25);
 };
 
 function createclock(that) {
@@ -113,7 +113,7 @@ function createclock(that) {
     that.short_arror = game.add.sprite(1100, 50, 'short_arror');
     that.short_arror.scale.setTo(0.1, 0.1);
     that.short_arror.anchor.setTo(0.5, 0.85);
-    that.time_show = game.add.text(1080, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '20px Arial', fill: '#696161' });
+    that.time_show = game.add.text(1070, 95, ((lifetime / 60) | 0) + ":" + lifetime % 60, { font: '20px Arial', fill: '#696161' });
     that.time_show.stroke = '#ffffff';
     that.time_show.strokeThickness = 2;
 };
@@ -269,7 +269,7 @@ function createiconkitchen(that) {
     that.kitchenbutton.height = 100;
     that.kitchenbutton.width = 100;
 
-    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.KitchenButton, that);
+    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.KitchenOnClick, that);
 
     game.add.bitmapText(1160 - 350, 720 - 50, 'carrier_command', 'K', 32);
     that.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
@@ -388,7 +388,6 @@ function updatebag(that) {
     that.Bag_item_10_number.text = bag_list[2][2].toString();
     that.Bag_item_11_number.text = bag_list[2][3].toString();
 
-    
     that.Bag_item_0.events.onInputOver.add(function () { showfoodname(0) }, this);
     that.Bag_item_1.events.onInputOver.add(function () { showfoodname(1) }, this);
     that.Bag_item_2.events.onInputOver.add(function () { showfoodname(2) }, this);
@@ -426,6 +425,8 @@ function updatebag(that) {
     that.Bag_item_9.inputEnabled = true;
     that.Bag_item_10.inputEnabled = true;
     that.Bag_item_11.inputEnabled = true;
+
+
 };
 
 function moveplayer(that) {
@@ -447,7 +448,7 @@ function moveplayer(that) {
         that.player.animations.stop();
     }
 
-    that.player_name.position.setTo(that.player.x,that.player.y  - 20);
+    that.player.text.position.setTo(that.player.x - 40, that.player.y - 25);
 };
 
 function ToNewPlace(place) {
@@ -467,7 +468,7 @@ function forcetosleep() {
     if (player_health <= 0) {
 
         ToNewPlace('sleep');
-        ConsumeTime(0, 60);
+        ConsumeTime(60, 0);
         player_health = 100;
     }
 };
@@ -485,6 +486,7 @@ function senddata() {
 
     var currentdate = new Date();
     var datetime =
+        currentdate.getFullYear() + "/" +
         (currentdate.getMonth() + 1) + "/" +
         currentdate.getDate();
     var Data = {
@@ -505,7 +507,7 @@ function initdata() {
 
     bag_list[0] = [1, 1, 1, 1];
     bag_list[1] = [1, 1, 1, 1];
-    bag_list[2] = [1, 0, 1, 1];
+    bag_list[2] = [1, 1, 1, 1];
     seed_list[0] = [2, 2, 0, 0];
     seed_list[1] = [0, 0, 0, 0];
 
@@ -515,7 +517,8 @@ function initdata() {
     fields[3] = [0, 1, 2, 3, 4, 5];  //state
 
     compose_index = [0, 0, 0];
-}
+};
+
 function showfoodname(index) {
 
     switch (index) {
