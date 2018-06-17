@@ -147,6 +147,24 @@ var houseState = {
 
         }
     },
+    KitchenButton: function () {
+        if (this.KitchenOpen == false && this.player.x >= this.kitchen.x - 50 && this.player.x <= this.kitchen.x + 50 && this.player.y >= this.kitchen.y - 50 && this.player.y <= this.kitchen.y + 50) {
+            console.log(this.kitchen_icon);
+            this.initOpen();
+
+            this.KitchenOpen = true;
+            this.kitchen_icon.visible = true;
+            this.kitchenimage.inputEnabled = true;
+            game.world.bringToTop(this.kitchenimage);
+            game.world.bringToTop(this.kitchen_icon);
+            game.add.tween(this.kitchenimage).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+        } else {
+            console.log('Close the Bag!');
+            this.initOpen();
+
+        }
+    },
     putStufftoCom: function (key, type, index, scale) {
         if (this.click_btn_cook == false) {
             if (bag_list[type][index] != 0) {
@@ -307,8 +325,10 @@ var houseState = {
     },
 
     sleep: function () {
-        ToNewPlace('sleep');
-        ConsumeTime(0, 60);
-        player_health = 100;
+        if (this.player.x >= this.bed.x - 50 && this.player.x <= this.bed.x + 50 && this.player.y >= this.bed.y - 50 && this.player.y <= this.bed.y + 50) {
+            ToNewPlace('sleep');
+            ConsumeTime(0, 60);
+            player_health = 100;
+        } 
     },
 };

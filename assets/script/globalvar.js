@@ -269,7 +269,7 @@ function createiconkitchen(that) {
     that.kitchenbutton.height = 100;
     that.kitchenbutton.width = 100;
 
-    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.KitchenOnClick, that);
+    that.kitchen = game.add.button(233, 173, 'icon_kitchen', that.KitchenButton, that);
 
     game.add.bitmapText(1160 - 350, 720 - 50, 'carrier_command', 'K', 32);
     that.keyboard_K = game.input.keyboard.addKey(Phaser.Keyboard.K);
@@ -466,7 +466,7 @@ function initdata() {
 
     bag_list[0] = [1, 1, 1, 1];
     bag_list[1] = [1, 1, 1, 1];
-    bag_list[2] = [1, 1, 1, 1];
+    bag_list[2] = [1, 0, 1, 1];
     seed_list[0] = [2, 2, 0, 0];
     seed_list[1] = [0, 0, 0, 0];
 

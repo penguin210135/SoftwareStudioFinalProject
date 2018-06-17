@@ -25,6 +25,14 @@ var townState = {
 
         this.storystep = -1;
         this.enter_sound = game.add.audio('enter_sound');
+
+        //item ani
+        this.ResultBox = game.add.image(570, 330, 'treasureBox');
+        this.itemimage = game.add.image(510, 280, 'egg');
+        this.ResultBox.visible = false;
+        this.itemimage.visible = false;
+        this.ResultBox.scale.setTo(0.1, 0.1);
+        this.ResultBox.anchor.setTo(0.5, 0.5);
     },
     createmap: function () {
         this.town_map = game.add.tilemap('town_map');
@@ -46,12 +54,12 @@ var townState = {
     },
 
     createNPC: function () {
-        this.dan = game.add.button(100, 320, 'npc_dan', this.NPC_dan, this);
-        this.gugu = game.add.button(300, 140, 'npc_gugu', this.NPC_gugu, this);
-        this.seed = game.add.button(500, 140, 'npc_seed', this.NPC_seed, this);
-        this.dan_name = game.add.bitmapText(100 - 20, 360, 'carrier_command', 'Dandan', 10);
-        this.gugu_name = game.add.bitmapText(300, 180, 'carrier_command', 'Gour', 10);
-        this.seed_name = game.add.bitmapText(500, 180, 'carrier_command', 'Seed', 10);
+        this.dan = game.add.button(150, 350, 'npc_dan', this.NPC_dan, this);
+        this.gugu = game.add.button(300, 180, 'npc_gugu', this.NPC_gugu, this);
+        this.seed = game.add.button(500, 180, 'npc_seed', this.NPC_seed, this);
+        this.dan_name = game.add.bitmapText(120 , 380, 'carrier_command', 'Dandan', 10);
+        this.gugu_name = game.add.bitmapText(300, 210, 'carrier_command', 'Gour', 10);
+        this.seed_name = game.add.bitmapText(500, 210, 'carrier_command', 'Seed', 10);
 
         this.talkimage = game.add.image(0, 500, 'talk_dan_1');
         this.talkimage.visible = false;
@@ -248,6 +256,18 @@ var townState = {
                 this.storystep = -1;
                 bag_list[2][0] += 1;
                 ConsumeTime(5, 0);
+
+                //add ani
+                this.itemimage.loadTexture('egg');
+                this.itemimage.alpha = 1;
+                this.ResultBox.alpha = 1;
+                this.itemimage.visible = true;
+                this.ResultBox.visible = true;
+                game.add.tween(this.ResultBox.scale).to({ x: 0.3, y: 0.3 }, 300).start();
+                game.add.tween(this.itemimage.scale).to({ x: 2, y: 2 }, 300).start();
+                game.add.tween(this.ResultBox).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
+                game.add.tween(this.itemimage).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
+
             }
             else {
                 this.enter_sound.play();
@@ -269,6 +289,17 @@ var townState = {
                     this.Talktogugu = false;
                     this.storystep = -1;
                     ConsumeTime(5, 0);
+
+                    //add ani
+                    this.itemimage.loadTexture('mushroom');
+                    this.itemimage.alpha = 1;
+                    this.ResultBox.alpha = 1;
+                    this.itemimage.visible = true;
+                    this.ResultBox.visible = true;
+                    game.add.tween(this.ResultBox.scale).to({ x: 0.3, y: 0.3 }, 300).start();
+                    game.add.tween(this.itemimage.scale).to({ x: 2.5, y: 2.5 }, 300).start();
+                    game.add.tween(this.ResultBox).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
+                    game.add.tween(this.itemimage).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
                 } else {
                     this.enter_sound.play();
                     this.storystep += 1;
@@ -290,7 +321,9 @@ var townState = {
                 if (seed_list[0][0] == 0) {
                     seed_list[0][0] += 5;
                     flag = 1;
-                } else if (seed_list[0][1] == 0) {
+                }
+                
+                if (seed_list[0][1] == 0) {
                     seed_list[0][1] += 5;
                     flag = 1;
                 }
@@ -299,11 +332,23 @@ var townState = {
                     this.enter_sound.play();
                     this.storystep += 1;
                 } else {
+                    
                     this.messageimage.visible = false;
                     this.talkimage.visible = false;
                     this.Talktoseed = false;
                     this.storystep = -1;
                     ConsumeTime(5, 0);
+
+                    //add ani
+                    this.itemimage.loadTexture('grass_0');
+                    this.itemimage.alpha = 1;
+                    this.ResultBox.alpha = 1;
+                    this.itemimage.visible = true;
+                    this.ResultBox.visible = true;
+                    game.add.tween(this.ResultBox.scale).to({ x: 0.3, y: 0.3 }, 300).start();
+                    game.add.tween(this.itemimage.scale).to({ x: 2, y: 2 }, 300).start();
+                    game.add.tween(this.ResultBox).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
+                    game.add.tween(this.itemimage).to({ alpha: 0 }, 1000, "Linear", true, 1000).start();
                 }
             }
             else {
