@@ -356,7 +356,6 @@ var fightState = {
                 this.animation_index = 0;
                 var temp = Math.floor(Math.random() * 2);
                 if (temp == 0) {
-                    pre_state = game.state.current;
                     game.time.events.add(1000, function () { ToNewPlace('forest'); this.battle_bgm.stop(); }, this);
                 }
                 else {

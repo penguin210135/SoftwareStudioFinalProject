@@ -54,6 +54,8 @@ var farmState = {
 
         this.fishopen = false;
         this.seedopen = false;
+        console.log(fields[0]);
+        console.log(fields[1]);
 
         this.replantPlant();
     },
@@ -574,10 +576,8 @@ var farmState = {
     replantPlant: function () {
         console.log('new');
         var tmp_plant;
-        var tmp_index = [0, 0, 0, 0, 0, 0]
         for (var i = 0; i < 6; i++) {
             if (fields[1][i] != 0) {
-                tmp_index[i] = 1;
                 if (fields[0][i] == 'grass_0') {
                     switch (fields[1][i]) {
                         case 1:
@@ -637,6 +637,7 @@ var farmState = {
         });
 
         console.log(plant);
+        plant.visible = true;
     },
 
     updateseed: function () {

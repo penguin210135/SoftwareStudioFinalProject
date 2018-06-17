@@ -413,6 +413,8 @@ function ToNewPlace(place) {
 function ConsumeTime(health, time) {
     player_health -= health;
     lifetime -= time;
+    player_score += health;
+    player_score += time;
 };
 
 function forcetosleep() {
@@ -424,12 +426,16 @@ function forcetosleep() {
 };
 
 function gameover() {
-    if (lifetime < 0) {
+    if (lifetime <= 0) {
         ToNewPlace('gameover');
     }
 };
 
 function senddata() {
+
+    player_score += lifetime;
+    player_score += player_health;
+
     var currentdate = new Date();
     var datetime =
         currentdate.getFullYear() + "/" +
@@ -451,9 +457,9 @@ function initdata() {
     player_y = 0;
     mainlife = 40;
 
-    bag_list[0] = [1, 0, 0, 0];
-    bag_list[1] = [1, 0, 0, 0];
-    bag_list[2] = [1, 0, 0, 0];
+    bag_list[0] = [1, 1, 1, 1];
+    bag_list[1] = [1, 1, 1, 1];
+    bag_list[2] = [1, 1, 1, 1];
     seed_list[0] = [2, 2, 0, 0];
     seed_list[1] = [0, 0, 0, 0];
 

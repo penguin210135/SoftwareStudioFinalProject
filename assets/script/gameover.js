@@ -21,7 +21,7 @@ var gameoverState = {
         senddata();
     },
     update: function () {
-        if (this.storystep > 5) {
+        if (this.storystep > 4) {
             ToNewPlace('menu');
         }
 
