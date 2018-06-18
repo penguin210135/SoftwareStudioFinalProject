@@ -374,6 +374,11 @@ var fightState = {
                 var temp = Math.floor(Math.random() * 2);
                 if (temp == 0) {
                     game.time.events.add(1000, function () {
+
+                        if(lifetime <= 0){
+                            ToNewPlace('gameover');
+                        }
+
                         if (player_health <= 0) {
                             forcetosleep();
                         } else {
@@ -726,6 +731,10 @@ var fightState = {
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
                 game.time.events.add(8000, function () {
+                    if(lifetime <= 0){
+                        ToNewPlace('gameover');
+                    }
+
                     if (player_health <= 0) {
                         forcetosleep();
                     } else {
@@ -761,6 +770,10 @@ var fightState = {
                 this.playerdie = true;
                 ConsumeTime(5, 5);
                 game.time.events.add(6000, function () {
+                    if(lifetime <= 0){
+                        ToNewPlace('gameover');
+                    }
+
                     if (player_health <= 0) {
                         forcetosleep();
                     } else {
