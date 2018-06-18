@@ -167,7 +167,7 @@ function createiconbag(that) {
     that.Bag_item_10 = game.add.image(855, 468, 'grass_3');
     that.Bag_item_11 = game.add.image(960, 468, 'moneyseed_1');
 
-    
+
     that.Bag_item_0.events.onInputOver.add(function () { showfoodname(that, 0) });
     that.Bag_item_1.events.onInputOver.add(function () { showfoodname(that, 1) });
     that.Bag_item_2.events.onInputOver.add(function () { showfoodname(that, 2) });
@@ -370,7 +370,7 @@ function createiconkitchen(that) {
     that.composeindex = [0, 0, 0];
     that.dish;
     that.click_btn_cook = true;
-    that.count = 0;
+    that.count = [0, 0, 0];
 };
 
 function createmessageblock(that) {

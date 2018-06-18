@@ -171,7 +171,7 @@ var houseState = {
         if (this.click_btn_cook == false) {
             if (bag_list[type][index] != 0) {
                 console.log(key);
-                this.count += 1;
+                this.count[type] = 1;
                 switch (type) {
                     case 0:
                         this.composeIngredient[0] = key;
@@ -234,7 +234,7 @@ var houseState = {
 
     },
     cookResult: function () {
-        if (this.click_btn_cook == false && this.count == 3) {
+        if (this.click_btn_cook == false && this.count[0] == 1 &&  this.count[1] == 1 && this.count[2] == 1) {
             console.log(this.composeIngredient);
             if (this.composeIngredient[0] == 'fish_2' && this.composeIngredient[1] == 'meat_dragon' && this.composeIngredient[2] == 'egg') {
                 this.dish = game.add.button(1015, 345, 'dish3', function () { this.eat('dish3') }, this);
@@ -305,14 +305,14 @@ var houseState = {
         this.NpcOpen = false;
         this.kitchen_icon.visible = false;
 
-        if (this.dish != undefined && this.count != 3) this.dish.destroy();
+        if (this.dish != undefined && this.count[0] == 1 &&  this.count[1] == 1 && this.count[2] == 1) this.dish.destroy();
         if (this.compose0 != undefined) this.compose0.destroy();
         if (this.compose1 != undefined) this.compose1.destroy();
         if (this.compose2 != undefined) this.compose2.destroy();
         compose_index = [0, 0, 0];
         this.click_btn_cook = false;
         this.composeindex = [{ type: 0, index: 0 }, { type: 0, index: 0 }, { type: 0, index: 0 }];
-        this.count = 0;
+        this.count = [0, 0, 0];
     },
 
     communication: function (npc) {
