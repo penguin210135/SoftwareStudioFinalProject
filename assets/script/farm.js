@@ -89,7 +89,6 @@ var farmState = {
         updateclock(this);
         updatefire(this);
         updatebag(this);
-        forcetosleep();
         gameover();
 
         //move to house
@@ -286,6 +285,7 @@ var farmState = {
             this.btn_seed_index = -1;
 
             ConsumeTime(10, 50);
+            forcetosleep();
         }
     },
     harvest: function (item) {
@@ -495,6 +495,7 @@ var farmState = {
                 bag_list[1][0] += 1;
                 break;
         }
+        forcetosleep();
     },
     plantInputOver: function (index) {
         var state;

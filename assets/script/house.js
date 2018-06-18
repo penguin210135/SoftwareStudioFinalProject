@@ -32,6 +32,8 @@ var houseState = {
             this.game_bgm.volumn = bgm_volumn;
             this.game_bgm.loop = true;
             this.game_bgm.play();
+        } else {
+            this.game_bgm.play();
         }
     },
     createmap: function () {
@@ -264,20 +266,25 @@ var houseState = {
         //life++
         switch (key) {
             case "dish1":
-                lifetime += 50;
+                player_score += 200;
+                lifetime += 250;
                 if (player_health + 30 <= 100) {
                     player_health += 30;
                 }
 
                 break;
             case "dish2":
-                lifetime += 100;
+                player_score += 200;
+                lifetime += 300;
                 if (player_health + 10 <= 100) {
                     player_health += 10;
                 }
                 break;
             case "dish3":
-                ToNewPlace('gamewin');
+                game.time.events.add(500, function () {
+                    ToNewPlace('gamewin');
+                }, this);
+
                 break;
         }
     },
@@ -329,6 +336,6 @@ var houseState = {
             ToNewPlace('sleep');
             ConsumeTime(0, 60);
             player_health = 100;
-        } 
+        }
     },
 };
