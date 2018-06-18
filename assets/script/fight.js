@@ -774,7 +774,7 @@ var fightState = {
                     } else if (player_health <= 0) {
                         forcetosleep();
                     } else {
-                        ToNewPlace('forest');
+                        ToNewPlace('house');
                     }
                 }, this);
                 game.time.events.add(1200, function () { game.add.tween(this.main).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start(); this.battle_bgm.stop(); this.lose.play(); }, this);

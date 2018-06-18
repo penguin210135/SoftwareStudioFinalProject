@@ -305,7 +305,7 @@ var houseState = {
         this.NpcOpen = false;
         this.kitchen_icon.visible = false;
 
-        if (this.dish != undefined && this.count[0] == 1 &&  this.count[1] == 1 && this.count[2] == 1) this.dish.destroy();
+        if (this.dish != undefined && this.count[0] != 1 &&  this.count[1] != 1 && this.count[2] != 1) this.dish.destroy();
         if (this.compose0 != undefined) this.compose0.destroy();
         if (this.compose1 != undefined) this.compose1.destroy();
         if (this.compose2 != undefined) this.compose2.destroy();
