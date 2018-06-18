@@ -62,7 +62,7 @@ function createplayer(that) {
     that.game.camera.follow(that.player);
 
     that.player_name = game.add.bitmapText(1160 - 200, 720 - 50, 'carrier_command', user_name, 10);
-    that.player_name.anchor.setTo(0.5,0.5);
+    that.player_name.anchor.setTo(0.5, 0.5);
 
     switch (game.state.current) {
         case "house":
@@ -100,7 +100,7 @@ function createplayer(that) {
             break;
     }
 
-    that.player_name.position.setTo(that.player.x,that.player.y - 20);
+    that.player_name.position.setTo(that.player.x, that.player.y - 20);
 };
 
 function createclock(that) {
@@ -167,6 +167,47 @@ function createiconbag(that) {
     that.Bag_item_10 = game.add.image(855, 468, 'grass_3');
     that.Bag_item_11 = game.add.image(960, 468, 'moneyseed_1');
 
+    
+    that.Bag_item_0.events.onInputOver.add(function () { showfoodname(that, 0) });
+    that.Bag_item_1.events.onInputOver.add(function () { showfoodname(that, 1) });
+    that.Bag_item_2.events.onInputOver.add(function () { showfoodname(that, 2) });
+    that.Bag_item_3.events.onInputOver.add(function () { showfoodname(that, 3) });
+    that.Bag_item_4.events.onInputOver.add(function () { showfoodname(that, 4) });
+    that.Bag_item_5.events.onInputOver.add(function () { showfoodname(that, 5) });
+    that.Bag_item_6.events.onInputOver.add(function () { showfoodname(that, 6) });
+    that.Bag_item_7.events.onInputOver.add(function () { showfoodname(that, 7) });
+    that.Bag_item_8.events.onInputOver.add(function () { showfoodname(that, 8) });
+    that.Bag_item_9.events.onInputOver.add(function () { showfoodname(that, 9) });
+    that.Bag_item_10.events.onInputOver.add(function () { showfoodname(that, 10) });
+    that.Bag_item_11.events.onInputOver.add(function () { showfoodname(that, 11) });
+
+    that.Bag_item_0.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_1.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_2.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_3.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_4.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_5.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_6.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_7.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_8.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_9.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_10.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+    that.Bag_item_11.events.onInputOut.add(function () { distroyfoodname(that) }, that);
+
+
+    that.Bag_item_0.inputEnabled = true;
+    that.Bag_item_1.inputEnabled = true;
+    that.Bag_item_2.inputEnabled = true;
+    that.Bag_item_3.inputEnabled = true;
+    that.Bag_item_4.inputEnabled = true;
+    that.Bag_item_5.inputEnabled = true;
+    that.Bag_item_6.inputEnabled = true;
+    that.Bag_item_7.inputEnabled = true;
+    that.Bag_item_8.inputEnabled = true;
+    that.Bag_item_9.inputEnabled = true;
+    that.Bag_item_10.inputEnabled = true;
+    that.Bag_item_11.inputEnabled = true;
+
     that.Bag_item_0.scale.setTo(0.35, 0.35);
     that.Bag_item_1.scale.setTo(0.15, 0.15);
     that.Bag_item_2.scale.setTo(0.5, 0.5);
@@ -192,6 +233,7 @@ function createiconbag(that) {
     that.Bag_item_10_number = game.add.bitmapText(895, 505, 'carrier_command', bag_list[2][2].toString(), 16);
     that.Bag_item_11_number = game.add.bitmapText(1000, 505, 'carrier_command', bag_list[2][3].toString(), 16);
 
+    that.foodname = game.add.image(735, 220, 'textfood_5');
 
     that.bagitem = game.add.group();
     that.bagitem.add(that.Bag_item_0);
@@ -218,8 +260,10 @@ function createiconbag(that) {
     that.bagitem.add(that.Bag_item_9_number);
     that.bagitem.add(that.Bag_item_10_number);
     that.bagitem.add(that.Bag_item_11_number);
+    that.bagitem.add(that.foodname);
 
     that.bagitem.visible = false;
+    that.bagitem.inputEnabled = true;
 };
 
 function createiconmap(that) {
@@ -236,13 +280,13 @@ function createiconmap(that) {
     that.keyboard_M.onDown.add(that.MapOnClick, that, that);
     that.MapOpen = false;
 
-    that.map_icon_forest = game.add.button(700, 300, 'Map_Forest', function () { ToNewPlace('forest') }, this);
+    that.map_icon_forest = game.add.button(700, 300, 'Map_Forest', function () { ToNewPlace('forest') }, that);
     that.map_icon_forest.scale.setTo(0.5, 0.5);
-    that.map_icon_house = game.add.button(800, 350, 'Map_House', function () { ToNewPlace('house') }, this);
+    that.map_icon_house = game.add.button(800, 350, 'Map_House', function () { ToNewPlace('house') }, that);
     that.map_icon_house.scale.setTo(0.5, 0.5);
-    that.map_icon_farm = game.add.button(950, 300, 'Map_Farm', function () { ToNewPlace('farm') }, this);
+    that.map_icon_farm = game.add.button(950, 300, 'Map_Farm', function () { ToNewPlace('farm') }, that);
     that.map_icon_farm.scale.setTo(0.5, 0.5);
-    that.map_icon_town = game.add.button(800, 460, 'Map_Town', function () { ToNewPlace('town') }, this);
+    that.map_icon_town = game.add.button(800, 460, 'Map_Town', function () { ToNewPlace('town') }, that);
     that.map_icon_town.scale.setTo(0.5, 0.5);
 
     that.map_icon_farm.visible = false;
@@ -276,33 +320,33 @@ function createiconkitchen(that) {
     that.keyboard_K.onDown.add(that.KitchenOnClick, that);
     that.KitchenOpen = false;
 
-    that.btn_cook = game.add.button(960, 530, 'btn_cook', function () { that.cookResult() }, this);
+    that.btn_cook = game.add.button(960, 530, 'btn_cook', function () { that.cookResult() }, that);
 
-    that.kitchen_icon_0_0 = game.add.button(610, 245, 'fish_2', function () { that.putStufftoCom(that.kitchen_icon_0_0.key, 0, 0, 0.35) }, this);
+    that.kitchen_icon_0_0 = game.add.button(610, 245, 'fish_2', function () { that.putStufftoCom(that.kitchen_icon_0_0.key, 0, 0, 0.35) }, that);
     that.kitchen_icon_0_0.scale.setTo(0.25, 0.25);
-    that.kitchen_icon_0_1 = game.add.button(660, 245, 'fish_3', function () { that.putStufftoCom(that.kitchen_icon_0_1.key, 0, 1, 0.16) }, this);
+    that.kitchen_icon_0_1 = game.add.button(660, 245, 'fish_3', function () { that.putStufftoCom(that.kitchen_icon_0_1.key, 0, 1, 0.16) }, that);
     that.kitchen_icon_0_1.scale.setTo(0.15, 0.15);
-    that.kitchen_icon_0_2 = game.add.button(710, 245, 'fish_0', function () { that.putStufftoCom(that.kitchen_icon_0_2.key, 0, 2, 0.45) }, this);
+    that.kitchen_icon_0_2 = game.add.button(710, 245, 'fish_0', function () { that.putStufftoCom(that.kitchen_icon_0_2.key, 0, 2, 0.45) }, that);
     that.kitchen_icon_0_2.scale.setTo(0.4, 0.4);
-    that.kitchen_icon_0_3 = game.add.button(760, 245, 'fish_1', function () { that.putStufftoCom(that.kitchen_icon_0_3.key, 0, 3, 0.45) }, this);
+    that.kitchen_icon_0_3 = game.add.button(760, 245, 'fish_1', function () { that.putStufftoCom(that.kitchen_icon_0_3.key, 0, 3, 0.45) }, that);
     that.kitchen_icon_0_3.scale.setTo(0.4, 0.4);
 
-    that.kitchen_icon_1_0 = game.add.button(610, 355, 'fish_4', function () { that.putStufftoCom(that.kitchen_icon_1_0.key, 1, 0, 0.3) }, this);
+    that.kitchen_icon_1_0 = game.add.button(610, 355, 'fish_4', function () { that.putStufftoCom(that.kitchen_icon_1_0.key, 1, 0, 0.3) }, that);
     that.kitchen_icon_1_0.scale.setTo(0.25, 0.25);
-    that.kitchen_icon_1_1 = game.add.button(660, 355, 'meat_dragon', function () { that.putStufftoCom(that.kitchen_icon_1_1.key, 1, 1, 1) }, this);
+    that.kitchen_icon_1_1 = game.add.button(660, 355, 'meat_dragon', function () { that.putStufftoCom(that.kitchen_icon_1_1.key, 1, 1, 1) }, that);
     that.kitchen_icon_1_1.scale.setTo(0.7, 0.7);
-    that.kitchen_icon_1_2 = game.add.button(710, 355, 'meat_snake', function () { that.putStufftoCom(that.kitchen_icon_1_2.key, 1, 2, 1) }, this);
+    that.kitchen_icon_1_2 = game.add.button(710, 355, 'meat_snake', function () { that.putStufftoCom(that.kitchen_icon_1_2.key, 1, 2, 1) }, that);
     that.kitchen_icon_1_2.scale.setTo(0.7, 0.7);
-    that.kitchen_icon_1_3 = game.add.button(760, 355, 'meat_pig', function () { that.putStufftoCom(that.kitchen_icon_1_3.key, 1, 3, 1) }, this);
+    that.kitchen_icon_1_3 = game.add.button(760, 355, 'meat_pig', function () { that.putStufftoCom(that.kitchen_icon_1_3.key, 1, 3, 1) }, that);
     that.kitchen_icon_1_3.scale.setTo(0.7, 0.7);
 
-    that.kitchen_icon_2_0 = game.add.button(610, 465, 'egg', function () { that.putStufftoCom(that.kitchen_icon_2_0.key, 2, 0, 1) }, this);
+    that.kitchen_icon_2_0 = game.add.button(610, 465, 'egg', function () { that.putStufftoCom(that.kitchen_icon_2_0.key, 2, 0, 1) }, that);
     that.kitchen_icon_2_0.scale.setTo(0.7, 0.7);
-    that.kitchen_icon_2_1 = game.add.button(660, 465, 'mushroom', function () { that.putStufftoCom(that.kitchen_icon_2_1.key, 2, 1, 1) }, this);
+    that.kitchen_icon_2_1 = game.add.button(660, 465, 'mushroom', function () { that.putStufftoCom(that.kitchen_icon_2_1.key, 2, 1, 1) }, that);
     that.kitchen_icon_2_1.scale.setTo(0.7, 0.7);
-    that.kitchen_icon_2_2 = game.add.button(720, 455, 'grass_3', function () { that.putStufftoCom(that.kitchen_icon_2_2.key, 2, 2, 0.64) }, this);
+    that.kitchen_icon_2_2 = game.add.button(720, 455, 'grass_3', function () { that.putStufftoCom(that.kitchen_icon_2_2.key, 2, 2, 0.64) }, that);
     that.kitchen_icon_2_2.scale.setTo(0.4, 0.4);
-    that.kitchen_icon_2_3 = game.add.button(770, 455, 'moneyseed_1', function () { that.putStufftoCom(that.kitchen_icon_2_3.key, 2, 3, 0.64) }, this);
+    that.kitchen_icon_2_3 = game.add.button(770, 455, 'moneyseed_1', function () { that.putStufftoCom(that.kitchen_icon_2_3.key, 2, 3, 0.64) }, that);
     that.kitchen_icon_2_3.scale.setTo(0.4, 0.4);
 
 
@@ -387,45 +431,6 @@ function updatebag(that) {
     that.Bag_item_9_number.text = bag_list[2][1].toString();
     that.Bag_item_10_number.text = bag_list[2][2].toString();
     that.Bag_item_11_number.text = bag_list[2][3].toString();
-
-    
-    that.Bag_item_0.events.onInputOver.add(function () { showfoodname(0) }, this);
-    that.Bag_item_1.events.onInputOver.add(function () { showfoodname(1) }, this);
-    that.Bag_item_2.events.onInputOver.add(function () { showfoodname(2) }, this);
-    that.Bag_item_3.events.onInputOver.add(function () { showfoodname(3) }, this);
-    that.Bag_item_4.events.onInputOver.add(function () { showfoodname(4) }, this);
-    that.Bag_item_5.events.onInputOver.add(function () { showfoodname(5) }, this);
-    that.Bag_item_6.events.onInputOver.add(function () { showfoodname(6) }, this);
-    that.Bag_item_7.events.onInputOver.add(function () { showfoodname(7) }, this);
-    that.Bag_item_8.events.onInputOver.add(function () { showfoodname(8) }, this);
-    that.Bag_item_9.events.onInputOver.add(function () { showfoodname(9) }, this);
-    that.Bag_item_10.events.onInputOver.add(function () { showfoodname(10) }, this);
-    that.Bag_item_11.events.onInputOver.add(function () { showfoodname(11) }, this);
-
-    that.Bag_item_0.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_1.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_2.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_3.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_4.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_5.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_6.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_7.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_8.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_9.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_10.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_11.events.onInputOut.add(function () { distroyfoodname() }, this);
-    that.Bag_item_0.inputEnabled = true;
-    that.Bag_item_1.inputEnabled = true;
-    that.Bag_item_2.inputEnabled = true;
-    that.Bag_item_3.inputEnabled = true;
-    that.Bag_item_4.inputEnabled = true;
-    that.Bag_item_5.inputEnabled = true;
-    that.Bag_item_6.inputEnabled = true;
-    that.Bag_item_7.inputEnabled = true;
-    that.Bag_item_8.inputEnabled = true;
-    that.Bag_item_9.inputEnabled = true;
-    that.Bag_item_10.inputEnabled = true;
-    that.Bag_item_11.inputEnabled = true;
 };
 
 function moveplayer(that) {
@@ -447,7 +452,7 @@ function moveplayer(that) {
         that.player.animations.stop();
     }
 
-    that.player_name.position.setTo(that.player.x,that.player.y  - 20);
+    that.player_name.position.setTo(that.player.x, that.player.y - 20);
 };
 
 function ToNewPlace(place) {
@@ -516,61 +521,49 @@ function initdata() {
 
     compose_index = [0, 0, 0];
 }
-function showfoodname(index) {
+function showfoodname(that, index) {
 
     switch (index) {
         case 0:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_5');
-            else this.foodname.loadTexture('textfood_5');
+            that.foodname.loadTexture('textfood_5');
             break;
         case 1:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_10');
-            else this.foodname.loadTexture('textfood_10');
+            that.foodname.loadTexture('textfood_10');
             break;
         case 2:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_4');
-            else this.foodname.loadTexture('textfood_4');
+            that.foodname.loadTexture('textfood_4');
             break;
         case 3:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_3');
-            else this.foodname.loadTexture('textfood_3');
+            that.foodname.loadTexture('textfood_3');
             break;
         case 4:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_6');
-            else this.foodname.loadTexture('textfood_6');
+            that.foodname.loadTexture('textfood_6');
             break;
         case 5:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_1');
-            else this.foodname.loadTexture('textfood_1');
+            that.foodname.loadTexture('textfood_1');
             break;
         case 6:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_9');
-            else this.foodname.loadTexture('textfood_9');
+            that.foodname.loadTexture('textfood_9');
             break;
         case 7:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_8');
-            else this.foodname.loadTexture('textfood_8');
+            that.foodname.loadTexture('textfood_8');
             break;
         case 8:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_2');
-            else this.foodname.loadTexture('textfood_2');
+            that.foodname.loadTexture('textfood_2');
             break;
         case 9:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_7');
-            else this.foodname.loadTexture('textfood_7');
+            that.foodname.loadTexture('textfood_7');
             break;
         case 10:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_0');
-            else this.foodname.loadTexture('textfood_0');
+            that.foodname.loadTexture('textfood_0');
             break;
         case 11:
-            if (this.foodname == undefined) this.foodname = game.add.image(735, 220, 'textfood_11');
-            else this.foodname.loadTexture('textfood_11');
+            that.foodname.loadTexture('textfood_11');
             break;
     }
-    this.foodname.visible = true;
-    game.world.bringToTop(this.foodname);
+    that.foodname.visible = true;
+    game.world.bringToTop(that.foodname);
 };
-function distroyfoodname() {
-    this.foodname.visible = false;
+function distroyfoodname(that) {
+    that.foodname.visible = false;
 }

@@ -375,11 +375,9 @@ var fightState = {
                 if (temp == 0) {
                     game.time.events.add(1000, function () {
 
-                        if(lifetime <= 0){
+                        if (lifetime <= 0) {
                             ToNewPlace('gameover');
-                        }
-
-                        if (player_health <= 0) {
+                        } else if (player_health <= 0) {
                             forcetosleep();
                         } else {
                             ToNewPlace('forest');
@@ -554,9 +552,9 @@ var fightState = {
                 this.uiattack5.destroy();
                 this.uiattack6.destroy();
                 this.return.destroy();
-                game.time.events.add(1200, function () { 
-                    if(this.enemylife > 0)
-                        this.menu(0); 
+                game.time.events.add(1200, function () {
+                    if (this.enemylife > 0)
+                        this.menu(0);
                 }, this);
             }
         }
@@ -734,11 +732,9 @@ var fightState = {
                 this.burnbuff = false;
                 game.add.tween(this.burn).to({ alpha: 0 }, 300, Phaser.Easing.Linear.None).start();
                 game.time.events.add(8000, function () {
-                    if(lifetime <= 0){
+                    if (lifetime <= 0) {
                         ToNewPlace('gameover');
-                    }
-
-                    if (player_health <= 0) {
+                    } else if (player_health <= 0) {
                         forcetosleep();
                     } else {
                         ToNewPlace('forest');
@@ -773,11 +769,9 @@ var fightState = {
                 this.playerdie = true;
                 ConsumeTime(5, 5);
                 game.time.events.add(6000, function () {
-                    if(lifetime <= 0){
+                    if (lifetime <= 0) {
                         ToNewPlace('gameover');
-                    }
-
-                    if (player_health <= 0) {
+                    } else if (player_health <= 0) {
                         forcetosleep();
                     } else {
                         ToNewPlace('forest');
