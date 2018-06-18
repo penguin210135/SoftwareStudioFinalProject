@@ -59,6 +59,7 @@ var forestState = {
             player_x = this.player.x;
             player_y = this.player.y;
             game.time.events.add(500, function () {
+                houseState.game_bgm.stop();
                 game.state.start('fight');
             }, this);
 

@@ -30,20 +30,27 @@ var storyfrontState = {
         this.name.position.setTo(game.width / 2 + 40, 300);
         this.name.visible = false;
 
-        this.account = game.add.inputField(420, 400, {
-            font: '18px Arial',
-            fill: '#212121',
-            fontWeight: 'bold',
-            width: 300,
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
-            borderRadius: 6,
-            placeHolder: 'Name',
-            type: PhaserInput.InputType.text
-        });
-        this.account.visible = false;
-        this.account.setText(user_name);
+        if(!this.account){
+            this.account = game.add.inputField(420, 400, {
+                font: '18px Arial',
+                fill: '#212121',
+                fontWeight: 'bold',
+                width: 300,
+                padding: 8,
+                borderWidth: 1,
+                borderColor: '#000',
+                borderRadius: 6,
+                placeHolder: 'Name',
+                type: PhaserInput.InputType.text
+            });
+            this.account.visible = false;
+            this.account.setText(user_name);
+        }else{
+            this.account.visible = false;
+            this.account.setText(user_name);
+        }
+
+        
 
         this.submit = game.add.button(350, 0, 'submit', this.SubmitOnClick, this);
         this.submit.anchor.setTo(0.5, 0.5);
@@ -108,6 +115,6 @@ var storyfrontState = {
 
         this.account.visible = false;
         ToNewPlace('house');
-        console.log(user_name);
+        //console.log(user_name);
     },
 };

@@ -259,6 +259,7 @@ var townState = {
 
                 //add ani
                 this.itemimage.loadTexture('egg');
+                this.itemimage.position.setTo(510, 250);
                 this.itemimage.alpha = 1;
                 this.ResultBox.alpha = 1;
                 this.itemimage.visible = true;
@@ -292,6 +293,7 @@ var townState = {
 
                     //add ani
                     this.itemimage.loadTexture('mushroom');
+                    this.itemimage.position.setTo(500, 230);
                     this.itemimage.alpha = 1;
                     this.ResultBox.alpha = 1;
                     this.itemimage.visible = true;
@@ -341,6 +343,7 @@ var townState = {
 
                     //add ani
                     this.itemimage.loadTexture('grass_0');
+                    this.itemimage.position.setTo(515, 165);
                     this.itemimage.alpha = 1;
                     this.ResultBox.alpha = 1;
                     this.itemimage.visible = true;
