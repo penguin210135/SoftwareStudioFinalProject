@@ -554,7 +554,10 @@ var fightState = {
                 this.uiattack5.destroy();
                 this.uiattack6.destroy();
                 this.return.destroy();
-                game.time.events.add(1200, function () { this.menu(0); }, this);
+                game.time.events.add(1200, function () { 
+                    if(this.enemylife > 0)
+                        this.menu(0); 
+                }, this);
             }
         }
         else if (index == 5) {
