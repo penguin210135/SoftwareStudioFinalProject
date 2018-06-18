@@ -20,6 +20,7 @@ var gamewinState = {
 
         houseState.game_bgm.stop();
 
+        player_score += 1000;
         senddata();
     },
     update: function () {

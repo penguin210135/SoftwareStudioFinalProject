@@ -23,10 +23,10 @@ var rankState = {
         this.score_list = game.add.bitmapText(450, 100, 'carrier_command', 'Score', 32);
         this.time_list = game.add.bitmapText(650, 100, 'carrier_command', 'Time', 32);
 
-        //list top 5
+        //list top 10
         var top_list = [];
         var list_cur = 0;
-        var max_number = 5;
+        var max_number = 10;
         database.once('value')
             .then(function (snapshot) {
                 snapshot.forEach(function (childshot) {
